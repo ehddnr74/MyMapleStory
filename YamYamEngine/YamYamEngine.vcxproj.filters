@@ -58,6 +58,9 @@
     <ClCompile Include="yaSkillScript.cpp">
       <Filter>Contents\Script</Filter>
     </ClCompile>
+    <ClCompile Include="yaHpScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -116,6 +119,9 @@
       <Filter>Contents\Script</Filter>
     </ClInclude>
     <ClInclude Include="yaSkillScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHpScript.h">
       <Filter>Contents\Script</Filter>
     </ClInclude>
   </ItemGroup>

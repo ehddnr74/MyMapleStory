@@ -16,6 +16,7 @@
 #include "yaPlayerScript.h"
 #include "yaBanBanScript.h"
 #include "yaCurSorScript.h"
+#include "yaHpScript.h"
 
 namespace ya
 {
@@ -103,9 +104,9 @@ void ya::BanBanScene::Initialize()
 
 		BanBan->SetName(L"BanBan");
 
-		//Collider2D* cd = player->AddComponent<Collider2D>();
-		//cd->SetCenter(Vector2(0.008f, 0.055f));
-		//cd->SetSize(Vector2(0.22f, 0.38f));
+		Collider2D* cd = BanBan->AddComponent<Collider2D>();
+		cd->SetCenter(Vector2(0.0f, 0.0f));
+		cd->SetSize(Vector2(0.22f, 0.38f));
 
 		MeshRenderer* mr = BanBan->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -136,6 +137,7 @@ void ya::BanBanScene::Initialize()
 
 		//SetEXP(EXP);
 	}
+
 	{
 		GameObject* HP
 			= object::Instantiate<GameObject>(Vector3(-0.1f, -1.95f, 0.999f), eLayerType::UI);
@@ -153,6 +155,60 @@ void ya::BanBanScene::Initialize()
 
 		//SetHP(HP);
 	}
+
+	{
+		GameObject* HpFrontBar
+			= object::Instantiate<GameObject>(Vector3(-0.05f, -1.95f, 1.000f), eLayerType::UI);
+
+		HpFrontBar->SetName(L"HpFrontBar");
+
+		//Collider2D* cd = player->AddComponent<Collider2D>();
+		//cd->SetSize(Vector2(1.2f, 1.2f));
+
+		MeshRenderer* mr = HpFrontBar->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"HpFront"));
+
+		HpFrontBar->GetComponent<Transform>()->SetScale(Vector3(0.92f, 0.1f, 1.000f));
+
+		mHpScript = HpFrontBar->AddComponent<HpScript>();
+
+		GetPlayerScript()->SetHpScript(mHpScript);
+
+	}
+
+	{
+		GameObject* MpFrontBar
+			= object::Instantiate<GameObject>(Vector3(-0.05f, -2.05f, 1.000f), eLayerType::UI);
+
+		MpFrontBar->SetName(L"HpFrontBar");
+
+		//Collider2D* cd = player->AddComponent<Collider2D>();
+		//cd->SetSize(Vector2(1.2f, 1.2f));
+
+		MeshRenderer* mr = MpFrontBar->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"MpFront"));
+
+		MpFrontBar->GetComponent<Transform>()->SetScale(Vector3(0.92f, 0.1f, 1.000f));
+	}
+
+	{
+		GameObject* ExpFrontBar
+			= object::Instantiate<GameObject>(Vector3(0.0f, -2.21f, 1.001f), eLayerType::UI);
+
+		ExpFrontBar->SetName(L"ExpFrontBar");
+
+		//Collider2D* cd = player->AddComponent<Collider2D>();
+		//cd->SetSize(Vector2(1.2f, 1.2f));
+
+		MeshRenderer* mr = ExpFrontBar->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"ExpFront"));
+
+		ExpFrontBar->GetComponent<Transform>()->SetScale(Vector3(7.8f, 0.05f, 1.000f));
+	}
+
 	{
 		GameObject* SlotCover
 			= object::Instantiate<GameObject>(Vector3(2.25f, -1.93f, 0.999f), eLayerType::UI);

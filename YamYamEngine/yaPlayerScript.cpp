@@ -13,6 +13,7 @@
 #include "yaSkillScript.h"
 #include "yaMeshRenderer.h"
 #include "yaMesh.h"
+#include "yaHpScript.h"
 
 
 namespace ya
@@ -208,6 +209,11 @@ namespace ya
 		if (other->GetOwner()->GetName() == L"Portal6")
 		{
 			portal = true;
+		}
+
+		if (other->GetOwner()->GetName() == L"BanBan")
+		{
+			GetHpScript()->OnDamage(126);
 		}
 	}
 	void PlayerScript::OnCollisionStay(Collider2D* other)

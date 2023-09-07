@@ -27,6 +27,7 @@ namespace ya
 	private:
 		GameObject* mPlayer;
 		class PlayerScript* mPlayerScript;
+		class HpScript* mHpScript;
 
 	};
 }

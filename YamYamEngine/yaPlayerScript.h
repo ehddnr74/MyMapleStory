@@ -35,6 +35,10 @@ namespace ya
 		void SetDevide(GameObject* dv) { mDevide = dv; }
 		void SetDevideScript(class SkillScript* mScript) { mSkillScript = mScript; }
 
+		void SetHpScript(class HpScript* hpscript) { mHpScript = hpscript; }
+		HpScript* GetHpScript() { return mHpScript; }
+
+
 		int GetDir() { return dir; }
 
 		bool GetPortal() { return portal; }
@@ -79,6 +83,7 @@ namespace ya
 		GameObject* mDevide;
 		class SkillScript* mSkillScript;
 		class PortalScript* mPortalScript;
+		class HpScript* mHpScript;
 
 
 	};

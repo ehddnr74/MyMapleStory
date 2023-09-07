@@ -439,6 +439,27 @@ namespace renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"HP", material);
 
+		texture = Resources::Load<Texture>(L"HpFrontBar", L"..\\Resources\\Texture\\HpFrontBar.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"HpFront", material);
+
+		texture = Resources::Load<Texture>(L"MpFrontBar", L"..\\Resources\\Texture\\MpFrontBar.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"MpFront", material);
+
+		texture = Resources::Load<Texture>(L"ExpFrontBar", L"..\\Resources\\Texture\\ExpFrontBar.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"ExpFront", material);
+
 		texture = Resources::Load<Texture>(L"QuickSlot", L"..\\Resources\\Texture\\QuickSlot.png");
 		material = std::make_shared<Material>();
 		material->SetShader(shader);
