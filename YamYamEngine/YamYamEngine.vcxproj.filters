@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="yaPlayScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCameraScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGridScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayerScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaRootaByssScene.cpp">
+      <Filter>Contents\Scene\RootaByssScene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBanBanScene.cpp">
+      <Filter>Contents\Scene\RootaByssScene\EastGardenScene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaEastGardenScene.cpp">
+      <Filter>Contents\Scene\RootaByssScene\EastGardenScene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHenesisScene.cpp">
+      <Filter>Contents\Scene\HeneSisScene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLogoScene.cpp">
+      <Filter>Contents\Scene\LogoScene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBallScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBanBanScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCurSorScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaFireImpScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLogoScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMushroomScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="YamYamEngine.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPortalScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaRootaByssFireScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSkillScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="yaPlayScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCameraScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadScenes.h">
+      <Filter>Contents\Load</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGridScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayerScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaRootaByssScene.h">
+      <Filter>Contents\Scene\RootaByssScene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaEastGardenScene.h">
+      <Filter>Contents\Scene\RootaByssScene\EastGardenScene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBanBanScene.h">
+      <Filter>Contents\Scene\RootaByssScene\EastGardenScene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHenesisScene.h">
+      <Filter>Contents\Scene\HeneSisScene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLogoScene.h">
+      <Filter>Contents\Scene\LogoScene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBallScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBanBanScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCurSorScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaFireImpScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLogoScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMushroomScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPortalScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaRootaByssFireScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSkillScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{ed010504-6671-4ca5-864f-b9f58051cb28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load">
+      <UniqueIdentifier>{2cfadb9c-f8c6-41fd-9846-5e6bd4b50b79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene">
+      <UniqueIdentifier>{d0a60e39-82c2-4819-9931-93e5a2d9e021}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script">
+      <UniqueIdentifier>{02a6d4b6-df18-4b04-b5c4-bf97bbaba9ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\HeneSisScene">
+      <UniqueIdentifier>{adb075b4-dd3e-47cd-9eef-7b0d1d7cb6c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\LogoScene">
+      <UniqueIdentifier>{e689e89e-cdb9-4d46-9cd6-45810ba134f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\RootaByssScene">
+      <UniqueIdentifier>{e8a01ce5-8a6b-43bc-834e-8e0aa97297c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\RootaByssScene\EastGardenScene">
+      <UniqueIdentifier>{d73f1a64-b5b5-4c85-b30e-888e529d1b49}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
