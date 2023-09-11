@@ -11,11 +11,14 @@
 #include "yaCameraScript.h"
 #include "yaGameObject.h"
 #include "yaTime.h"
+#include "yaHavisScript.h"
 
 namespace ya
 {
 	CurSorScript::CurSorScript()
 		: CursorChange(false)
+		, havis(false)
+		, ShopExit(false)
 	{
 	}
 
@@ -47,6 +50,26 @@ namespace ya
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->SetPosition(Camera::GetWorldPos(mPos));
 
+		if (havis == true)
+		{
+			GetHavisScript()->SetLookingShop(true);
+
+			if (Input::GetKeyDown(eKeyCode::LBUTTON))
+			{
+				havis = false;
+				GetHavisScript()->OnShop();
+			}
+		}
+
+		if (ShopExit == true)
+		{
+			if (Input::GetKeyDown(eKeyCode::LBUTTON))
+			{
+				ShopExit = false;
+				GetHavisScript()->CloseShop();
+			}
+		}
+
 
 		switch (mCursorState)
 		{
@@ -67,6 +90,15 @@ namespace ya
 		//{
 		//	SceneManager::LoadScene(L"BanBanScene");
 		//}
+
+		if (other->GetOwner()->GetName() == L"Havis")
+		{
+			havis = true;
+		}
+		if (other->GetOwner()->GetName() == L"ShopExit")
+		{
+			ShopExit = true;
+		}
 	}
 
 	void CurSorScript::OnCollisionStay(Collider2D* other)

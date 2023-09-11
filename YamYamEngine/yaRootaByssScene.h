@@ -22,12 +22,18 @@ namespace ya
 		void SetPlayerScript(class PlayerScript* mps) { mPScript = mps; }
 		PlayerScript* GetPlayerScript() { return mPScript; }
 
+
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
 
 	private:
 		class PlayerScript* mPScript;
 		GameObject* mPlayer;
+		class HpScript* mHpScript;
+		class MpScript* mMpScript;
+		class ExpScript* mExpScript;
+		class CurSorScript* mCursor;
+		class HavisScript* mHavis;
 
 	};
 }

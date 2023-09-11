@@ -16,6 +16,11 @@
 #include "yaPlayerScript.h"
 #include "yaPortalScript.h"
 #include "yaCurSorScript.h"
+#include "yaHpScript.h"
+#include "yaMpScript.h"
+#include "yaExpScript.h"
+#include "yaHavisScript.h"
+#include "yaFontWrapper.h"
 
 namespace ya
 {
@@ -27,12 +32,76 @@ namespace ya
 	}
 	void RootaByssScene::Initialize()
 	{
-
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
 		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Portal, true);
+		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::NPC, true);
+		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Inventory, true);
 
+		{
+			GameObject* player
+				= object::Instantiate<GameObject>(Vector3(0.0f, 10.0f, 0.999f), eLayerType::Player);
+
+			SetPlayer(player);
+
+			Camera::SetTarget(player);
+			//SceneManager::SetPlayer(player);
+
+			player->SetName(L"Adel");
+
+			Collider2D* cd = player->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.008f, 0.055f));
+			cd->SetSize(Vector2(0.22f, 0.38f));
+
+			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			//const float pi = 3.141592f;
+			//float degree = pi / 8.0f;
+
+			//player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0001f));
+			player->GetComponent<Transform>()->SetScale(Vector3(1.6f, 1.6f, 1.0001f));
+
+			Animator* at = player->AddComponent<Animator>();
+			PlayerScript* mPScript = player->AddComponent<PlayerScript>();
+			SetPlayerScript(mPScript);
+			//player->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, degree));
+
+			//std::shared_ptr<Texture> atlas
+				//= Resources::Load<Texture>(L"Character1", L"..\\Resources\\Texture\\Character1.png");
+
+			//Animator* at = player->AddComponent<Animator>();
+			//at->Create(L"Idle", atlas, Vector2(0.0f, 0.0f), Vector2(160.0f, 160.0f), 3, Vector2(0.f,0.f), 0.5f);
+
+			//at->CompleteEvent(L"Idle") = std::bind();
+
+			//at->PlayAnimation(L"Idle", true);
+		}
+
+		{
+			GameObject* Havis
+				= object::Instantiate<GameObject>(Vector3(0.0f, -1.25f, 0.999f), eLayerType::NPC);
+
+			Havis->SetName(L"Havis");
+
+			Collider2D* cd = Havis->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.0f, 0.0f));
+
+			cd->SetSize(Vector2(0.1f, 0.1f));
+
+			Havis->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0001f));
+
+			MeshRenderer* mr = Havis->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			mHavis = Havis->AddComponent<HavisScript>();
+
+			mHavis->SetPlayerScript(mPScript);
+
+		}
 
 		{
 			GameObject* Mouse
@@ -51,8 +120,12 @@ namespace ya
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-			Mouse->AddComponent<CurSorScript>();
+			mCursor = Mouse->AddComponent<CurSorScript>();
+
+			mCursor->SetHavisScript(mHavis);
 		}
+
+
 
 		{
 			GameObject* portal
@@ -155,49 +228,6 @@ namespace ya
 			portal4->AddComponent<PortalScript>();
 		}
 
-
-		{
-			GameObject* player
-				= object::Instantiate<GameObject>(Vector3(0.0f, 6.0f, 0.999f), eLayerType::Player);
-
-			SetPlayer(player);
-
-			Camera::SetTarget(player);
-			//SceneManager::SetPlayer(player);
-
-			player->SetName(L"Adel");
-
-			Collider2D* cd = player->AddComponent<Collider2D>();
-			cd->SetCenter(Vector2(0.008f, 0.055f));
-			cd->SetSize(Vector2(0.22f, 0.38f));
-
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
-
-			//const float pi = 3.141592f;
-			//float degree = pi / 8.0f;
-
-			//player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0001f));
-			player->GetComponent<Transform>()->SetScale(Vector3(1.6f, 1.6f, 1.0001f));
-
-			Animator* at = player->AddComponent<Animator>();
-			PlayerScript* mPScript = player->AddComponent<PlayerScript>();
-			SetPlayerScript(mPScript);
-			//player->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, degree));
-
-			//std::shared_ptr<Texture> atlas
-				//= Resources::Load<Texture>(L"Character1", L"..\\Resources\\Texture\\Character1.png");
-
-			//Animator* at = player->AddComponent<Animator>();
-			//at->Create(L"Idle", atlas, Vector2(0.0f, 0.0f), Vector2(160.0f, 160.0f), 3, Vector2(0.f,0.f), 0.5f);
-
-			//at->CompleteEvent(L"Idle") = std::bind();
-
-			//at->PlayAnimation(L"Idle", true);
-		}
-
-
 		{
 			GameObject* EXP
 				= object::Instantiate<GameObject>(Vector3(0.0f, -2.21f, 0.999f), eLayerType::UI);
@@ -234,6 +264,47 @@ namespace ya
 			HP->GetComponent<Transform>()->SetScale(Vector3(1.1f, 0.5f, 0.999f));
 
 			//SetHP(HP);
+		}
+
+		{
+			GameObject* HpFrontBar
+				= object::Instantiate<GameObject>(Vector3(-0.06f, -1.95f, 1.000f), eLayerType::UI);
+
+			HpFrontBar->SetName(L"HpFrontBar");
+
+			//Collider2D* cd = player->AddComponent<Collider2D>();
+			//cd->SetSize(Vector2(1.2f, 1.2f));
+
+			MeshRenderer* mr = HpFrontBar->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"HpFront"));
+
+			HpFrontBar->GetComponent<Transform>()->SetScale(Vector3(0.92f, 0.1f, 1.000f));
+
+			mHpScript = HpFrontBar->AddComponent<HpScript>();
+
+			GetPlayerScript()->SetHpScript(mHpScript);
+
+		}
+
+		{
+			GameObject* MpFrontBar
+				= object::Instantiate<GameObject>(Vector3(-0.06f, -2.05f, 1.000f), eLayerType::UI);
+
+			MpFrontBar->SetName(L"HpFrontBar");
+
+			//Collider2D* cd = player->AddComponent<Collider2D>();
+			//cd->SetSize(Vector2(1.2f, 1.2f));
+
+			MeshRenderer* mr = MpFrontBar->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"MpFront"));
+
+			MpFrontBar->GetComponent<Transform>()->SetScale(Vector3(0.92f, 0.1f, 1.000f));
+
+			mMpScript = MpFrontBar->AddComponent<MpScript>();
+
+			GetPlayerScript()->SetMpScript(mMpScript);
 		}
 
 		{
@@ -539,6 +610,8 @@ namespace ya
 			cameraComp->TurnLayerMask(eLayerType::Skill, false);
 			cameraComp->TurnLayerMask(eLayerType::Portal, false);
 			cameraComp->TurnLayerMask(eLayerType::Cursor, false);
+			cameraComp->TurnLayerMask(eLayerType::NPC, false);
+			cameraComp->TurnLayerMask(eLayerType::Inventory, false);
 			//camera->AddComponent<CameraScript>();
 		}
 

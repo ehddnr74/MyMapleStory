@@ -19,6 +19,7 @@
 #include "yaHpScript.h"
 #include "yaMpScript.h"
 #include "yaExpScript.h"
+#include "yaHavisScript.h"
 
 namespace ya
 {
@@ -38,6 +39,9 @@ void ya::BanBanScene::Initialize()
 	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
 	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
+
+
+
 
 	{
 		GameObject* Mouse

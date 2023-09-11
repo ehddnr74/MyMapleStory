@@ -29,6 +29,8 @@ namespace ya::enums
 		Logo,
 		Ground,
 		Skill,
+		NPC,
+		Inventory,
 		Player,
 		Portal,
 		Monster,

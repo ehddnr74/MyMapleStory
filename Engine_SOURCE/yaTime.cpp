@@ -50,6 +50,6 @@ namespace ya
 			mSecond = 0.0f;
 		}
 
-		FontWrapper::DrawFont(szFloat, 10.f, 30.f, 20, FONT_RGBA(255, 0, 255, 255));
+		//FontWrapper::DrawFont(szFloat, 10.f, 30.f, 20, FONT_RGBA(255, 0, 255, 255));
 	}
 }

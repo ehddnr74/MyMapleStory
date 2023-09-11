@@ -163,8 +163,10 @@
     <ClInclude Include="yaExpScript.h" />
     <ClInclude Include="yaFireImpScript.h" />
     <ClInclude Include="yaGridScript.h" />
+    <ClInclude Include="yaHavisScript.h" />
     <ClInclude Include="yaHenesisScene.h" />
     <ClInclude Include="yaHpScript.h" />
+    <ClInclude Include="yaInventoryScript.h" />
     <ClInclude Include="yaLogoScene.h" />
     <ClInclude Include="yaLogoScript.h" />
     <ClInclude Include="yaMpScript.h" />
@@ -174,6 +176,7 @@
     <ClInclude Include="yaPortalScript.h" />
     <ClInclude Include="yaRootaByssFireScript.h" />
     <ClInclude Include="yaRootaByssScene.h" />
+    <ClInclude Include="yaShopScript.h" />
     <ClInclude Include="yaSkillScript.h" />
   </ItemGroup>
   <ItemGroup>
@@ -186,8 +189,10 @@
     <ClCompile Include="yaExpScript.cpp" />
     <ClCompile Include="yaFireImpScript.cpp" />
     <ClCompile Include="yaGridScript.cpp" />
+    <ClCompile Include="yaHavisScript.cpp" />
     <ClCompile Include="yaHenesisScene.cpp" />
     <ClCompile Include="yaHpScript.cpp" />
+    <ClCompile Include="yaInventoryScript.cpp" />
     <ClCompile Include="yaLogoScene.cpp" />
     <ClCompile Include="yaLogoScript.cpp" />
     <ClCompile Include="yaMpScript.cpp" />
@@ -198,6 +203,7 @@
     <ClCompile Include="yaPortalScript.cpp" />
     <ClCompile Include="yaRootaByssFireScript.cpp" />
     <ClCompile Include="yaRootaByssScene.cpp" />
+    <ClCompile Include="yaShopScript.cpp" />
     <ClCompile Include="yaSkillScript.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -27,6 +27,9 @@ namespace ya
 		void SetPlayerScript(class PlayerScript* playerscript) { mPlayerScript = playerscript; }
 		PlayerScript* GetPlayerScript() { return mPlayerScript; }
 
+		void SetHavisScript(class HavisScript* havis) { mHavisScript = havis; }
+		HavisScript* GetHavisScript() { return mHavisScript; }
+
 
 	private:
 		void none();
@@ -43,6 +46,11 @@ namespace ya
 
 	private:
 		class PlayerScript* mPlayerScript;
+		class HavisScript* mHavisScript;
+
+	private:
+		bool havis;
+		bool ShopExit;
 
 	};
 

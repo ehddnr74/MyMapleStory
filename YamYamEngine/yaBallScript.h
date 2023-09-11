@@ -44,8 +44,6 @@ namespace ya
 		void leftball();
 		void rightball();
 
-
-
 	private:
 		bool Right;
 	};

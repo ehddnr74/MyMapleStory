@@ -474,6 +474,98 @@ namespace renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"White", material);
 
+		texture = Resources::Load<Texture>(L"Havis", L"..\\Resources\\Texture\\Havis.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"havis", material);
+
+		texture = Resources::Load<Texture>(L"Shop1", L"..\\Resources\\Texture\\Shop1.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"shop1", material);
+
+		texture = Resources::Load<Texture>(L"Shop2", L"..\\Resources\\Texture\\Shop2.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"shop2", material);
+
+		texture = Resources::Load<Texture>(L"Shop3", L"..\\Resources\\Texture\\Shop3.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"shop3", material);
+
+		texture = Resources::Load<Texture>(L"ShopHavis", L"..\\Resources\\Texture\\ShopHavis.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"shophavis", material);
+
+		texture = Resources::Load<Texture>(L"ShopPlayer", L"..\\Resources\\Texture\\ShopPlayer.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"shopplayer", material);
+
+		texture = Resources::Load<Texture>(L"ShopBuy", L"..\\Resources\\Texture\\ShopBuy.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"shopbuy", material);
+
+		texture = Resources::Load<Texture>(L"ShopSell", L"..\\Resources\\Texture\\ShopSell.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"shopsell", material);
+
+		texture = Resources::Load<Texture>(L"ShopExit", L"..\\Resources\\Texture\\ShopExit.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"shopexit", material);
+
+		texture = Resources::Load<Texture>(L"ShopEtc", L"..\\Resources\\Texture\\ShopEtc.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"shopetc", material);
+
+		texture = Resources::Load<Texture>(L"RootaByssKey", L"..\\Resources\\Texture\\RootaByssKey.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"rootabysskey", material);
+
+
+		texture = Resources::Load<Texture>(L"Inventory", L"..\\Resources\\Texture\\Inventory.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"Inven", material);
+
+		texture = Resources::Load<Texture>(L"FrontInventory", L"..\\Resources\\Texture\\FrontInventory.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"FrontInven", material);
+
 		texture = Resources::Load<Texture>(L"Cursor", L"..\\Resources\\Texture\\Cursor.cur");
 		material = std::make_shared<Material>();
 		material->SetShader(shader);
