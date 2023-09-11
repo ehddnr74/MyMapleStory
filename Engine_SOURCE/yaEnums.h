@@ -25,6 +25,7 @@ namespace ya::enums
 	{
 		Grid,
 		BG,
+		Cursor,
 		Logo,
 		Ground,
 		Skill,

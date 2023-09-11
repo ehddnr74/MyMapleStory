@@ -1,6 +1,4 @@
-#include "yaHpScript.h"
-#include "yaAnimator.h"
-#include "yaResources.h"
+#include "yaMpScript.h"
 #include "yaCollider2D.h"
 #include "yaObject.h"
 #include "yaCameraScript.h"
@@ -11,31 +9,31 @@
 
 namespace ya
 {
-	HpScript::HpScript()
-		: trigger_UpdateHP(false)
+	MpScript::MpScript()
+		: trigger_UpdateMP(false)
 		, lerpStart(0.f)
 		, lerpEnd(0.f)
-		, maxHP(99999.0f)
-		, HP(99999.0f)
-		, scale(Vector3(0.0f,0.0f,0.0f))
+		, maxMP(2000.0f)
+		, MP(2000.0f)
+		, scale(Vector3(0.0f, 0.0f, 0.0f))
 	{
 	}
-	HpScript::~HpScript()
+	MpScript::~MpScript()
 	{
 	}
-	void HpScript::Initialize()
+	void MpScript::Initialize()
 	{
 
 	}
-	void HpScript::Update()
+	void MpScript::Update()
 	{
 		scale = GetOwner()->GetComponent<Transform>()->GetScale();
 
-		if (trigger_UpdateHP) // 이 변수가 true일 경우, 체력바의 Scale값을 줄인다.
+		if (trigger_UpdateMP) // 이 변수가 true일 경우, 체력바의 Scale값을 줄인다.
 		{
 			if (scale.x <= lerpEnd) // Scale값이 목표치만큼 줄어들었다면
 			{
-				trigger_UpdateHP = false; // 신호를 꺼버린다.
+				trigger_UpdateMP = false; // 신호를 꺼버린다.
 
 				Transform* tr = GetOwner()->GetComponent<Transform>();
 				Vector3 pos = tr->GetPosition();
@@ -44,8 +42,8 @@ namespace ya
 
 			else  // 목표치에 아직 도달하지 않았을 경우(lerpEnd값까지 안줄어들었을 경우)
 			{
-				scale.x -= 100.0f * Time::DeltaTime(); // Scale값을 줄인다.
-				GetOwner()->GetComponent<Transform>()->SetScale(scale.x,scale.y,scale.z);
+				scale.x -= 5.0f * Time::DeltaTime(); // Scale값을 줄인다.
+				GetOwner()->GetComponent<Transform>()->SetScale(scale.x, scale.y, scale.z);
 
 
 				if (scale.x < 0.0f) // 줄이다가 -값이 되려할경우 0으로 고정.
@@ -58,15 +56,15 @@ namespace ya
 
 	}
 
-	void HpScript::OnDamage(float damage)
+	void MpScript::OnDamage(float damage)
 	{
 		//if (isDie) return;
 
-		UpdateHpBar(HP, HP - damage);
+		UpdateMpBar(MP, MP - damage);
 		// 피격받았을경우(OnDamage 실행시), 체력바 업데이트
 
 
-		HP -= damage;
+		MP -= damage;
 
 		//if (hp <= 0)
 		//{
@@ -75,11 +73,11 @@ namespace ya
 		//}
 	}
 
-	void HpScript::UpdateHpBar(float beforeHp, float afterHp)
+	void MpScript::UpdateMpBar(float beforeMp, float afterMp)
 	{
-		trigger_UpdateHP = true; // true일 경우에만 hp값 변동가능.
-		lerpStart = beforeHp / maxHP; // 변동 전 값. (피격 전 체력)
-		lerpEnd = afterHp / maxHP; // 변동 후의 값. (피격 후 체력)
+		trigger_UpdateMP = true; // true일 경우에만 hp값 변동가능.
+		lerpStart = beforeMp / maxMP; // 변동 전 값. (피격 전 체력)
+		lerpEnd = afterMp / maxMP; // 변동 후의 값. (피격 후 체력)
 	}
 
 

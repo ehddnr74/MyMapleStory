@@ -14,7 +14,8 @@
 #include "yaMeshRenderer.h"
 #include "yaMesh.h"
 #include "yaHpScript.h"
-
+#include "yaMpScript.h"
+#include "yaExpScript.h"
 
 namespace ya
 {
@@ -213,7 +214,7 @@ namespace ya
 
 		if (other->GetOwner()->GetName() == L"BanBan")
 		{
-			GetHpScript()->OnDamage(126);
+			GetHpScript()->OnDamage(2576);
 		}
 	}
 	void PlayerScript::OnCollisionStay(Collider2D* other)
@@ -267,6 +268,7 @@ namespace ya
 				if (mDevide == nullptr)
 				{
 					CreateDevide();
+					GetMpScript()->OnDamage(40);
 				}
 			}
 
@@ -319,6 +321,8 @@ namespace ya
 				if (mDevide == nullptr)
 				{
 					CreateRightDevide();
+					GetMpScript()->OnDamage(40);
+					GetExpScript()->OnDamage(32);
 				}
 
 
@@ -387,6 +391,7 @@ namespace ya
 				if (mDevide == nullptr)
 				{
 					CreateDevide();
+					GetMpScript()->OnDamage(40);
 				}
 			}
 			if (Input::GetKeyDown(eKeyCode::X))
@@ -448,6 +453,7 @@ namespace ya
 				if (mDevide == nullptr)
 				{
 					CreateRightDevide();
+					GetMpScript()->OnDamage(40);
 				}
 			}
 			if (Input::GetKeyDown(eKeyCode::X))

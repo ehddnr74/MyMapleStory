@@ -28,6 +28,7 @@ namespace ya
 		GameObject* mPlayer;
 		class PlayerScript* mPlayerScript;
 		class HpScript* mHpScript;
-
+		class MpScript* mMpScript;
+		class ExpScript* mExpScript;
 	};
 }

@@ -47,6 +47,7 @@ namespace ya
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->SetPosition(Camera::GetWorldPos(mPos));
 
+
 		switch (mCursorState)
 		{
 		case CursorState::None:
@@ -62,6 +63,10 @@ namespace ya
 
 	void CurSorScript::OnCollisionEnter(Collider2D* other)
 	{
+		//if (other->GetOwner()->GetName() == L"Portal3")
+		//{
+		//	SceneManager::LoadScene(L"BanBanScene");
+		//}
 	}
 
 	void CurSorScript::OnCollisionStay(Collider2D* other)

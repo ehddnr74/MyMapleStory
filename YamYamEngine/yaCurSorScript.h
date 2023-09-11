@@ -24,6 +24,9 @@ namespace ya
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+		void SetPlayerScript(class PlayerScript* playerscript) { mPlayerScript = playerscript; }
+		PlayerScript* GetPlayerScript() { return mPlayerScript; }
+
 
 	private:
 		void none();
@@ -37,6 +40,10 @@ namespace ya
 
 		GameObject* mCursor;
 		bool CursorChange;
+
+	private:
+		class PlayerScript* mPlayerScript;
+
 	};
 
 }

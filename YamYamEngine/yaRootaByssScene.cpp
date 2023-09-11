@@ -15,6 +15,7 @@
 #include "yaInput.h"
 #include "yaPlayerScript.h"
 #include "yaPortalScript.h"
+#include "yaCurSorScript.h"
 
 namespace ya
 {
@@ -30,6 +31,28 @@ namespace ya
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
+		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Portal, true);
+
+
+		{
+			GameObject* Mouse
+				= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 0.999f), eLayerType::Cursor);
+
+			Mouse->GetComponent<Transform>()->SetScale(Vector3(2.0f, 2.0f, 1.0001f));
+
+			Mouse->SetName(L"Cursor");
+
+			Collider2D* cd = Mouse->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.0f, 0.0f));
+
+			cd->SetSize(Vector2(0.1f, 0.1f));
+
+			MeshRenderer* mr = Mouse->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			Mouse->AddComponent<CurSorScript>();
+		}
 
 		{
 			GameObject* portal
@@ -515,6 +538,7 @@ namespace ya
 			cameraComp->TurnLayerMask(eLayerType::Monster, false);
 			cameraComp->TurnLayerMask(eLayerType::Skill, false);
 			cameraComp->TurnLayerMask(eLayerType::Portal, false);
+			cameraComp->TurnLayerMask(eLayerType::Cursor, false);
 			//camera->AddComponent<CameraScript>();
 		}
 

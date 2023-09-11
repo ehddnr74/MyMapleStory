@@ -40,7 +40,7 @@ void ya::EastGardenScene::Initialize()
 
 	{
 		GameObject* Mouse
-			= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 0.999f), eLayerType::Player);
+			= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 0.999f), eLayerType::Cursor);
 
 		Mouse->GetComponent<Transform>()->SetScale(Vector3(2.0f, 2.0f, 1.0001f));
 
@@ -462,7 +462,7 @@ void ya::EastGardenScene::Initialize()
 		EastGarden->GetComponent<Transform>()->SetScale(Vector3(17.0f, 5.0f, 1.0001f));
 	}
 	{
-		GameObject* portal5
+		GameObject* portal5 // 루타비스로 나가는 포탈 
 			= object::Instantiate<GameObject>(Vector3(-7.55f, -0.2f, 0.999f), eLayerType::Portal);
 
 		portal5->SetName(L"Portal5");
@@ -486,7 +486,7 @@ void ya::EastGardenScene::Initialize()
 		portal5->AddComponent<PortalScript>();
 	}
 	{
-		GameObject* portal6
+		GameObject* portal6 // 반반넘어가는포탈
 			= object::Instantiate<GameObject>(Vector3(7.67f, 0.12f, 0.999f), eLayerType::Portal);
 
 		portal6->SetName(L"Portal6");

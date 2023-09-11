@@ -38,6 +38,12 @@ namespace ya
 		void SetHpScript(class HpScript* hpscript) { mHpScript = hpscript; }
 		HpScript* GetHpScript() { return mHpScript; }
 
+		void SetMpScript(class MpScript* mp) { mMpScript = mp; }
+		MpScript* GetMpScript() { return mMpScript; }
+
+		void SetExpScript(class ExpScript* exp) { mExpScript = exp; }
+		ExpScript* GetExpScript() { return mExpScript; }
+
 
 		int GetDir() { return dir; }
 
@@ -84,7 +90,8 @@ namespace ya
 		class SkillScript* mSkillScript;
 		class PortalScript* mPortalScript;
 		class HpScript* mHpScript;
-
+		class MpScript* mMpScript;
+		class ExpScript* mExpScript;
 
 	};
 }

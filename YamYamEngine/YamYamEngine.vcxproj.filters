@@ -61,6 +61,12 @@
     <ClCompile Include="yaHpScript.cpp">
       <Filter>Contents\Script</Filter>
     </ClCompile>
+    <ClCompile Include="yaMpScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaExpScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -122,6 +128,12 @@
       <Filter>Contents\Script</Filter>
     </ClInclude>
     <ClInclude Include="yaHpScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMpScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaExpScript.h">
       <Filter>Contents\Script</Filter>
     </ClInclude>
   </ItemGroup>

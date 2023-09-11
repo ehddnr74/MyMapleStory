@@ -17,6 +17,8 @@
 #include "yaBanBanScript.h"
 #include "yaCurSorScript.h"
 #include "yaHpScript.h"
+#include "yaMpScript.h"
+#include "yaExpScript.h"
 
 namespace ya
 {
@@ -39,7 +41,7 @@ void ya::BanBanScene::Initialize()
 
 	{
 		GameObject* Mouse
-			= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 0.999f), eLayerType::Player);
+			= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 0.999f), eLayerType::Cursor);
 
 		Mouse->GetComponent<Transform>()->SetScale(Vector3(2.0f, 2.0f, 1.0001f));
 
@@ -158,7 +160,7 @@ void ya::BanBanScene::Initialize()
 
 	{
 		GameObject* HpFrontBar
-			= object::Instantiate<GameObject>(Vector3(-0.05f, -1.95f, 1.000f), eLayerType::UI);
+			= object::Instantiate<GameObject>(Vector3(-0.06f, -1.95f, 1.000f), eLayerType::UI);
 
 		HpFrontBar->SetName(L"HpFrontBar");
 
@@ -179,7 +181,7 @@ void ya::BanBanScene::Initialize()
 
 	{
 		GameObject* MpFrontBar
-			= object::Instantiate<GameObject>(Vector3(-0.05f, -2.05f, 1.000f), eLayerType::UI);
+			= object::Instantiate<GameObject>(Vector3(-0.06f, -2.05f, 1.000f), eLayerType::UI);
 
 		MpFrontBar->SetName(L"HpFrontBar");
 
@@ -191,11 +193,15 @@ void ya::BanBanScene::Initialize()
 		mr->SetMaterial(Resources::Find<Material>(L"MpFront"));
 
 		MpFrontBar->GetComponent<Transform>()->SetScale(Vector3(0.92f, 0.1f, 1.000f));
+
+		mMpScript = MpFrontBar->AddComponent<MpScript>();
+
+		GetPlayerScript()->SetMpScript(mMpScript);
 	}
 
 	{
 		GameObject* ExpFrontBar
-			= object::Instantiate<GameObject>(Vector3(0.0f, -2.21f, 1.001f), eLayerType::UI);
+			= object::Instantiate<GameObject>(Vector3(-4.0f, -2.21f, 1.001f), eLayerType::UI);
 
 		ExpFrontBar->SetName(L"ExpFrontBar");
 
@@ -206,7 +212,11 @@ void ya::BanBanScene::Initialize()
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"ExpFront"));
 
-		ExpFrontBar->GetComponent<Transform>()->SetScale(Vector3(7.8f, 0.05f, 1.000f));
+		ExpFrontBar->GetComponent<Transform>()->SetScale(Vector3(0.0f, 0.05f, 1.000f));
+
+		mExpScript = ExpFrontBar->AddComponent<ExpScript>();
+
+		GetPlayerScript()->SetExpScript(mExpScript);
 	}
 
 	{
@@ -317,6 +327,7 @@ void ya::BanBanScene::Initialize()
 		cameraComp->TurnLayerMask(eLayerType::Monster, false);
 		cameraComp->TurnLayerMask(eLayerType::Skill, false);
 		cameraComp->TurnLayerMask(eLayerType::Portal, false);
+		cameraComp->TurnLayerMask(eLayerType::Cursor, false);
 		//camera->AddComponent<CameraScript>();
 	}
 	Scene::Initialize();
