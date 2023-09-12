@@ -474,6 +474,41 @@ namespace renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"White", material);
 
+		texture = Resources::Load<Texture>(L"Inventory1", L"..\\Resources\\Texture\\Inventory1.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"inventory1", material);
+
+		texture = Resources::Load<Texture>(L"Inventory2", L"..\\Resources\\Texture\\Inventory2.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"inventory2", material);
+
+		texture = Resources::Load<Texture>(L"Inventory3", L"..\\Resources\\Texture\\Inventory3.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"inventory3", material);
+
+		texture = Resources::Load<Texture>(L"InventoryMeso", L"..\\Resources\\Texture\\InventoryMeso.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"inventorymeso", material);
+
+		texture = Resources::Load<Texture>(L"InventoryMesoBar", L"..\\Resources\\Texture\\InventoryMesoBar.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"inventorymesobar", material);
+
 		texture = Resources::Load<Texture>(L"Havis", L"..\\Resources\\Texture\\Havis.png");
 		material = std::make_shared<Material>();
 		material->SetShader(shader);
@@ -543,6 +578,20 @@ namespace renderer
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"shopetc", material);
+
+		texture = Resources::Load<Texture>(L"ShopMesoBox", L"..\\Resources\\Texture\\ShopMesoBox.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"shopmesobox", material);
+
+		texture = Resources::Load<Texture>(L"ShopMeso", L"..\\Resources\\Texture\\ShopMeso.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"shopmeso", material);
 
 		texture = Resources::Load<Texture>(L"RootaByssKey", L"..\\Resources\\Texture\\RootaByssKey.png");
 		material = std::make_shared<Material>();

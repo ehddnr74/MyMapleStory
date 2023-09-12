@@ -27,7 +27,7 @@ namespace ya
 		void SetPlayerScript(class PlayerScript* mps) { mPScript = mps; }
 		PlayerScript* GetPlayerScript() { return mPScript; }
 
-		void SetShop(GameObject* shop) { mShop = shop; }
+		void SetShop1(GameObject* shop1) { mShop1 = shop1; }
 		void SetShop2(GameObject* shop2) { mShop2 = shop2; }
 		void SetShop3(GameObject* shop3) { mShop3 = shop3; }
 		void SetShopHavis(GameObject* shophavis) { mShopHavis = shophavis; }
@@ -37,7 +37,10 @@ namespace ya
 		void SetShopExit(GameObject* shopexit) { mShopExit = shopexit; }
 		void SetShopEtc(GameObject* shopetc) { mShopEtc = shopetc; }
 		void SetShopEtc2(GameObject* shopetc2) { mShopEtc2 = shopetc2; }
+		void SetShopMesoBox(GameObject* shopmesobox) { mShopMesoBox = shopmesobox; }
 		void SetShopRootaByssKey(GameObject* shoprootabysskey) { mRootaByssKey = shoprootabysskey; }
+
+		void SetShopMeso1(GameObject* shopmeso1) { mShopMeso1 = shopmeso1; }
 
 		void OnShop();
 		void CloseShop();
@@ -55,7 +58,7 @@ namespace ya
 		void stand();
 
 	private:
-		GameObject* mShop;
+		GameObject* mShop1;
 		GameObject* mShop2;
 		GameObject* mShop3;
 		GameObject* mShopHavis;
@@ -65,7 +68,12 @@ namespace ya
 		GameObject* mShopExit;
 		GameObject* mShopEtc;
 		GameObject* mShopEtc2;
+		GameObject* mShopMesoBox;
 		GameObject* mRootaByssKey;
+
+
+		GameObject* mShopMeso1;
+
 
 		bool LookingShop;
 	};

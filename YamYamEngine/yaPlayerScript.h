@@ -51,10 +51,20 @@ namespace ya
 
 		Vector3 GetPos() { return pos; }
 
+		void OnInventory();
+		void CloseInventory();
+
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
+
+		void SetInventory1(GameObject* inventory1) { mInventory1 = inventory1; }
+		void SetInventory2(GameObject* inventory2) { mInventory2 = inventory2; }
+		void SetInventory3(GameObject* inventory3) { mInventory3 = inventory3; }
+		void SetInventoryEtc(GameObject* inventoryetc) { mInventoryEtc = inventoryetc; }
+		void SetInventoryMeso(GameObject* inventorymeso) { mInventoryMeso = inventorymeso; }
+		void SetInventoryMesoBar(GameObject* inventorymesobar) { mInventoryMesoBar = inventorymesobar; }
 
 	private:
 		Animator* at;
@@ -92,6 +102,20 @@ namespace ya
 		class HpScript* mHpScript;
 		class MpScript* mMpScript;
 		class ExpScript* mExpScript;
+
+	private:
+		bool inventory;
+		GameObject* mInventory1;
+		GameObject* mInventory2;
+		GameObject* mInventory3;
+		GameObject* mInventoryEtc;
+		GameObject* mInventoryMeso;
+		GameObject* mInventoryMesoBar;
+
+		double inventorytime;
+
+	private:
+		int meso;
 
 	};
 }

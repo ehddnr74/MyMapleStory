@@ -29,6 +29,9 @@ namespace ya
 		, devide(false)
 		, devidetime(0.f)
 		, portal(false)
+		, inventory(true)
+		, inventorytime(0.0f)
+		, meso(100)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -92,6 +95,27 @@ namespace ya
 		//	cd->SetCenter(Vector2(0.008f, 0.055f));
 		//	cd->SetSize(Vector2(0.22f, 0.38f));
 		//}
+
+		if (inventory)
+		{
+			if (Input::GetKeyDown(eKeyCode::I))
+			{
+				inventory = false;
+				OnInventory();
+			}
+		}
+
+		if (inventory == false)
+		{
+			inventorytime += Time::DeltaTime();
+
+			if (inventorytime >=0.2f && Input::GetKeyDown(eKeyCode::I))
+			{
+				inventorytime = 0.0f;
+				inventory = true;
+				CloseInventory();
+			}
+		}
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
@@ -183,6 +207,149 @@ namespace ya
 
 		SkillScript* ss = Devide->GetComponent<SkillScript>();
 		ss->SetDir(true);
+	}
+	void PlayerScript::OnInventory()
+	{
+			{
+				Transform* PlayerTr = GetOwner()->GetComponent<Transform>();
+				Vector3 PlayerPos = PlayerTr->GetPosition();
+
+				mInventory1
+					= object::Instantiate<GameObject>(Vector3(1.0f, 0.68f, 0.999f), eLayerType::UI);
+
+				SetInventory1(mInventory1);
+
+				mInventory1->SetName(L"Inventory1");
+
+				//Collider2D* cd = Inventory->AddComponent<Collider2D>();
+				//cd->SetCenter(Vector2(0.0f, 0.0f));
+				//cd->SetSize(Vector2(0.22f, 0.38f));
+
+				MeshRenderer* mr = mInventory1->AddComponent<MeshRenderer>();
+				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+				mr->SetMaterial(Resources::Find<Material>(L"inventory1"));
+
+				mInventory1->GetComponent<Transform>()->SetScale(Vector3(1.5f, 2.4f, 1.0001f));
+			}
+
+			{
+				Transform* PlayerTr = GetOwner()->GetComponent<Transform>();
+				Vector3 PlayerPos = PlayerTr->GetPosition();
+
+				mInventory2
+					= object::Instantiate<GameObject>(Vector3(1.0f, 0.38f, 0.998f), eLayerType::UI);
+
+				SetInventory2(mInventory2);
+
+				mInventory2->SetName(L"mInventory2");
+
+				//Collider2D* cd = Inventory->AddComponent<Collider2D>();
+				//cd->SetCenter(Vector2(0.0f, 0.0f));
+				//cd->SetSize(Vector2(0.22f, 0.38f));
+
+				MeshRenderer* mr = mInventory2->AddComponent<MeshRenderer>();
+				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+				mr->SetMaterial(Resources::Find<Material>(L"inventory2"));
+
+				mInventory2->GetComponent<Transform>()->SetScale(Vector3(1.4f, 2.75f, 1.0001f));
+			}
+
+			{
+				Transform* PlayerTr = GetOwner()->GetComponent<Transform>();
+				Vector3 PlayerPos = PlayerTr->GetPosition();
+
+				mInventory3
+					= object::Instantiate<GameObject>(Vector3(1.0f, 0.5f, 0.997f), eLayerType::UI);
+
+				SetInventory3(mInventory3);
+
+				mInventory3->SetName(L"mInventory3");
+
+				//Collider2D* cd = Inventory->AddComponent<Collider2D>();
+				//cd->SetCenter(Vector2(0.0f, 0.0f));
+				//cd->SetSize(Vector2(0.22f, 0.38f));
+
+				MeshRenderer* mr = mInventory3->AddComponent<MeshRenderer>();
+				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+				mr->SetMaterial(Resources::Find<Material>(L"inventory3"));
+
+				mInventory3->GetComponent<Transform>()->SetScale(Vector3(1.38f, 2.2f, 1.0001f));
+			}
+
+			{
+				Transform* PlayerTr = GetOwner()->GetComponent<Transform>();
+				Vector3 PlayerPos = PlayerTr->GetPosition();
+
+				mInventoryEtc
+					= object::Instantiate<GameObject>(Vector3(0.88f, 1.67f, 0.996f), eLayerType::UI);
+
+				SetInventoryEtc(mInventoryEtc);
+
+				mInventoryEtc->SetName(L"mInventoryEtc");
+
+				//Collider2D* cd = Inventory->AddComponent<Collider2D>();
+				//cd->SetCenter(Vector2(0.0f, 0.0f));
+				//cd->SetSize(Vector2(0.22f, 0.38f));
+
+				MeshRenderer* mr = mInventoryEtc->AddComponent<MeshRenderer>();
+				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+				mr->SetMaterial(Resources::Find<Material>(L"shopetc"));
+
+				mInventoryEtc->GetComponent<Transform>()->SetScale(Vector3(1.6f, 0.15f, 1.0001f));
+			}
+
+			{
+				Transform* PlayerTr = GetOwner()->GetComponent<Transform>();
+				Vector3 PlayerPos = PlayerTr->GetPosition();
+
+				mInventoryMeso
+					= object::Instantiate<GameObject>(Vector3(0.475f, -0.37f, 0.996f), eLayerType::UI);
+
+				SetInventoryMeso(mInventoryMeso);
+
+				mInventoryMeso->SetName(L"mInventoryMeso");
+
+				//Collider2D* cd = Inventory->AddComponent<Collider2D>();
+				//cd->SetCenter(Vector2(0.0f, 0.0f));
+				//cd->SetSize(Vector2(0.22f, 0.38f));
+
+				MeshRenderer* mr = mInventoryMeso->AddComponent<MeshRenderer>();
+				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+				mr->SetMaterial(Resources::Find<Material>(L"inventorymeso"));
+
+				mInventoryMeso->GetComponent<Transform>()->SetScale(Vector3(0.3f, 0.125f, 1.0001f));
+			}
+
+			{
+				Transform* PlayerTr = GetOwner()->GetComponent<Transform>();
+				Vector3 PlayerPos = PlayerTr->GetPosition();
+
+				mInventoryMesoBar
+					= object::Instantiate<GameObject>(Vector3(1.2f, -0.38f, 0.996f), eLayerType::UI);
+
+				SetInventoryMesoBar(mInventoryMesoBar);
+
+				mInventoryMesoBar->SetName(L"mInventoryMesoBar");
+
+				//Collider2D* cd = Inventory->AddComponent<Collider2D>();
+				//cd->SetCenter(Vector2(0.0f, 0.0f));
+				//cd->SetSize(Vector2(0.22f, 0.38f));
+
+				MeshRenderer* mr = mInventoryMesoBar->AddComponent<MeshRenderer>();
+				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+				mr->SetMaterial(Resources::Find<Material>(L"inventorymesobar"));
+
+				mInventoryMesoBar->GetComponent<Transform>()->SetScale(Vector3(1.1f, 0.15f, 1.0001f));
+			}
+	}
+	void PlayerScript::CloseInventory()
+	{
+		object::Destroy(mInventory1);
+		object::Destroy(mInventory2);
+		object::Destroy(mInventory3);
+		object::Destroy(mInventoryEtc);
+		object::Destroy(mInventoryMeso);
+		object::Destroy(mInventoryMesoBar);
 	}
 	void PlayerScript::OnCollisionEnter(Collider2D* other)
 	{

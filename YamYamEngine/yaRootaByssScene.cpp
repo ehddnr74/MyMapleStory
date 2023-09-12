@@ -37,7 +37,7 @@ namespace ya
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
 		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Portal, true);
 		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::NPC, true);
-		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Inventory, true);
+		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::UI, true);
 
 		{
 			GameObject* player
