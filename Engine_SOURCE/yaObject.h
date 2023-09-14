@@ -64,4 +64,12 @@ namespace ya::object
 	{
 		gameObj->SetState(ya::GameObject::eState::Dead);
 	}
+
+	static __forceinline void DontDestroyOnLoad(GameObject* gameObject)
+	{
+		if (gameObject == nullptr)
+			return;
+
+		gameObject->DontDestroy(true);
+	}
 }

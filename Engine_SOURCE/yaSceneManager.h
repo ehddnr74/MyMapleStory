@@ -3,6 +3,10 @@
 
 namespace ya
 {
+	class MpScript;
+	class HpScript;
+	class PlayerScript;
+	class ExpScript;
 	class SceneManager
 	{
 	public:
@@ -32,8 +36,28 @@ namespace ya
 		static Scene* LoadScene(std::wstring name);
 		static Scene* GetActiveScene() { return mActiveScene; }
 
+		static void SetPlayer(GameObject* player) { Player = player; }
+		static GameObject* GetPlayer() { return Player; }
+
+		static void SetPlayerScript(PlayerScript* playerscript) { mPlayerScript = playerscript; }
+		static PlayerScript* GetPlayerScript() { return mPlayerScript; }
+
+		static void SetHpScript(HpScript* hpscript) { mHpScript = hpscript; }
+		static HpScript* GetHpScript() { return mHpScript; }
+
+		static void SetMpScript(MpScript* mpscript) { mMpScript = mpscript; }
+		static MpScript* GetMpScript() { return mMpScript; }
+
+		static void SetExpScript(ExpScript* expscript) { mExpScript = expscript; }
+		static ExpScript* GetExpScript() { return mExpScript; }
+
 	private:
 		static Scene* mActiveScene;
 		static std::map<std::wstring, Scene*> mScenes;
+		static GameObject* Player;
+		static class PlayerScript* mPlayerScript;
+		static class HpScript* mHpScript;
+		static class MpScript* mMpScript;
+		static class ExpScript* mExpScript;
 	};
 }

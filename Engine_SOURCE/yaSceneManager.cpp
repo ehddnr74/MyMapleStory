@@ -1,16 +1,22 @@
 #include "yaSceneManager.h"
+#include "..\YamYamEngine\yaPlayerScript.h"
+#include "..\YamYamEngine\yaHpScript.h"
+#include "..\YamYamEngine\yaMpScript.h"
+
 //#include "yaPlayScene.h"
-
-
 
 namespace ya
 {
 	Scene* SceneManager::mActiveScene = nullptr;
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
+	GameObject* SceneManager::Player = nullptr;
+	PlayerScript* SceneManager::mPlayerScript = nullptr;
+	HpScript* SceneManager::mHpScript = nullptr;
+	MpScript* SceneManager::mMpScript = nullptr;
+	ExpScript* SceneManager::mExpScript = nullptr;
 
 	void SceneManager::Initialize()
 	{
-
 	}
 	void SceneManager::Update()
 	{
@@ -61,7 +67,17 @@ namespace ya
 			return nullptr;
 
 		mActiveScene->OnExit();
+
+		std::vector<GameObject*> gameObjs
+			= mActiveScene->GetDontDestroyGameObjects();
+		
 		mActiveScene = iter->second;
+
+		for (GameObject* obj : gameObjs)
+		{
+			eLayerType type = obj->GetLayerType();
+			mActiveScene->AddGameObject(type, obj);
+		}
 		mActiveScene->OnEnter();
 
 		return iter->second;

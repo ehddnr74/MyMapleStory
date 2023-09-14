@@ -9,21 +9,27 @@
 #include "yaGameObject.h"
 #include "yaTime.h"
 #include "yaInput.h"
-
+#include "yaMesh.h"
+#include "yaMeshRenderer.h"
+#include "yaFontWrapper.h"
 
 namespace ya
 {
 	ShopScript::ShopScript()
 	{
+
 	}
 	ShopScript::~ShopScript()
 	{
+
 	}
 	void ShopScript::Initialize()
 	{
+
 	}
 	void ShopScript::Update()
 	{
+
 	}
 	void ShopScript::OnCollisionEnter(Collider2D* other)
 	{

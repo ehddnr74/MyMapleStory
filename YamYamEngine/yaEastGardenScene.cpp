@@ -58,46 +58,46 @@ void ya::EastGardenScene::Initialize()
 		Mouse->AddComponent<CurSorScript>();
 	}
 
-	{
-		GameObject* player
-			= object::Instantiate<GameObject>(Vector3(-4.5f, 6.0f, 0.999f), eLayerType::Player);
+	//{
+	//	GameObject* player
+	//		= object::Instantiate<GameObject>(Vector3(-4.5f, 6.0f, 0.999f), eLayerType::Player);
 
-		SetPlayer(player);
+	//	SetPlayer(player);
 
-		Camera::SetTarget(player);
-		//SceneManager::SetPlayer(player);
+	//	Camera::SetTarget(player);
+	//	//SceneManager::SetPlayer(player);
 
-		player->SetName(L"Adel");
+	//	player->SetName(L"Adel");
 
-		Collider2D* cd = player->AddComponent<Collider2D>();
-		cd->SetCenter(Vector2(0.008f, 0.055f));
-		cd->SetSize(Vector2(0.22f, 0.38f));
+	//	Collider2D* cd = player->AddComponent<Collider2D>();
+	//	cd->SetCenter(Vector2(0.008f, 0.055f));
+	//	cd->SetSize(Vector2(0.22f, 0.38f));
 
-		MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+	//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+	//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+	//	mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-		//const float pi = 3.141592f;
-		//float degree = pi / 8.0f;
+	//	//const float pi = 3.141592f;
+	//	//float degree = pi / 8.0f;
 
-		//player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0001f));
-		player->GetComponent<Transform>()->SetScale(Vector3(1.6f, 1.6f, 1.0001f));
+	//	//player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0001f));
+	//	player->GetComponent<Transform>()->SetScale(Vector3(1.6f, 1.6f, 1.0001f));
 
-		Animator* at = player->AddComponent<Animator>();
-		PlayerScript* mPlayerScript = player->AddComponent<PlayerScript>();
-		SetPlayerScript(mPlayerScript);
-		//player->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, degree));
+	//	Animator* at = player->AddComponent<Animator>();
+	//	PlayerScript* mPlayerScript = player->AddComponent<PlayerScript>();
+	//	SetPlayerScript(mPlayerScript);
+	//	//player->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, degree));
 
-		//std::shared_ptr<Texture> atlas
-			//= Resources::Load<Texture>(L"Character1", L"..\\Resources\\Texture\\Character1.png");
+	//	//std::shared_ptr<Texture> atlas
+	//		//= Resources::Load<Texture>(L"Character1", L"..\\Resources\\Texture\\Character1.png");
 
-		//Animator* at = player->AddComponent<Animator>();
-		//at->Create(L"Idle", atlas, Vector2(0.0f, 0.0f), Vector2(160.0f, 160.0f), 3, Vector2(0.f,0.f), 0.5f);
+	//	//Animator* at = player->AddComponent<Animator>();
+	//	//at->Create(L"Idle", atlas, Vector2(0.0f, 0.0f), Vector2(160.0f, 160.0f), 3, Vector2(0.f,0.f), 0.5f);
 
-		//at->CompleteEvent(L"Idle") = std::bind();
+	//	//at->CompleteEvent(L"Idle") = std::bind();
 
-		//at->PlayAnimation(L"Idle", true);
-	}
+	//	//at->PlayAnimation(L"Idle", true);
+	//}
 
 	{
 		GameObject* FireImp
@@ -541,7 +541,7 @@ void ya::EastGardenScene::Initialize()
 
 void ya::EastGardenScene::Update()
 {
-	if (GetPlayerScript()->GetPortal())
+	if (SceneManager::GetPlayerScript()->GetPortal())
 	{
 		if (Input::GetKeyDown(eKeyCode::UP))
 			SceneManager::LoadScene(L"BanBanScene");
@@ -561,10 +561,19 @@ void ya::EastGardenScene::Render()
 }
 void ya::EastGardenScene::OnEnter()
 {
-	Camera::SetTarget(mPlayer);
+
+	mPlayer = SceneManager::GetPlayer();
+	Transform * tr = mPlayer->GetComponent<Transform>();
+	Vector3 pos = tr->GetPosition();
+
+	tr->SetPosition(-4.5f, -0.75f, pos.z);
+
+	Camera::SetTarget(SceneManager::GetPlayer());
 	Camera::SetHeneSisScene(nullptr);
 	Camera::SetRootaByssScene(nullptr);
 	Camera::SetEastGardenScene(this);
+
+
 	Scene::OnEnter();
 }
 void ya::EastGardenScene::OnExit()

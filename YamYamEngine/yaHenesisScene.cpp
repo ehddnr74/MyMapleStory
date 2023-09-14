@@ -16,6 +16,10 @@
 #include "yaMushroomScript.h"
 #include "yaInput.h"
 #include "yaSkillScript.h"
+#include "yaSavePlayer.h"
+#include "yaHpScript.h"
+#include "yaMpScript.h"
+#include "yaExpScript.h"
 
 namespace ya
 {
@@ -27,54 +31,47 @@ namespace ya
 	}
 	void HenesisScene::Initialize()
 	{
+
 		Camera::SetRootaByssScene(nullptr);
 		Camera::SetEastGardenScene(nullptr);
 		Camera::SetHeneSisScene(this);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
 
+
 		{
 			GameObject* BG
-				= object::Instantiate<GameObject>(Vector3(8.0f, 1.0f, 1.0f), eLayerType::BG);
+				= object::Instantiate<GameObject>(Vector3(8.0f, 1.0f, 1.001f), eLayerType::BG);
 
 			BG->SetName(L"Henesis");
-
-			//Collider2D* cd = player->AddComponent<Collider2D>();
-			//cd->SetSize(Vector2(1.2f, 1.2f));
 
 			MeshRenderer* mr = BG->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"Hene"));
 
-			//BG->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
 			BG->GetComponent<Transform>()->SetScale(Vector3(35.0f, 8.5f, 1.0f));
 		}
 
 		{
-			GameObject* player
-				= object::Instantiate<GameObject>(Vector3(0.0f, 6.0f, 0.999f), eLayerType::Player);
+			GameObject* player = new GameObject();
+			player->SetName(L"Adel");
+			AddGameObject(eLayerType::Player, player);
+			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
 
 			Camera::SetTarget(player);
-			//SceneManager::SetPlayer(player);
-
-			player->SetName(L"Adel");
 
 			Collider2D* cd = player->AddComponent<Collider2D>();
-			cd->SetCenter(Vector2(0.008f, 0.055f));
-			cd->SetSize(Vector2(0.22f, 0.38f));
+			cd->SetCenter(Vector2(0.008f, 0.065f));
+			cd->SetSize(Vector2(0.18f, 0.28f));
 
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
-
-			player->GetComponent<Transform>()->SetScale(Vector3(1.6f, 1.6f, 1.0001f));
-
-			Animator* at = player->AddComponent<Animator>();
-			PlayerScript* mScript = player->AddComponent<PlayerScript>();
-
-			//player->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, degree));
-
-			//Animator* at = player->AddComponent<Animator>();
+		    mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		    mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.999f));
+			player->GetComponent<Transform>()->SetScale(Vector3(1.6f, 1.6f, 0.999f));
+			PlayerScript* mPlayerScript = player->AddComponent<PlayerScript>();
+			SceneManager::SetPlayer(player);
+			SceneManager::SetPlayerScript(mPlayerScript);
+			object::DontDestroyOnLoad(player);
 		}
 
 		{
@@ -89,79 +86,110 @@ namespace ya
 			Collider2D* cd = Ground->AddComponent<Collider2D>();
 			cd->SetCenter(Vector2(0.0f, 0.0f));
 			cd->SetSize(Vector2(1.0f, 1.0f));
-
 		}
 
 		{
-			GameObject* EXP
-				= object::Instantiate<GameObject>(Vector3(0.0f, -2.21f, 0.999f), eLayerType::UI);
+			GameObject* Exp = new GameObject();
+			Exp->SetName(L"EXP");
+			AddGameObject(eLayerType::UI, Exp);
 
-			EXP->SetName(L"EXP");
-
-			//Collider2D* cd = player->AddComponent<Collider2D>();
-			//cd->SetSize(Vector2(1.2f, 1.2f));
-
-			MeshRenderer* mr = EXP->AddComponent<MeshRenderer>();
+			MeshRenderer* mr = Exp->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"EXP"));
 
-			EXP->GetComponent<Transform>()->SetScale(Vector3(8.0f, 0.08f, 1.0009f));
-
-			SetEXP(EXP);
+			Exp->GetComponent<Transform>()->SetPosition(Vector3(0.0f, -2.21f, 0.999f));
+			Exp->GetComponent<Transform>()->SetScale(Vector3(8.0f, 0.08f, 1.0009f));
+			object::DontDestroyOnLoad(Exp);
 		}
 
 		{
-			GameObject* HP
-				= object::Instantiate<GameObject>(Vector3(-0.1f, -1.95f, 0.999f), eLayerType::UI);
+			GameObject* ExpFrontBar = new GameObject();
+			ExpFrontBar->SetName(L"ExpFrontBar");
+			AddGameObject(eLayerType::UI, ExpFrontBar);
 
+			MeshRenderer* mr = ExpFrontBar->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"ExpFront"));
+
+			ExpFrontBar->GetComponent<Transform>()->SetPosition(Vector3(-4.0f, -2.21f, 1.000f));
+			ExpFrontBar->GetComponent<Transform>()->SetScale(Vector3(0.0f, 0.05f, 1.000f));
+			ExpScript* mExpScript = ExpFrontBar->AddComponent<ExpScript>();
+			SceneManager::SetExpScript(mExpScript);
+			object::DontDestroyOnLoad(ExpFrontBar);
+		}
+
+		{
+			GameObject* HP = new GameObject();
 			HP->SetName(L"HP");
-
-			//Collider2D* cd = player->AddComponent<Collider2D>();
-			//cd->SetSize(Vector2(1.2f, 1.2f));
+			AddGameObject(eLayerType::UI, HP);
 
 			MeshRenderer* mr = HP->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"HP"));
 
+			HP->GetComponent<Transform>()->SetPosition(Vector3(-0.1f, -1.95f, 0.999f));
 			HP->GetComponent<Transform>()->SetScale(Vector3(1.1f, 0.5f, 1.0007f));
-
-			SetHP(HP);
+			object::DontDestroyOnLoad(HP);
 		}
 
 		{
-			GameObject* SlotCover
-				= object::Instantiate<GameObject>(Vector3(2.25f, -1.93f, 0.999f), eLayerType::UI);
+			GameObject* HPFrontBar = new GameObject();
+			HPFrontBar->SetName(L"HPFrontBar");
+			AddGameObject(eLayerType::UI, HPFrontBar);
 
+			MeshRenderer* mr = HPFrontBar->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"HpFront"));
+
+			HPFrontBar->GetComponent<Transform>()->SetPosition(Vector3(-0.06f, -1.95f, 1.000f));
+			HPFrontBar->GetComponent<Transform>()->SetScale(Vector3(0.92f, 0.1f, 1.000f));
+			HpScript* mHpScript = HPFrontBar->AddComponent<HpScript>();
+			SceneManager::SetHpScript(mHpScript);
+			object::DontDestroyOnLoad(HPFrontBar);
+		}
+
+		{
+			GameObject* MpFrontBar = new GameObject();
+			MpFrontBar->SetName(L"MpFrontBar");
+			AddGameObject(eLayerType::UI, MpFrontBar);
+
+			MeshRenderer* mr = MpFrontBar->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"MpFront"));
+
+			MpFrontBar->GetComponent<Transform>()->SetPosition(Vector3(-0.06f, -2.05f, 1.000f));
+			MpFrontBar->GetComponent<Transform>()->SetScale(Vector3(0.92f, 0.1f, 1.000f));
+			MpScript* mMpScript = MpFrontBar->AddComponent<MpScript>();
+			SceneManager::SetMpScript(mMpScript);
+			object::DontDestroyOnLoad(MpFrontBar);
+		}
+
+		{
+			GameObject* SlotCover = new GameObject();
 			SlotCover->SetName(L"SlotCover");
-
-			//Collider2D* cd = player->AddComponent<Collider2D>();
-			//cd->SetSize(Vector2(1.2f, 1.2f));
+			AddGameObject(eLayerType::UI, SlotCover);
 
 			MeshRenderer* mr = SlotCover->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SlotCover"));
 
+			SlotCover->GetComponent<Transform>()->SetPosition(Vector3(2.25f, -1.93f, 0.999f));
 			SlotCover->GetComponent<Transform>()->SetScale(Vector3(3.5f, 0.5f, 1.0008f));
-
-			SetSlotCover(SlotCover);
+			object::DontDestroyOnLoad(SlotCover);
 		}
 
 		{
-			GameObject* Slot
-				= object::Instantiate<GameObject>(Vector3(2.25f, -1.93f, 0.999f), eLayerType::UI);
-
+			GameObject* Slot = new GameObject();
 			Slot->SetName(L"Slot");
-
-			//Collider2D* cd = player->AddComponent<Collider2D>();
-			//cd->SetSize(Vector2(1.2f, 1.2f));
+			AddGameObject(eLayerType::UI, Slot);
 
 			MeshRenderer* mr = Slot->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"Slot"));
 
+			Slot->GetComponent<Transform>()->SetPosition(Vector3(2.25f, -1.93f, 0.999f));
 			Slot->GetComponent<Transform>()->SetScale(Vector3(3.48f, 0.48f, 1.001f));
-
-			SetSlot(Slot);
+			object::DontDestroyOnLoad(Slot);
 		}
 
 		{
@@ -178,25 +206,11 @@ namespace ya
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-			//const float pi = 3.141592f;
-			//float degree = pi / 8.0f;
-
-			//player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0001f));
 			MushRoom->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0001f));
 
 			Animator* at = MushRoom->AddComponent<Animator>();
 			MushRoom->AddComponent<MushroomScript>();
-			//player->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, degree));
 
-			//std::shared_ptr<Texture> atlas
-				//= Resources::Load<Texture>(L"Character1", L"..\\Resources\\Texture\\Character1.png");
-
-			//Animator* at = player->AddComponent<Animator>();
-			//at->Create(L"Idle", atlas, Vector2(0.0f, 0.0f), Vector2(160.0f, 160.0f), 3, Vector2(0.f,0.f), 0.5f);
-
-			//at->CompleteEvent(L"Idle") = std::bind();
-
-			//at->PlayAnimation(L"Idle", true);
 		}
 
 		//{
@@ -245,25 +259,6 @@ namespace ya
 
 			//camera->AddComponent<CameraScript>();
 		}
-
-		//{
-		//	GameObject* grid = new GameObject();
-		//	grid->SetName(L"Grid");
-		//	AddGameObject(eLayerType::Grid, grid);
-		//	MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
-		//	GridScript* gridSc = grid->AddComponent<GridScript>();
-		//	gridSc->SetCamera(cameraComp);
-		//}
-
-
-		//GameObject* player2 = new GameObject();
-		//AddGameObject(eLayerType::Player, player2);
-		//player2->AddComponent<MeshRenderer>();
-
-		//Transform* tr = player->GetComponent<Transform>();
-		//tr->SetPosition(Vector3(0.5f, 0.5f, 0.0f));
 		Scene::Initialize();
 	}
 
@@ -301,7 +296,6 @@ namespace ya
 	void HenesisScene::OnEnter()
 	{
 		Scene::OnEnter();
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 	}
 	void HenesisScene::OnExit()
 	{

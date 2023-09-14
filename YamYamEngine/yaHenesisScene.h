@@ -19,16 +19,12 @@ namespace ya
 
 		void CreateDevide();
 
-		void SetHP(GameObject* hp) { HP = hp; }
-		void SetEXP(GameObject* exp) { EXP = exp; }
-		void SetSlot(GameObject* slot) { Slot = slot; }
-		void SetSlotCover(GameObject* slotcover) { SlotCover = slotcover; }
+		void SetPlayerScript(class PlayerScript* mps) { mPlayerScript = mps; }
+		PlayerScript* GetPlayerScript() { return mPlayerScript; }
 
 	private:
-		GameObject* HP;
-		GameObject* EXP;
-		GameObject* Slot;
-		GameObject* SlotCover;
+		class PlayerScript* mPlayerScript;
+		class Player* mPlayer;
 
 	};
 }

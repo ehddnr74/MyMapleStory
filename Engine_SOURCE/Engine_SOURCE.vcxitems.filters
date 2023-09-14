@@ -106,6 +106,9 @@
     <Filter Include="GameObject\Component\RigidBody">
       <UniqueIdentifier>{7b198ae4-b129-4e92-b235-c01027623301}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\Save">
+      <UniqueIdentifier>{dfa5d28e-7671-4c6e-be1f-6c205047e18a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -226,6 +229,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaRigidBody.h">
       <Filter>GameObject\Component\RigidBody</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaSavePlayer.h">
+      <Filter>GameObject\Component\Save</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)yaMath.cpp">
@@ -330,6 +336,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaFontWrapper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaRigidBody.cpp">
       <Filter>GameObject\Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaSavePlayer.cpp">
+      <Filter>GameObject\Component\Save</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -35,5 +35,6 @@ namespace ya
 		class CurSorScript* mCursor;
 		class HavisScript* mHavis;
 
+
 	};
 }

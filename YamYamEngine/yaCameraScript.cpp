@@ -24,12 +24,12 @@ namespace ya
 			Vector3 pos = TargetPos->GetPosition();
 
 
-			if (TrPos.x >= -2.0f && TrPos.x <= 2.0f)
+			if (TrPos.x >= -8.0f && TrPos.x <= 8.0f)
 			{
 				GetOwner()->GetComponent<Transform>()->SetPosition(
 					Vector3{
 						pos.x,
-						pos.y + 1.2f,
+						pos.y + 0.8f,
 						GetOwner()->GetComponent<Transform>()->GetPosition().z
 					}
 				);
@@ -52,11 +52,34 @@ namespace ya
 				GetOwner()->GetComponent<Transform>()->SetPosition(
 					Vector3{
 						pos.x,
-						pos.y + 1.2f,
+						pos.y + 1.3f,
+						GetOwner()->GetComponent<Transform>()->GetPosition().z
+					}
+				);
+				Transform* tr = GetOwner()->GetComponent<Transform>();
+				mPrevPos = tr->GetPosition();
+			}
+			if (TrPos.x < -2.0f)
+			{
+				GetOwner()->GetComponent<Transform>()->SetPosition(
+					Vector3{
+						mPrevPos.x,
+						pos.y + 1.3f,
 						GetOwner()->GetComponent<Transform>()->GetPosition().z
 					}
 				);
 			}
+			if (TrPos.x >= 2.0f)
+			{
+				GetOwner()->GetComponent<Transform>()->SetPosition(
+					Vector3{
+						mPrevPos.x,
+						pos.y + 1.3f,
+						GetOwner()->GetComponent<Transform>()->GetPosition().z
+					}
+				);
+			}
+			
 		}
 
 		if (Camera::GetTarget() != nullptr && Camera::GetEastGardenScene() != nullptr)

@@ -8,6 +8,7 @@
 #include "yaResources.h"
 #include "yaPlayerScript.h"
 #include <random>
+#include "yaSceneManager.h"
 
 std::mt19937_64 rng1(0);
 std::uniform_int_distribution<__int64> dist1(0, 1);
@@ -75,7 +76,7 @@ namespace ya
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
-		Transform* Playertr = GetPlayerScript()->GetOwner()->GetComponent<Transform>();
+		Transform* Playertr = SceneManager::GetPlayerScript()->GetOwner()->GetComponent<Transform>();
 		Vector3 PlayerPos = Playertr->GetPosition();
 
 
@@ -182,12 +183,12 @@ namespace ya
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
-		Transform* Playertr = GetPlayerScript()->GetOwner()->GetComponent<Transform>();
+		Transform* Playertr = SceneManager::GetPlayerScript()->GetOwner()->GetComponent<Transform>();
 		Vector3 PlayerPos = Playertr->GetPosition();
 
 		if (0.0f <= PlayerPos.x - pos.x && PlayerPos.x - pos.x <= 0.5f)
 		{
-			if (dir == 0 && GetPlayerScript()->GetDir() == 0)
+			if (dir == 0 && SceneManager::GetPlayerScript()->GetDir() == 0)
 			{
 				dir = 1;
 				idletime = 0.0f;
@@ -195,21 +196,21 @@ namespace ya
 				at->PlayAnimation(L"FireImpRightAttack", true);
 			}
 
-			if (dir == 0 && GetPlayerScript()->GetDir() == 1)
+			if (dir == 0 && SceneManager::GetPlayerScript()->GetDir() == 1)
 			{
 				idletime = 0.0f;
 				mFireImpState = FireImpState::Attack;
 				at->PlayAnimation(L"FireImpRightAttack", true);
 			}
 
-			if (dir == 1 && GetPlayerScript()->GetDir() == 0)
+			if (dir == 1 && SceneManager::GetPlayerScript()->GetDir() == 0)
 			{
 				idletime = 0.0f;
 				mFireImpState = FireImpState::Attack;
 				at->PlayAnimation(L"FireImpRightAttack", true);
 			}
 
-			if (dir == 1 && GetPlayerScript()->GetDir() == 1)
+			if (dir == 1 && SceneManager::GetPlayerScript()->GetDir() == 1)
 			{
 				idletime = 0.0f;
 				mFireImpState = FireImpState::Attack;
@@ -219,7 +220,7 @@ namespace ya
 
 		if (-0.5f <= PlayerPos.x - pos.x && PlayerPos.x - pos.x <= 0.0f)
 		{
-			if (dir == 0 && GetPlayerScript()->GetDir() == 0)
+			if (dir == 0 && SceneManager::GetPlayerScript()->GetDir() == 0)
 			{
 				dir = 1;
 				movetime = 0.0f;
@@ -227,21 +228,21 @@ namespace ya
 				at->PlayAnimation(L"FireImpLeftAttack", true);
 			}
 
-			if (dir == 0 && GetPlayerScript()->GetDir() == 1)
+			if (dir == 0 && SceneManager::GetPlayerScript()->GetDir() == 1)
 			{
 				movetime = 0.0f;
 				mFireImpState = FireImpState::Attack;
 				at->PlayAnimation(L"FireImpLeftAttack", true);
 			}
 
-			if (dir == 1 && GetPlayerScript()->GetDir() == 0)
+			if (dir == 1 && SceneManager::GetPlayerScript()->GetDir() == 0)
 			{
 				movetime = 0.0f;
 				mFireImpState = FireImpState::Attack;
 				at->PlayAnimation(L"FireImpLeftAttack", true);
 			}
 
-			if (dir == 1 && GetPlayerScript()->GetDir() == 1)
+			if (dir == 1 && SceneManager::GetPlayerScript()->GetDir() == 1)
 			{
 				movetime = 0.0f;
 				mFireImpState = FireImpState::Attack;
@@ -257,12 +258,12 @@ namespace ya
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
-		Transform* Playertr = GetPlayerScript()->GetOwner()->GetComponent<Transform>();
+		Transform* Playertr = SceneManager::GetPlayerScript()->GetOwner()->GetComponent<Transform>();
 		Vector3 PlayerPos = Playertr->GetPosition();
 
 		if (0.0f <= PlayerPos.x - pos.x && PlayerPos.x - pos.x <= 0.5f)
 		{
-			if (dir == 0 && GetPlayerScript()->GetDir() == 0)
+			if (dir == 0 && SceneManager::GetPlayerScript()->GetDir() == 0)
 			{
 				dir = 1;
 				movetime = 0.0f;
@@ -270,21 +271,21 @@ namespace ya
 				at->PlayAnimation(L"FireImpRightAttack", true);
 			}
 
-			if (dir == 0 && GetPlayerScript()->GetDir() == 1)
+			if (dir == 0 && SceneManager::GetPlayerScript()->GetDir() == 1)
 			{
 				movetime = 0.0f;
 				mFireImpState = FireImpState::Attack;
 				at->PlayAnimation(L"FireImpRightAttack", true);
 			}
 
-			if (dir == 1 && GetPlayerScript()->GetDir() == 0)
+			if (dir == 1 && SceneManager::GetPlayerScript()->GetDir() == 0)
 			{
 				movetime = 0.0f;
 				mFireImpState = FireImpState::Attack;
 				at->PlayAnimation(L"FireImpRightAttack", true);
 			}
 
-			if (dir == 1 && GetPlayerScript()->GetDir() == 1)
+			if (dir == 1 && SceneManager::GetPlayerScript()->GetDir() == 1)
 			{
 				movetime = 0.0f;
 				mFireImpState = FireImpState::Attack;
@@ -294,7 +295,7 @@ namespace ya
 
 		if (-0.5f <= PlayerPos.x - pos.x && PlayerPos.x - pos.x <= 0.0f)
 		{
-			if (dir == 0 && GetPlayerScript()->GetDir() == 0)
+			if (dir == 0 && SceneManager::GetPlayerScript()->GetDir() == 0)
 			{
 				dir = 1;
 				movetime = 0.0f;
@@ -302,21 +303,21 @@ namespace ya
 				at->PlayAnimation(L"FireImpLeftAttack", true);
 			}
 
-			if (dir == 0 && GetPlayerScript()->GetDir() == 1)
+			if (dir == 0 && SceneManager::GetPlayerScript()->GetDir() == 1)
 			{
 				movetime = 0.0f;
 				mFireImpState = FireImpState::Attack;
 				at->PlayAnimation(L"FireImpLeftAttack", true);
 			}
 
-			if (dir == 1 && GetPlayerScript()->GetDir() == 0)
+			if (dir == 1 && SceneManager::GetPlayerScript()->GetDir() == 0)
 			{
 				movetime = 0.0f;
 				mFireImpState = FireImpState::Attack;
 				at->PlayAnimation(L"FireImpLeftAttack", true);
 			}
 
-			if (dir == 1 && GetPlayerScript()->GetDir() == 1)
+			if (dir == 1 && SceneManager::GetPlayerScript()->GetDir() == 1)
 			{
 				movetime = 0.0f;
 				mFireImpState = FireImpState::Attack;

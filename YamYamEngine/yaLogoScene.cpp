@@ -15,10 +15,11 @@
 #include "yaInput.h"
 #include "yaLogoScript.h"
 #include "yaPlayerScript.h"
-
+#include "yaTime.h"
 namespace ya
 {
 	LogoScene::LogoScene()
+		: LoadSceneTime(0.0f)
 	{
 	}
 	LogoScene::~LogoScene()
@@ -40,7 +41,8 @@ namespace ya
 			Wizet->GetComponent<Transform>()->SetScale(Vector3(5.0f, 5.0f, 0.999f));
 
 			Animator* at = Wizet->AddComponent<Animator>();
-			Wizet->AddComponent<LogoScript>();
+			LogoScript* mLogoScript = Wizet->AddComponent<LogoScript>();
+			SetLogoScript(mLogoScript);
 		}
 
 		//Main Camera
@@ -73,9 +75,14 @@ namespace ya
 	}
 	void LogoScene::Update()
 	{
-		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
+		if (GetLogoScript()->GetLogoEnd())
 		{
-			SceneManager::LoadScene(L"HenesisScene");
+			LoadSceneTime += Time::DeltaTime();
+
+			if (LoadSceneTime >= 0.5f)
+			{
+				SceneManager::LoadScene(L"HenesisScene");
+			}
 		}
 		Scene::Update();
 	}

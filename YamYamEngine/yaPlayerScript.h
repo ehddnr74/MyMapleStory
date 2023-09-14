@@ -44,6 +44,9 @@ namespace ya
 		void SetExpScript(class ExpScript* exp) { mExpScript = exp; }
 		ExpScript* GetExpScript() { return mExpScript; }
 
+		void SetInventoryScript(class InventoryScript* is) { mInventoryScript = is; }
+		InventoryScript* GetInventoryScript() { return mInventoryScript; }
+
 
 		int GetDir() { return dir; }
 
@@ -65,6 +68,8 @@ namespace ya
 		void SetInventoryEtc(GameObject* inventoryetc) { mInventoryEtc = inventoryetc; }
 		void SetInventoryMeso(GameObject* inventorymeso) { mInventoryMeso = inventorymeso; }
 		void SetInventoryMesoBar(GameObject* inventorymesobar) { mInventoryMesoBar = inventorymesobar; }
+
+	
 
 	private:
 		Animator* at;
@@ -102,6 +107,7 @@ namespace ya
 		class HpScript* mHpScript;
 		class MpScript* mMpScript;
 		class ExpScript* mExpScript;
+		class InventoryScript* mInventoryScript;
 
 	private:
 		bool inventory;

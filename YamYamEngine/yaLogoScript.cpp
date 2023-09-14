@@ -14,6 +14,7 @@ namespace ya
 {
 	ya::LogoScript::LogoScript()
 		: wizettime(0.0f)
+		, LogoEnd(false)
 	{
 	}
 	LogoScript::~LogoScript()
@@ -78,7 +79,7 @@ namespace ya
 		std::shared_ptr<Texture> Wizet = Resources::Load<Texture>(L"Wizet1", L"..\\Resources\\Texture\\Wizet.png");
 
 		at->Create(L"Wizet1", Wizet, Vector2(0.0f, 0.0f), Vector2(456.0f, 285.0f), 24, Vector2::Zero, 0.1f);
-		at->Create(L"Wizet2", Wizet, Vector2(0.0f, 285.0f), Vector2(456.0f, 285.0f), 24, Vector2::Zero, 0.1f);
+		at->Create(L"Wizet2", Wizet, Vector2(0.0f, 285.0f), Vector2(456.0f, 285.0f), 24, Vector2::Zero, 0.12f);
 
 		at->PlayAnimation(L"Wizet1", false);
 
@@ -107,15 +108,23 @@ namespace ya
 
 		wizettime += Time::DeltaTime();
 
-		if (wizettime >= 3.5f)
+		if (wizettime >= 2.4f)
 		{
+			wizettime = 0.0f;
 			mLogoState = LogoState::Wizet2;
 			at->PlayAnimation(L"Wizet2", false);
 		}
 	}
 	void LogoScript::wizet2()
 	{
+		wizettime += Time::DeltaTime();
 		GetOwner()->AddComponent<Animator>();
 		Animator* at = GetOwner()->GetComponent<Animator>();
+
+		if (wizettime >= 2.88f)
+		{
+			LogoEnd = true;
+			mLogoState = LogoState::End;
+		}
 	}
 }

@@ -12,11 +12,15 @@
 #include "yaMesh.h"
 #include "yaMeshRenderer.h"
 #include "yaFontWrapper.h"
+#include "yaCamera.h"
+#include "yaInventoryScript.h"
 
 namespace ya
 {
 	HavisScript::HavisScript()
 		: LookingShop(false)
+		, rootabysskeyselect(false)
+		, isBuy(false)
 	{
 	}
 	HavisScript::~HavisScript()
@@ -73,12 +77,11 @@ namespace ya
 	void HavisScript::OnShop()
 	{
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
+			//Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
+			//Vector3 PlayerPos = PlayerTr->GetPosition();
 
 			mShop1
-				= object::Instantiate<GameObject>(Vector3(0.0f , 0.3f, 0.999f), eLayerType::UI);
+				= object::Instantiate<GameObject>(Vector3(0.0f , 0.3f, 0.999f), eLayerType::Shop);
 
 			SetShop1(mShop1);
 
@@ -101,7 +104,7 @@ namespace ya
 			Vector3 PlayerPos = PlayerTr->GetPosition();
 
 			mShop2
-				= object::Instantiate<GameObject>(Vector3(0.0f,0.3f, 0.998f), eLayerType::UI);
+				= object::Instantiate<GameObject>(Vector3(0.0f,0.3f, 0.998f), eLayerType::Shop);
 
 			SetShop2(mShop2);
 
@@ -124,7 +127,7 @@ namespace ya
 			Vector3 PlayerPos = PlayerTr->GetPosition();
 
 			mShop3
-				= object::Instantiate<GameObject>(Vector3(0.0f, -0.08f, 0.997f), eLayerType::UI);
+				= object::Instantiate<GameObject>(Vector3(0.0f, -0.08f, 0.997f), eLayerType::Shop);
 
 			mShop3->SetName(L"Shop3");
 
@@ -147,7 +150,7 @@ namespace ya
 			Vector3 PlayerPos = PlayerTr->GetPosition();
 
 			 mShopHavis
-				= object::Instantiate<GameObject>(Vector3(-1.42f, 1.7f, 0.996f), eLayerType::UI);
+				= object::Instantiate<GameObject>(Vector3(-1.42f, 1.7f, 0.996f), eLayerType::Shop);
 
 			 mShopHavis->SetName(L"ShopHavis");
 
@@ -170,7 +173,7 @@ namespace ya
 			Vector3 PlayerPos = PlayerTr->GetPosition();
 
 			mShopPlayer
-				= object::Instantiate<GameObject>(Vector3(0.585f, 1.68f, 0.996f), eLayerType::UI);
+				= object::Instantiate<GameObject>(Vector3(0.585f, 1.68f, 0.996f), eLayerType::Shop);
 
 			mShopPlayer->SetName(L"ShopPlayer");
 
@@ -193,15 +196,15 @@ namespace ya
 			Vector3 PlayerPos = PlayerTr->GetPosition();
 
 			mShopBuy
-				= object::Instantiate<GameObject>(Vector3(- 0.15f, 1.5f, 0.995f), eLayerType::UI);
+				= object::Instantiate<GameObject>(Vector3(- 0.15f, 1.5f, 0.995f), eLayerType::Shop);
 
 			mShopBuy->SetName(L"ShopBuy");
 
 			SetShopBuy(mShopBuy);
 
-			//Collider2D* cd = Inventory->AddComponent<Collider2D>();
-			//cd->SetCenter(Vector2(0.0f, 0.0f));
-			//cd->SetSize(Vector2(0.22f, 0.38f));
+			Collider2D* cd = mShopBuy->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.0f, 0.0f));
+			cd->SetSize(Vector2(1.0f, 0.7f));
 
 			MeshRenderer* mr = mShopBuy->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -216,7 +219,7 @@ namespace ya
 			Vector3 PlayerPos = PlayerTr->GetPosition();
 
 			mShopSell
-				= object::Instantiate<GameObject>(Vector3(1.57f, 1.5f, 0.996f), eLayerType::UI);
+				= object::Instantiate<GameObject>(Vector3(1.57f, 1.5f, 0.996f), eLayerType::Shop);
 
 			mShopSell->SetName(L"ShopSell");
 
@@ -239,7 +242,7 @@ namespace ya
 			Vector3 PlayerPos = PlayerTr->GetPosition();
 
 			mShopExit
-				= object::Instantiate<GameObject>(Vector3(- 0.15f, 1.65f, 0.996f), eLayerType::UI);
+				= object::Instantiate<GameObject>(Vector3(- 0.15f, 1.65f, 0.996f), eLayerType::Shop);
 
 			mShopExit->SetName(L"ShopExit");
 
@@ -247,7 +250,7 @@ namespace ya
 
 			Collider2D* cd = mShopExit->AddComponent<Collider2D>();
 			cd->SetCenter(Vector2(0.0f, 0.0f));
-			cd->SetSize(Vector2(1.0f, 0.6f));
+			cd->SetSize(Vector2(1.0f, 0.7f));
 
 			MeshRenderer* mr = mShopExit->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -262,7 +265,7 @@ namespace ya
 			Vector3 PlayerPos = PlayerTr->GetPosition();
 
 			mShopEtc
-				= object::Instantiate<GameObject>(Vector3(-1.3f, 1.292f, 0.996f), eLayerType::UI);
+				= object::Instantiate<GameObject>(Vector3(-1.3f, 1.292f, 0.996f), eLayerType::Shop);
 		
 			mShopEtc->SetName(L"ShopEtc");
 
@@ -285,7 +288,7 @@ namespace ya
 			Vector3 PlayerPos = PlayerTr->GetPosition();
 
 			mShopEtc2
-				= object::Instantiate<GameObject>(Vector3(0.745f, 1.292f, 0.996f), eLayerType::UI);
+				= object::Instantiate<GameObject>(Vector3(0.745f, 1.292f, 0.996f), eLayerType::Shop);
 
 			mShopEtc2->SetName(L"ShopEtc2");
 
@@ -308,7 +311,7 @@ namespace ya
 			Vector3 PlayerPos = PlayerTr->GetPosition();
 
 			mShopMesoBox
-				= object::Instantiate<GameObject>(Vector3(1.4f, 1.64f, 0.996f), eLayerType::UI);
+				= object::Instantiate<GameObject>(Vector3(1.4f, 1.64f, 0.996f), eLayerType::Shop);
 
 			mShopMesoBox->SetName(L"mShopMesoBox");
 
@@ -331,15 +334,15 @@ namespace ya
 			Vector3 PlayerPos = PlayerTr->GetPosition();
 
 			mRootaByssKey
-				= object::Instantiate<GameObject>(Vector3(- 1.69f, 1.06f, 0.996f), eLayerType::UI);
+				= object::Instantiate<GameObject>(Vector3(- 1.69f, 1.06f, 0.996f), eLayerType::Shop);
 
 			mRootaByssKey->SetName(L"RootaByssKey");
 
 			SetShopRootaByssKey(mRootaByssKey);
 
-			//Collider2D* cd = Inventory->AddComponent<Collider2D>();
-			//cd->SetCenter(Vector2(0.0f, 0.0f));
-			//cd->SetSize(Vector2(0.22f, 0.38f));
+			Collider2D* cd = mRootaByssKey->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.78f, 0.0f));
+			cd->SetSize(Vector2(9.0f, 1.1f));
 
 			MeshRenderer* mr = mRootaByssKey->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -354,7 +357,7 @@ namespace ya
 			Vector3 PlayerPos = PlayerTr->GetPosition();
 
 			mShopMeso1
-				= object::Instantiate<GameObject>(Vector3(- 1.475f,1.007f, 0.996f), eLayerType::UI);
+				= object::Instantiate<GameObject>(Vector3(- 1.475f,1.007f, 0.996f), eLayerType::Shop);
 
 			mShopMeso1->SetName(L"mShopMeso1");
 
@@ -385,7 +388,95 @@ namespace ya
 		object::Destroy(mShopEtc2);
 		object::Destroy(mShopMesoBox);
 		object::Destroy(mRootaByssKey);
+		object::Destroy(mRootaByssKeySelect);
 		object::Destroy(mShopMeso1);
+
+		if (rootabysskeyselect)
+		{
+			object::Destroy(mRootaByssKeySelect);
+			object::Destroy(mSelectRootaByssKey);
+			object::Destroy(mSelectRootaByssMeso);
+
+		}
+	}
+	void HavisScript::Buy()
+	{
+		if (rootabysskeyselect == true && isBuy == true)
+		{
+			isBuy = false;
+			mInventoryScript = GetPlayerScript()->GetInventoryScript();
+			SetInventoryScript(mInventoryScript);
+			
+			mInventoryScript->Buying();
+		}
+		
+
+	}
+	void HavisScript::RootaByssKeySelect()
+	{
+		rootabysskeyselect = true;
+		{
+			mRootaByssKeySelect
+				= object::Instantiate<GameObject>(Vector3(-0.905f, 1.065f, 0.995f), eLayerType::Shop);
+
+			mRootaByssKeySelect->SetName(L"mRootaByssKeySelect");
+
+			SetRootaByssKeySelect(mRootaByssKeySelect);
+
+			//Collider2D* cd = mRootaByssKey->AddComponent<Collider2D>();
+			//cd->SetCenter(Vector2(0.78f, 0.0f));
+			//cd->SetSize(Vector2(9.0f, 1.1f));
+
+			MeshRenderer* mr = mRootaByssKeySelect->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"shopselect"));
+
+			mRootaByssKeySelect->GetComponent<Transform>()->SetScale(Vector3(1.83f, 0.23f, 1.0001f));
+		}
+
+		{
+			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
+
+			Vector3 PlayerPos = PlayerTr->GetPosition();
+
+			mSelectRootaByssKey
+				= object::Instantiate<GameObject>(Vector3(-1.69f, 1.06f, 0.994f), eLayerType::Shop);
+
+			SetSelctRootaByssKey(mSelectRootaByssKey);
+
+			Collider2D* cd = mSelectRootaByssKey->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.78f, 0.0f));
+			cd->SetSize(Vector2(9.0f, 1.1f));
+
+			MeshRenderer* mr = mSelectRootaByssKey->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"rootabysskey"));
+
+			mSelectRootaByssKey->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.0001f));
+		}
+
+		{
+			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
+
+			Vector3 PlayerPos = PlayerTr->GetPosition();
+
+			mSelectRootaByssMeso
+				= object::Instantiate<GameObject>(Vector3(-1.475f, 1.007f, 0.994f), eLayerType::Shop);
+
+			mSelectRootaByssMeso->SetName(L"mShopMeso1");
+
+			SetSelectRootByssKeyMeso(mSelectRootaByssMeso);
+
+			//Collider2D* cd = Inventory->AddComponent<Collider2D>();
+			//cd->SetCenter(Vector2(0.0f, 0.0f));
+			//cd->SetSize(Vector2(0.22f, 0.38f));
+
+			MeshRenderer* mr = mSelectRootaByssMeso->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"shopmeso"));
+
+			mSelectRootaByssMeso->GetComponent<Transform>()->SetScale(Vector3(0.1f, 0.1f, 1.0001f));
+		}
 	}
 	void HavisScript::stand()
 	{

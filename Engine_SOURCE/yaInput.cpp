@@ -18,6 +18,7 @@ namespace ya
 
 	std::vector<Input::Key> Input::mKeys;
 	Vector2 Input::mMousePos = Vector2::Zero;
+	Vector3 Input::mCurSorWorldPos = Vector3::Zero;
 
 	void Input::Initialize()
 	{

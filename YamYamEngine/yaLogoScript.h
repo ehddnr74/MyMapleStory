@@ -16,6 +16,7 @@ namespace ya
 		{
 			Wizet1,
 			Wizet2,
+			End,
 		};
 
 		void CreateWhiteBG();
@@ -24,6 +25,8 @@ namespace ya
 
 		virtual void Initialize() override;
 		virtual void Update() override;
+
+		bool GetLogoEnd() { return LogoEnd; }
 
 
 	private:
@@ -38,5 +41,6 @@ namespace ya
 
 	private:
 		double wizettime;
+		bool LogoEnd;
 	};
 }

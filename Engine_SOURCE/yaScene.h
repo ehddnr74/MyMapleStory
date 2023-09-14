@@ -40,6 +40,7 @@ namespace ya
 			return findObjs;
 		}
 		Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
+		std::vector<GameObject*> GetDontDestroyGameObjects();
 
 	private:
 		std::vector<Layer> mLayers;

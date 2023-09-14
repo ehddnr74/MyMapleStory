@@ -56,5 +56,22 @@ namespace ya
 	void Scene::AddGameObject(eLayerType type, GameObject* gameObj)
 	{
 		mLayers[(int)type].AddGameObject(gameObj);
+		gameObj->SetLayerType(type);
+	}
+
+	std::vector<GameObject*> Scene::GetDontDestroyGameObjects()
+	{
+		std::vector<GameObject*> gameObjects;
+		for (Layer& layer : mLayers)
+		{
+			std::vector<GameObject*> dontGameObjs
+				= layer.GetDontDestroyGameObjects();
+
+			gameObjects.insert(gameObjects.end()
+				, dontGameObjs.begin()
+				, dontGameObjs.end());
+		}
+
+		return gameObjects;
 	}
 }

@@ -50,6 +50,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)yaResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaRigidBody.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)yaSavePlayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)yaScript.h" />
@@ -91,6 +92,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)yaResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaResources.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaRigidBody.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)yaSavePlayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)yaScript.cpp" />

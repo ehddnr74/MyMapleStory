@@ -20,8 +20,11 @@ namespace ya
 		{ 
 			return mGameObjects; 
 		}
+		std::vector<GameObject*> GetDontDestroyGameObjects();
 		
 	private:
 		std::vector<GameObject*> mGameObjects;
+		typedef const std::vector<GameObject*>& GameObjects;
+		typedef std::vector<GameObject*>::iterator GameObjectIter;
 	};
 }

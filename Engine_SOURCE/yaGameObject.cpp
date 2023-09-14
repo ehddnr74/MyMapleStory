@@ -7,6 +7,8 @@ namespace ya
 {
 	GameObject::GameObject()
 		: mState(eState::Active)
+		, mType(eLayerType::End)
+		, mbDontDestroy(false)
 	{
 		AddComponent<Transform>();
 	}

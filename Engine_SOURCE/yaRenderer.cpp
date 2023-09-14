@@ -593,6 +593,13 @@ namespace renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"shopmeso", material);
 
+		texture = Resources::Load<Texture>(L"ShopSelect", L"..\\Resources\\Texture\\ShopSelect.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"shopselect", material);
+
 		texture = Resources::Load<Texture>(L"RootaByssKey", L"..\\Resources\\Texture\\RootaByssKey.png");
 		material = std::make_shared<Material>();
 		material->SetShader(shader);

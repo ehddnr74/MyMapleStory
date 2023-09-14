@@ -16,6 +16,7 @@
 namespace ya
 {
 	InventoryScript::InventoryScript()
+		: mLeftTop(Vector3(0.0f,0.0f,0.0f))
 	{
 
 	}
@@ -29,7 +30,72 @@ namespace ya
 	}
 	void InventoryScript::Update()
 	{
+		if (Input::GetKeyDown(eKeyCode::LBUTTON))
+		{
+			//Vector3 MousePos = Input::GetMouseWorldPos();
+			Vector3 MousePos = Input::GetMouseWorldPos();
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			Vector3 mSize = tr->GetScale();
+			Vector3 mPos = tr->GetPosition();
+			mLeftTop = Vector3(mPos.x - mSize.x / 2, mPos.y + mSize.y / 2, 0.996f);
+			Vector3 mRightBottom = Vector3(mPos.x + mSize.x / 2, mPos.y - mSize.y / 2, mPos.z);
+			
+			std::vector<std::vector<Vector3>> mInVentoryIndex;
+			std::vector<Vector3> InventoryIndex;
 
+			mIndex1 = Vector3(mLeftTop.x + 0.16f, mLeftTop.y - 0.190f, 0.996f);
+			mIndex2 = Vector3(mLeftTop.x + 0.48f, mLeftTop.y - 0.190f, 0.996f);
+			mIndex3 = Vector3(mLeftTop.x + 0.80f, mLeftTop.y - 0.190f, 0.996f);
+			mIndex4 = Vector3(mLeftTop.x + 1.12f, mLeftTop.y - 0.190f, 0.996f);
+			mIndex5 = Vector3(mLeftTop.x + 0.16f, mLeftTop.y - 0.500f, 0.996f);
+			mIndex6 = Vector3(mLeftTop.x + 0.48f, mLeftTop.y - 0.500f, 0.996f);
+			mIndex7 = Vector3(mLeftTop.x + 0.80f, mLeftTop.y - 0.500f, 0.996f);
+			mIndex8 = Vector3(mLeftTop.x + 1.12f, mLeftTop.y - 0.500f, 0.996f);
+			mIndex9 = Vector3(mLeftTop.x + 0.16f, mLeftTop.y - 0.810f, 0.996f);
+			mIndex10 = Vector3(mLeftTop.x + 0.48f, mLeftTop.y - 0.810f, 0.996f);
+			mIndex11 = Vector3(mLeftTop.x + 0.80f, mLeftTop.y - 0.810f, 0.996f);
+			mIndex12 = Vector3(mLeftTop.x + 1.12f, mLeftTop.y - 0.810f, 0.996f);
+			mIndex13 = Vector3(mLeftTop.x + 0.16f, mLeftTop.y - 1.120f, 0.996f);
+			mIndex14 = Vector3(mLeftTop.x + 0.48f, mLeftTop.y - 1.120f, 0.996f);
+			mIndex15 = Vector3(mLeftTop.x + 0.80f, mLeftTop.y - 1.120f, 0.996f);
+			mIndex16 = Vector3(mLeftTop.x + 1.12f, mLeftTop.y - 1.120f, 0.996f);
+			mIndex17 = Vector3(mLeftTop.x + 0.16f, mLeftTop.y - 1.430f, 0.996f);
+			mIndex18 = Vector3(mLeftTop.x + 0.48f, mLeftTop.y - 1.430f, 0.996f);
+			mIndex19 = Vector3(mLeftTop.x + 0.80f, mLeftTop.y - 1.430f, 0.996f);
+			mIndex20 = Vector3(mLeftTop.x + 1.12f, mLeftTop.y - 1.430f, 0.996f);
+			mIndex21 = Vector3(mLeftTop.x + 0.16f, mLeftTop.y - 1.740f, 0.996f);
+			mIndex22 = Vector3(mLeftTop.x + 0.48f, mLeftTop.y - 1.740f, 0.996f);
+			mIndex23 = Vector3(mLeftTop.x + 0.80f, mLeftTop.y - 1.740f, 0.996f);
+			mIndex24 = Vector3(mLeftTop.x + 1.12f, mLeftTop.y - 1.740f, 0.996f);
+
+
+			InventoryIndex.push_back(mIndex1);
+			InventoryIndex.push_back(mIndex2);
+			InventoryIndex.push_back(mIndex3);
+			InventoryIndex.push_back(mIndex4);
+			InventoryIndex.push_back(mIndex5);
+			InventoryIndex.push_back(mIndex6);
+			InventoryIndex.push_back(mIndex7);
+			InventoryIndex.push_back(mIndex8);
+			InventoryIndex.push_back(mIndex9);
+			InventoryIndex.push_back(mIndex10);
+			InventoryIndex.push_back(mIndex11);
+			InventoryIndex.push_back(mIndex12);
+			InventoryIndex.push_back(mIndex13);
+			InventoryIndex.push_back(mIndex14);
+			InventoryIndex.push_back(mIndex15);
+			InventoryIndex.push_back(mIndex16);
+			InventoryIndex.push_back(mIndex17);
+			InventoryIndex.push_back(mIndex18);
+			InventoryIndex.push_back(mIndex19);
+			InventoryIndex.push_back(mIndex20);
+			InventoryIndex.push_back(mIndex21);
+			InventoryIndex.push_back(mIndex22);
+			InventoryIndex.push_back(mIndex23);
+			InventoryIndex.push_back(mIndex24);
+
+			//mRightBottom += Vector3(-25.0f, 84.0f, mPos.z);
+		}
 	}
 	void InventoryScript::OnCollisionEnter(Collider2D* other)
 	{
@@ -43,23 +109,24 @@ namespace ya
 	{
 
 	}
-	void InventoryScript::OnInventory()
+
+	void InventoryScript::Buying()
 	{
 		{
-			GameObject* Inventory
-				= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 0.999f), eLayerType::Inventory);
+			RootaByssKey
+				= object::Instantiate<GameObject>(Vector3(mIndex1), eLayerType::Item);
 
-			Inventory->SetName(L"Inventory");
+			RootaByssKey->SetName(L"RootaByssKey");
 
 			//Collider2D* cd = Inventory->AddComponent<Collider2D>();
 			//cd->SetCenter(Vector2(0.0f, 0.0f));
 			//cd->SetSize(Vector2(0.22f, 0.38f));
 
-			MeshRenderer* mr = Inventory->AddComponent<MeshRenderer>();
+			MeshRenderer* mr = RootaByssKey->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"Inven"));
+			mr->SetMaterial(Resources::Find<Material>(L"rootabysskey"));
 
-			//Inventory->GetComponent<Transform>()->SetScale(Vector3(4.0f, 4.0f, 1.0001f));
+			RootaByssKey->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.0001f));
 		}
 	}
 }

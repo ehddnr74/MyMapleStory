@@ -30,6 +30,8 @@ namespace ya
 		void SetHavisScript(class HavisScript* havis) { mHavisScript = havis; }
 		HavisScript* GetHavisScript() { return mHavisScript; }
 
+		Vector3 GetMouseWorldPos() {return MouseWorldPos;}
+
 
 	private:
 		void none();
@@ -37,6 +39,7 @@ namespace ya
 
 	private:
 		Vector3 mPos;
+		Vector3 MouseWorldPos;
 		Animator* at;
 		CursorState mCursorState;
 		Transform* tr;
@@ -51,6 +54,8 @@ namespace ya
 	private:
 		bool havis;
 		bool ShopExit;
+		bool KeySelect;
+		bool ShopBuy;
 
 	};
 

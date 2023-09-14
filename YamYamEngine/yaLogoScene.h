@@ -15,7 +15,13 @@ namespace ya
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
+		void SetLogoScript(class LogoScript* logoscript) { mLogoScript = logoscript; }
+		class LogoScript* GetLogoScript() { return mLogoScript; }
 	private:
+		class LogoScript* mLogoScript;
+
+		double LoadSceneTime;
+
 
 	};
 }

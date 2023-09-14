@@ -36,6 +36,8 @@ namespace ya::enums
 		Monster,
 		Light,
 		UI,
+		Shop,
+		Item,
 		Camera,
 		End = 16,
 	};

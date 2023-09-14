@@ -27,6 +27,11 @@ namespace ya
 		void SetPlayerScript(class PlayerScript* mps) { mPScript = mps; }
 		PlayerScript* GetPlayerScript() { return mPScript; }
 
+		void SetInventoryScript(class InventoryScript* is) { mInventoryScript = is; }
+		InventoryScript* GetInventoryScript() { return mInventoryScript; }
+
+		void SetIsBuy(bool ib) { isBuy = ib; }
+
 		void SetShop1(GameObject* shop1) { mShop1 = shop1; }
 		void SetShop2(GameObject* shop2) { mShop2 = shop2; }
 		void SetShop3(GameObject* shop3) { mShop3 = shop3; }
@@ -40,12 +45,21 @@ namespace ya
 		void SetShopMesoBox(GameObject* shopmesobox) { mShopMesoBox = shopmesobox; }
 		void SetShopRootaByssKey(GameObject* shoprootabysskey) { mRootaByssKey = shoprootabysskey; }
 
+
+		void SetRootaByssKeySelect(GameObject* rk) { mRootaByssKeySelect = rk; }
+		void SetSelctRootaByssKey(GameObject* srk) { mSelectRootaByssKey = srk; }
+		void SetSelectRootByssKeyMeso(GameObject* srkm) { mSelectRootaByssMeso = srkm; }
+
 		void SetShopMeso1(GameObject* shopmeso1) { mShopMeso1 = shopmeso1; }
 
 		void OnShop();
 		void CloseShop();
 
+		void Buy();
+
 		void SetLookingShop(bool look) { LookingShop = look; }
+
+		void RootaByssKeySelect();
 
 	private:
 		Animator* at;
@@ -53,6 +67,7 @@ namespace ya
 		Transform* tr;
 		Vector3 pos;
 		class PlayerScript* mPScript;
+		class InventoryScript* mInventoryScript;
 
 	private:
 		void stand();
@@ -69,13 +84,21 @@ namespace ya
 		GameObject* mShopEtc;
 		GameObject* mShopEtc2;
 		GameObject* mShopMesoBox;
-		GameObject* mRootaByssKey;
-
 
 		GameObject* mShopMeso1;
 
+		GameObject* mRootaByssKey;
+		GameObject* mRootaByssKeySelect;
+		GameObject* mSelectRootaByssKey;
+		GameObject* mSelectRootaByssMeso;
+
+
+
 
 		bool LookingShop;
+		bool rootabysskeyselect;
+
+		bool isBuy;
 	};
 }
 

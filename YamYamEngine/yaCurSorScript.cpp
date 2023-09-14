@@ -19,6 +19,8 @@ namespace ya
 		: CursorChange(false)
 		, havis(false)
 		, ShopExit(false)
+		, KeySelect(false)
+		, ShopBuy(false)
 	{
 	}
 
@@ -48,6 +50,8 @@ namespace ya
 		mPos = Vector3(pos.x, pos.y, -10.0f);
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
+		MouseWorldPos = Camera::GetWorldPos(mPos);
+		Input::SetMouseWorldPos(mPos);
 		tr->SetPosition(Camera::GetWorldPos(mPos));
 
 		if (havis == true)
@@ -70,6 +74,24 @@ namespace ya
 			}
 		}
 
+		if (KeySelect == true)
+		{
+			if (Input::GetKeyDown(eKeyCode::LBUTTON))
+			{
+				KeySelect = false;
+				GetHavisScript()->RootaByssKeySelect();
+			}
+		}
+
+		if (ShopBuy == true)
+		{
+			if (Input::GetKeyDown(eKeyCode::LBUTTON))
+			{
+				ShopBuy = false;
+				GetHavisScript()->SetIsBuy(true);
+				GetHavisScript()->Buy();
+			}
+		}
 
 		switch (mCursorState)
 		{
@@ -95,14 +117,26 @@ namespace ya
 		{
 			havis = true;
 		}
+
+		if (other->GetOwner()->GetName() == L"RootaByssKey")
+		{
+			KeySelect = true;
+		}
+
 		if (other->GetOwner()->GetName() == L"ShopExit")
 		{
 			ShopExit = true;
+		}
+
+		if (other->GetOwner()->GetName() == L"ShopBuy")
+		{
+			ShopBuy = true;
 		}
 	}
 
 	void CurSorScript::OnCollisionStay(Collider2D* other)
 	{
+
 	}
 
 	void CurSorScript::OnCollisionExit(Collider2D* other)

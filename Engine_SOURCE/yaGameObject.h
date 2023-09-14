@@ -93,10 +93,20 @@ namespace ya
 
 		void SetState(eState state) { mState = state; }
 		eState GetState() { return mState; }
+		eLayerType GetLayerType() { return mType; }
+		void SetLayerType(eLayerType type) { mType = type; }
+		bool IsDontDestroy() { return mbDontDestroy; }
+		void DontDestroy(bool enable) { mbDontDestroy = enable; }
+
+
 
 	private:
 		eState mState;
 		std::vector<Component*> mComponents;
 		std::vector<Script*> mScripts;
+		bool mbDontDestroy;
+		eLayerType mType;
+		
+
 	};
 }

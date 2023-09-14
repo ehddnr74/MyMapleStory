@@ -25,7 +25,7 @@ namespace ya
 		//SceneManager::CreateScene<BanBanScene>(L"BanBanScene");
 		//SceneManager::CreateScene<EastGardenScene>(L"EastGardenScene");
 		SceneManager::CreateScene<RootaByssScene>(L"RootaByssScene");
-		//SceneManager::CreateScene<HenesisScene>(L"HenesisScene");
-		//SceneManager::CreateScene<LogoScene>(L"LogoScene");
+		SceneManager::CreateScene<HenesisScene>(L"HenesisScene");
+		SceneManager::CreateScene<LogoScene>(L"LogoScene");
 	}
 }

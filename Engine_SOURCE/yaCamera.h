@@ -90,5 +90,6 @@ namespace ya
 		static class Scene* mEastGardenScene;
 		static class Scene* mHeneSisScene;
 		static class Scene* mBanBanScene;
+		Vector3 worldPos;
 	};
 }

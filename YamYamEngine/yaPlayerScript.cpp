@@ -16,6 +16,7 @@
 #include "yaHpScript.h"
 #include "yaMpScript.h"
 #include "yaExpScript.h"
+#include "yaInventoryScript.h"	
 
 namespace ya
 {
@@ -39,13 +40,8 @@ namespace ya
 	}
 	void PlayerScript::Initialize()
 	{
-
 		GetOwner()->AddComponent<Animator>();
 		Animator* at = GetOwner()->GetComponent<Animator>();
-
-		Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
-		//Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
-		//at->CompleteEvent(L"Idle") = std::bind(&PlayerScript::Complete, this);
 
 		std::shared_ptr<Texture> LeftAnimation = Resources::Load<Texture>(L"LeftAnimation", L"..\\Resources\\Texture\\LeftAnimation.png");
 		std::shared_ptr<Texture> RightAnimation = Resources::Load<Texture>(L"RightAnimation", L"..\\Resources\\Texture\\RightAnimation.png");
@@ -274,6 +270,11 @@ namespace ya
 				mr->SetMaterial(Resources::Find<Material>(L"inventory3"));
 
 				mInventory3->GetComponent<Transform>()->SetScale(Vector3(1.38f, 2.2f, 1.0001f));
+
+				mInventoryScript = mInventory3->AddComponent<InventoryScript>();
+
+				SetInventoryScript(mInventoryScript);
+
 			}
 
 			{
@@ -381,7 +382,7 @@ namespace ya
 
 		if (other->GetOwner()->GetName() == L"BanBan")
 		{
-			GetHpScript()->OnDamage(2576);
+			SceneManager::GetHpScript()->OnDamage(2576);
 		}
 	}
 	void PlayerScript::OnCollisionStay(Collider2D* other)
@@ -401,7 +402,7 @@ namespace ya
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 		Animator* at = GetOwner()->GetComponent<Animator>();
-
+		//Animator* at = GetOwner()->GetComponent<Animator>();
 
 		if (dir == 0)
 		{
@@ -435,7 +436,7 @@ namespace ya
 				if (mDevide == nullptr)
 				{
 					CreateDevide();
-					GetMpScript()->OnDamage(40);
+					SceneManager::GetMpScript()->OnDamage(40);
 				}
 			}
 
@@ -488,8 +489,8 @@ namespace ya
 				if (mDevide == nullptr)
 				{
 					CreateRightDevide();
-					GetMpScript()->OnDamage(40);
-					GetExpScript()->OnDamage(32);
+					SceneManager::GetMpScript()->OnDamage(40);
+					SceneManager::GetExpScript()->OnDamage(32);
 				}
 
 
@@ -558,7 +559,7 @@ namespace ya
 				if (mDevide == nullptr)
 				{
 					CreateDevide();
-					GetMpScript()->OnDamage(40);
+					SceneManager::GetMpScript()->OnDamage(40);
 				}
 			}
 			if (Input::GetKeyDown(eKeyCode::X))
@@ -620,7 +621,7 @@ namespace ya
 				if (mDevide == nullptr)
 				{
 					CreateRightDevide();
-					GetMpScript()->OnDamage(40);
+					SceneManager::GetMpScript()->OnDamage(40);
 				}
 			}
 			if (Input::GetKeyDown(eKeyCode::X))
