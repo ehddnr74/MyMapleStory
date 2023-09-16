@@ -9,32 +9,21 @@ namespace ya
 		RootaByssScene();
 		virtual ~RootaByssScene();
 
-
-
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
-		void SetPlayer(GameObject* player) { mPlayer = player; }
-		GameObject* GetPlayer() { return mPlayer; }
-
-		void SetPlayerScript(class PlayerScript* mps) { mPScript = mps; }
-		PlayerScript* GetPlayerScript() { return mPScript; }
+		void SetHavisScript(class HavisScript* hs) { mHavisScript = hs; }
+		HavisScript* GetHavisScript() { return mHavisScript; }
 
 
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
 
 	private:
-		class PlayerScript* mPScript;
 		GameObject* mPlayer;
-		class HpScript* mHpScript;
-		class MpScript* mMpScript;
-		class ExpScript* mExpScript;
-		class CurSorScript* mCursor;
-		class HavisScript* mHavis;
-
+		class HavisScript* mHavisScript;
 
 	};
 }

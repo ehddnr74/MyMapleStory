@@ -2,6 +2,8 @@
 #include "..\YamYamEngine\yaPlayerScript.h"
 #include "..\YamYamEngine\yaHpScript.h"
 #include "..\YamYamEngine\yaMpScript.h"
+#include "..\YamYamEngine\yaCurSorScript.h"
+#include "..\YamYamEngine\yaInventoryScript.h"
 
 //#include "yaPlayScene.h"
 
@@ -14,6 +16,8 @@ namespace ya
 	HpScript* SceneManager::mHpScript = nullptr;
 	MpScript* SceneManager::mMpScript = nullptr;
 	ExpScript* SceneManager::mExpScript = nullptr;
+	CurSorScript* SceneManager::mCursorScript = nullptr;
+	InventoryScript* SceneManager::mInventoryScript = nullptr;
 
 	void SceneManager::Initialize()
 	{

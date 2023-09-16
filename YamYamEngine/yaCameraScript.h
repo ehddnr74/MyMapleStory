@@ -16,5 +16,6 @@ namespace ya
 	private:
 		GameObject* mTarget;
 		Vector3 mPrevPos;
+		Vector3 Ypos;
 	};
 }

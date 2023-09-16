@@ -46,8 +46,9 @@ namespace ya
 
 			Vector3 pos = TargetPos->GetPosition();
 
+		    //Ypos.y = pos.y + 1.3f;
 
-			if (TrPos.x >= -2.0f && TrPos.x <= 2.0f)
+			if (TrPos.x >= -2.0f && TrPos.x <= 2.0f && TrPos.y <=-1.35f)
 			{
 				GetOwner()->GetComponent<Transform>()->SetPosition(
 					Vector3{
@@ -59,7 +60,32 @@ namespace ya
 				Transform* tr = GetOwner()->GetComponent<Transform>();
 				mPrevPos = tr->GetPosition();
 			}
-			if (TrPos.x < -2.0f)
+
+			if (TrPos.x >= -2.0f && TrPos.x <= 2.0f && TrPos.y >= -1.35f)
+			{
+				GetOwner()->GetComponent<Transform>()->SetPosition(
+					Vector3{
+						pos.x,
+						mPrevPos.y,
+						GetOwner()->GetComponent<Transform>()->GetPosition().z
+					}
+				);
+				Transform* tr = GetOwner()->GetComponent<Transform>();
+				mPrevPos = tr->GetPosition();
+			}
+
+			//if (TrPos.y >= -1.299f)
+			//{
+			//	GetOwner()->GetComponent<Transform>()->SetPosition(
+			//		Vector3{
+			//			mPrevPos.x,
+			//			mPrevPos.y,
+			//			GetOwner()->GetComponent<Transform>()->GetPosition().z
+			//		}
+			//	);
+			//}
+
+			if (TrPos.x >= 2.0f && TrPos.y <= -1.35f)
 			{
 				GetOwner()->GetComponent<Transform>()->SetPosition(
 					Vector3{
@@ -69,16 +95,19 @@ namespace ya
 					}
 				);
 			}
-			if (TrPos.x >= 2.0f)
+
+			if (TrPos.x < -2.0f && TrPos.y >= -1.35f)
 			{
 				GetOwner()->GetComponent<Transform>()->SetPosition(
 					Vector3{
 						mPrevPos.x,
-						pos.y + 1.3f,
+						mPrevPos.y,
 						GetOwner()->GetComponent<Transform>()->GetPosition().z
 					}
 				);
 			}
+
+
 			
 		}
 

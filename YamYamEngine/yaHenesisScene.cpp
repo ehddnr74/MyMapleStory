@@ -20,6 +20,8 @@
 #include "yaHpScript.h"
 #include "yaMpScript.h"
 #include "yaExpScript.h"
+#include "yaCurSorScript.h"
+#include "yaInventoryScript.h"
 
 namespace ya
 {
@@ -37,6 +39,25 @@ namespace ya
 		Camera::SetHeneSisScene(this);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
+
+		{
+			GameObject* Cursor = new GameObject();
+			Cursor->SetName(L"Cursor");
+			AddGameObject(eLayerType::Cursor, Cursor);
+
+			Collider2D* cd = Cursor->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(-0.06f, 0.08f));
+			cd->SetSize(Vector2(0.05f, 0.025f));
+
+			MeshRenderer* mr = Cursor->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+			Cursor->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.999f));
+			Cursor->GetComponent<Transform>()->SetScale(Vector3(2.0f, 2.0f, 0.999f));
+			CurSorScript* mCursorScript = Cursor->AddComponent<CurSorScript>();
+			SceneManager::SetCursorScript(mCursorScript);
+			object::DontDestroyOnLoad(Cursor);
+		}
 
 
 		{
@@ -71,6 +92,8 @@ namespace ya
 			PlayerScript* mPlayerScript = player->AddComponent<PlayerScript>();
 			SceneManager::SetPlayer(player);
 			SceneManager::SetPlayerScript(mPlayerScript);
+			InventoryScript* mInventoryScript = player->AddComponent<InventoryScript>();
+			SceneManager::SetInventoryScript(mInventoryScript);
 			object::DontDestroyOnLoad(player);
 		}
 
@@ -127,8 +150,8 @@ namespace ya
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"HP"));
 
-			HP->GetComponent<Transform>()->SetPosition(Vector3(-0.1f, -1.95f, 0.999f));
-			HP->GetComponent<Transform>()->SetScale(Vector3(1.1f, 0.5f, 1.0007f));
+			HP->GetComponent<Transform>()->SetPosition(Vector3(-0.15f, -1.95f, 0.999f));
+			HP->GetComponent<Transform>()->SetScale(Vector3(1.18f, 0.5f, 1.0007f));
 			object::DontDestroyOnLoad(HP);
 		}
 
@@ -141,8 +164,8 @@ namespace ya
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"HpFront"));
 
-			HPFrontBar->GetComponent<Transform>()->SetPosition(Vector3(-0.06f, -1.95f, 1.000f));
-			HPFrontBar->GetComponent<Transform>()->SetScale(Vector3(0.92f, 0.1f, 1.000f));
+			HPFrontBar->GetComponent<Transform>()->SetPosition(Vector3(-0.11f, -1.95f, 1.000f));
+			HPFrontBar->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
 			HpScript* mHpScript = HPFrontBar->AddComponent<HpScript>();
 			SceneManager::SetHpScript(mHpScript);
 			object::DontDestroyOnLoad(HPFrontBar);
@@ -157,8 +180,8 @@ namespace ya
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"MpFront"));
 
-			MpFrontBar->GetComponent<Transform>()->SetPosition(Vector3(-0.06f, -2.05f, 1.000f));
-			MpFrontBar->GetComponent<Transform>()->SetScale(Vector3(0.92f, 0.1f, 1.000f));
+			MpFrontBar->GetComponent<Transform>()->SetPosition(Vector3(-0.11f, -2.05f, 1.000f));
+			MpFrontBar->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
 			MpScript* mMpScript = MpFrontBar->AddComponent<MpScript>();
 			SceneManager::SetMpScript(mMpScript);
 			object::DontDestroyOnLoad(MpFrontBar);
@@ -173,7 +196,7 @@ namespace ya
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SlotCover"));
 
-			SlotCover->GetComponent<Transform>()->SetPosition(Vector3(2.25f, -1.93f, 0.999f));
+			SlotCover->GetComponent<Transform>()->SetPosition(Vector3(2.25f, -1.93f, 0.998f));
 			SlotCover->GetComponent<Transform>()->SetScale(Vector3(3.5f, 0.5f, 1.0008f));
 			object::DontDestroyOnLoad(SlotCover);
 		}
@@ -191,6 +214,8 @@ namespace ya
 			Slot->GetComponent<Transform>()->SetScale(Vector3(3.48f, 0.48f, 1.001f));
 			object::DontDestroyOnLoad(Slot);
 		}
+
+
 
 		{
 			GameObject* MushRoom
@@ -256,7 +281,7 @@ namespace ya
 			cameraComp->TurnLayerMask(eLayerType::Player, false);
 			cameraComp->TurnLayerMask(eLayerType::Monster, false);
 			cameraComp->TurnLayerMask(eLayerType::Skill, false);
-
+			cameraComp->TurnLayerMask(eLayerType::Cursor, false);
 			//camera->AddComponent<CameraScript>();
 		}
 		Scene::Initialize();

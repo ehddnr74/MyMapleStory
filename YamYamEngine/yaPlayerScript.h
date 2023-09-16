@@ -62,6 +62,12 @@ namespace ya
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+		void SetOnShop(bool onshop) { OnShop = onshop; }
+		void SetInventory(bool it) { inventory = it; }
+
+		void SetOnInventory(bool oninventory) { Oninventory = oninventory; }
+		bool GetOnInventory() { return Oninventory; }
+
 		void SetInventory1(GameObject* inventory1) { mInventory1 = inventory1; }
 		void SetInventory2(GameObject* inventory2) { mInventory2 = inventory2; }
 		void SetInventory3(GameObject* inventory3) { mInventory3 = inventory3; }
@@ -111,6 +117,8 @@ namespace ya
 
 	private:
 		bool inventory;
+		bool OnShop;
+		bool Oninventory;
 		GameObject* mInventory1;
 		GameObject* mInventory2;
 		GameObject* mInventory3;

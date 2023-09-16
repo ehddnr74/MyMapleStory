@@ -74,12 +74,17 @@ namespace ya
 	void HavisScript::OnCollisionExit(Collider2D* other)
 	{
 	}
-	void HavisScript::OnShop()
+	void HavisScript::OnShop() // 아이템창 켠 상태로 상점 클릭 시 전의 아이템창 Delete 해줘야함!!
 	{
+		if (SceneManager::GetPlayerScript()->GetOnInventory())
 		{
-			//Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-			//Vector3 PlayerPos = PlayerTr->GetPosition();
-
+			SceneManager::GetPlayerScript()->SetOnInventory(false);
+			SceneManager::GetPlayerScript()->CloseInventory();
+		}
+		SceneManager::GetPlayerScript()->OnInventory();
+		SceneManager::GetPlayerScript()->SetOnShop(true);
+		SceneManager::GetPlayerScript()->SetInventory(true);
+		{
 			mShop1
 				= object::Instantiate<GameObject>(Vector3(0.0f , 0.3f, 0.999f), eLayerType::Shop);
 
@@ -99,10 +104,6 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			mShop2
 				= object::Instantiate<GameObject>(Vector3(0.0f,0.3f, 0.998f), eLayerType::Shop);
 
@@ -122,10 +123,6 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			mShop3
 				= object::Instantiate<GameObject>(Vector3(0.0f, -0.08f, 0.997f), eLayerType::Shop);
 
@@ -145,10 +142,6 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			 mShopHavis
 				= object::Instantiate<GameObject>(Vector3(-1.42f, 1.7f, 0.996f), eLayerType::Shop);
 
@@ -168,10 +161,6 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			mShopPlayer
 				= object::Instantiate<GameObject>(Vector3(0.585f, 1.68f, 0.996f), eLayerType::Shop);
 
@@ -191,10 +180,6 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			mShopBuy
 				= object::Instantiate<GameObject>(Vector3(- 0.15f, 1.5f, 0.995f), eLayerType::Shop);
 
@@ -214,10 +199,6 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			mShopSell
 				= object::Instantiate<GameObject>(Vector3(1.57f, 1.5f, 0.996f), eLayerType::Shop);
 
@@ -237,12 +218,8 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			mShopExit
-				= object::Instantiate<GameObject>(Vector3(- 0.15f, 1.65f, 0.996f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(- 0.15f, 1.85f, 0.996f), eLayerType::Shop);
 
 			mShopExit->SetName(L"ShopExit");
 
@@ -260,10 +237,6 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			mShopEtc
 				= object::Instantiate<GameObject>(Vector3(-1.3f, 1.292f, 0.996f), eLayerType::Shop);
 		
@@ -283,10 +256,6 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			mShopEtc2
 				= object::Instantiate<GameObject>(Vector3(0.745f, 1.292f, 0.996f), eLayerType::Shop);
 
@@ -306,10 +275,6 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			mShopMesoBox
 				= object::Instantiate<GameObject>(Vector3(1.4f, 1.64f, 0.996f), eLayerType::Shop);
 
@@ -329,10 +294,6 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			mRootaByssKey
 				= object::Instantiate<GameObject>(Vector3(- 1.69f, 1.06f, 0.996f), eLayerType::Shop);
 
@@ -352,10 +313,6 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			mShopMeso1
 				= object::Instantiate<GameObject>(Vector3(- 1.475f,1.007f, 0.996f), eLayerType::Shop);
 
@@ -388,7 +345,6 @@ namespace ya
 		object::Destroy(mShopEtc2);
 		object::Destroy(mShopMesoBox);
 		object::Destroy(mRootaByssKey);
-		object::Destroy(mRootaByssKeySelect);
 		object::Destroy(mShopMeso1);
 
 		if (rootabysskeyselect)
@@ -404,7 +360,7 @@ namespace ya
 		if (rootabysskeyselect == true && isBuy == true)
 		{
 			isBuy = false;
-			mInventoryScript = GetPlayerScript()->GetInventoryScript();
+			mInventoryScript = SceneManager::GetPlayerScript()->GetInventoryScript();
 			SetInventoryScript(mInventoryScript);
 			
 			mInventoryScript->Buying();
@@ -435,10 +391,6 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			mSelectRootaByssKey
 				= object::Instantiate<GameObject>(Vector3(-1.69f, 1.06f, 0.994f), eLayerType::Shop);
 
@@ -456,10 +408,6 @@ namespace ya
 		}
 
 		{
-			Transform* PlayerTr = mPScript->GetOwner()->GetComponent<Transform>();
-
-			Vector3 PlayerPos = PlayerTr->GetPosition();
-
 			mSelectRootaByssMeso
 				= object::Instantiate<GameObject>(Vector3(-1.475f, 1.007f, 0.994f), eLayerType::Shop);
 

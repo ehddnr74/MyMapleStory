@@ -49,7 +49,6 @@ namespace ya
 
 			Collider2D* cd = Havis->AddComponent<Collider2D>();
 			cd->SetCenter(Vector2(0.0f, 0.0f));
-
 			cd->SetSize(Vector2(0.2f, 0.3f));
 
 			Havis->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0001f));
@@ -58,57 +57,9 @@ namespace ya
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-			mHavis = Havis->AddComponent<HavisScript>();
-
-			mHavis->SetPlayerScript(mPScript);
-
+			mHavisScript = Havis->AddComponent<HavisScript>();
+			SetHavisScript(mHavisScript);
 		}
-
-		//{
-		//	GameObject* player = new GameObject();
-		//	player->SetName(L"Adel");
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-
-		//	Camera::SetTarget(player);
-
-		//	Collider2D* cd = player->AddComponent<Collider2D>();
-		//	cd->SetCenter(Vector2(0.008f, 0.065f));
-		//	cd->SetSize(Vector2(0.18f, 0.28f));
-
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 8.0f, 0.999f));
-		//	player->GetComponent<Transform>()->SetScale(Vector3(1.6f, 1.6f, 0.999f));
-		//	PlayerScript* mPlayerScript = player->AddComponent<PlayerScript>();
-		//	SceneManager::SetPlayer(player);
-		//	SceneManager::SetPlayerScript(mPlayerScript);
-		//	object::DontDestroyOnLoad(player);
-		//}
-
-		{
-			GameObject* Mouse
-				= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 0.999f), eLayerType::Cursor);
-
-			Mouse->GetComponent<Transform>()->SetScale(Vector3(2.0f, 2.0f, 1.0001f));
-
-			Mouse->SetName(L"Cursor");
-
-			Collider2D* cd = Mouse->AddComponent<Collider2D>();
-			cd->SetCenter(Vector2(-0.08f, 0.15f));
-
-			cd->SetSize(Vector2(0.04f, 0.04f));
-
-			MeshRenderer* mr = Mouse->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
-
-			mCursor = Mouse->AddComponent<CurSorScript>();
-
-			mCursor->SetHavisScript(mHavis);
-		}
-
-
 
 		{
 			GameObject* portal
@@ -558,6 +509,7 @@ namespace ya
 		tr->SetPosition(-0.8f, -1.3f, pos.z);
 
 		Camera::SetTarget(SceneManager::GetPlayer());
+		SceneManager::GetCursorScript()->SetHavisScript(mHavisScript);
 		Camera::SetHeneSisScene(nullptr);
 		Camera::SetEastGardenScene(nullptr);
 		Camera::SetRootaByssScene(this);

@@ -30,7 +30,9 @@ namespace ya
 		, devide(false)
 		, devidetime(0.f)
 		, portal(false)
-		, inventory(true)
+		, inventory(false)
+		, OnShop(false)
+		, Oninventory(false)
 		, inventorytime(0.0f)
 		, meso(100)
 	{
@@ -92,29 +94,43 @@ namespace ya
 		//	cd->SetSize(Vector2(0.22f, 0.38f));
 		//}
 
-		if (inventory)
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		if (inventory == false && OnShop == false)
 		{
 			if (Input::GetKeyDown(eKeyCode::I))
 			{
-				inventory = false;
+				inventory = true;
 				OnInventory();
+				Oninventory = true;
 			}
 		}
 
-		if (inventory == false)
+		if (inventory && OnShop)
+		{
+			inventorytime += Time::DeltaTime();
+
+			if (inventorytime >= 0.2f && Input::GetKeyDown(eKeyCode::I))
+			{
+				inventorytime = 0.0f;
+				inventory = false;
+				OnShop = false;
+				CloseInventory();
+			}
+		}
+
+		if (inventory == true && OnShop == false)
 		{
 			inventorytime += Time::DeltaTime();
 
 			if (inventorytime >=0.2f && Input::GetKeyDown(eKeyCode::I))
 			{
 				inventorytime = 0.0f;
-				inventory = true;
+				inventory = false;
 				CloseInventory();
 			}
 		}
-
-		Transform* tr = GetOwner()->GetComponent<Transform>();
-		Vector3 pos = tr->GetPosition();
 
 		if (mDevide != nullptr)
 		{
@@ -272,7 +288,7 @@ namespace ya
 				mInventory3->GetComponent<Transform>()->SetScale(Vector3(1.38f, 2.2f, 1.0001f));
 
 				mInventoryScript = mInventory3->AddComponent<InventoryScript>();
-
+				//SceneManager::SetInventoryScript(mInventoryScript);
 				SetInventoryScript(mInventoryScript);
 
 			}
@@ -567,8 +583,8 @@ namespace ya
 				RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
 
 				Vector2 velocity = mRigidBody->GetVelocity();
-				velocity.x -= 0.8f;
-				velocity.y += 2.0f;
+				velocity.x -= 1.0f;
+				velocity.y += 2.5f;
 				mRigidBody->SetVelocity(velocity);
 				mRigidBody->SetGround(false);
 
@@ -629,8 +645,8 @@ namespace ya
 				RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
 
 				Vector2 velocity = mRigidBody->GetVelocity();
-				velocity.x += 0.8f;
-				velocity.y += 2.0f;
+				velocity.x += 1.0f;
+				velocity.y += 2.5f;
 				mRigidBody->SetVelocity(velocity);
 				mRigidBody->SetGround(false);
 

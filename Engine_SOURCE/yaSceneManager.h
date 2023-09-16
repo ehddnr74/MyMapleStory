@@ -7,6 +7,8 @@ namespace ya
 	class HpScript;
 	class PlayerScript;
 	class ExpScript;
+	class CurSorScript;
+	class InventoryScript;
 	class SceneManager
 	{
 	public:
@@ -51,13 +53,22 @@ namespace ya
 		static void SetExpScript(ExpScript* expscript) { mExpScript = expscript; }
 		static ExpScript* GetExpScript() { return mExpScript; }
 
+		static void SetCursorScript(CurSorScript* cursorscript) { mCursorScript = cursorscript; }
+		static CurSorScript* GetCursorScript() { return mCursorScript; }
+
+		static void SetInventoryScript(InventoryScript* inventoryscript) { mInventoryScript = inventoryscript; }
+		static InventoryScript* GetInventoryScript() { return mInventoryScript; }
+
 	private:
 		static Scene* mActiveScene;
 		static std::map<std::wstring, Scene*> mScenes;
 		static GameObject* Player;
+
 		static class PlayerScript* mPlayerScript;
 		static class HpScript* mHpScript;
 		static class MpScript* mMpScript;
 		static class ExpScript* mExpScript;
+		static class CurSorScript* mCursorScript;
+		static class InventoryScript* mInventoryScript;
 	};
 }

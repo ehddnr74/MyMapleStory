@@ -112,7 +112,6 @@ namespace ya
 		//{
 		//	SceneManager::LoadScene(L"BanBanScene");
 		//}
-
 		if (other->GetOwner()->GetName() == L"Havis")
 		{
 			havis = true;
@@ -132,6 +131,7 @@ namespace ya
 		{
 			ShopBuy = true;
 		}
+
 	}
 
 	void CurSorScript::OnCollisionStay(Collider2D* other)
@@ -141,6 +141,25 @@ namespace ya
 
 	void CurSorScript::OnCollisionExit(Collider2D* other)
 	{
+		if (other->GetOwner()->GetName() == L"Havis")
+		{
+			havis = false;
+		}
+
+		if (other->GetOwner()->GetName() == L"RootaByssKey")
+		{
+			KeySelect = false;
+		}
+
+		if (other->GetOwner()->GetName() == L"ShopExit")
+		{
+			ShopExit = false;
+		}
+
+		if (other->GetOwner()->GetName() == L"ShopBuy")
+		{
+			ShopBuy = false;
+		}
 	}
 
 	void CurSorScript::none()
