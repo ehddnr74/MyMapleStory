@@ -30,15 +30,23 @@ namespace ya
 		void SetPlayerScript(class PlayerScript* playerscript) { mPlayerScript = playerscript; }
 		PlayerScript* GetPlayerScript() { return mPlayerScript; }
 
+		void SetCameraScript(class CameraScript* cs) { mCameraScript = cs; }
+		CameraScript* GetCameraScript() { return mCameraScript; }
+
 		void Buying();
 
 	private:
 		class PlayerScript* mPlayerScript;
+		class CameraScript* mCameraScript;
+		//Collider2D* cd;
 		Animator* at;
 		Transform* tr;
 		Vector3 pos;
+		Vector3 CameraPos;
+
 
 		GameObject* RootaByssKey;
+		
 
 		Vector3 mLeftTop;
 

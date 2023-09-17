@@ -33,7 +33,8 @@ namespace ya
 		void SetInventoryScript(class InventoryScript* is) { mInventoryScript = is; }
 		InventoryScript* GetInventoryScript() { return mInventoryScript; }
 
-
+		void SetShop(bool shop) { Shop = shop; }
+		bool GetShop() { return Shop; }
 
 		void SetIsBuy(bool ib) { isBuy = ib; }
 
@@ -99,7 +100,7 @@ namespace ya
 		GameObject* mSelectRootaByssMeso;
 
 
-
+		bool Shop;
 
 		bool LookingShop;
 		bool rootabysskeyselect;

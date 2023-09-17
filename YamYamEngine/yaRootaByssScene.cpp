@@ -22,6 +22,7 @@
 #include "yaHavisScript.h"
 #include "yaFontWrapper.h"
 #include "yaSavePlayer.h"
+#include "yaCurSorScript.h"
 
 namespace ya
 {
@@ -414,6 +415,7 @@ namespace ya
 			if (mCameraScript != nullptr)
 			{
 				mHavisScript->SetCameraScript(mCameraScript);
+				//mCameraScript->SetHavisScript(mHavisScript);
 			}
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
@@ -461,6 +463,21 @@ namespace ya
 	}
 	void RootaByssScene::Update()
 	{
+		if (SceneManager::GetCursorScript()->GetShopToInventory())
+		{
+			if (mCameraScript != nullptr && mHavisScript != nullptr)
+			{
+				mCameraScript->SetHavisScript(mHavisScript);
+			}
+		}
+		if (SceneManager::GetCursorScript()->GetShopToInventory() == false)
+		{
+			if (mCameraScript != nullptr && mHavisScript != nullptr)
+			{
+				mCameraScript->SetHavisScript(nullptr);
+			}
+		}
+
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(L"LoadScene");
@@ -505,6 +522,7 @@ namespace ya
 		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::NPC, true);
 		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::UI, true);
 		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Shop, true);
+		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Inventory, true);
 
 
 		mPlayer = SceneManager::GetPlayer();

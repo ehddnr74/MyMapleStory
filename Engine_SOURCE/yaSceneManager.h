@@ -41,6 +41,9 @@ namespace ya
 		static void SetPlayer(GameObject* player) { Player = player; }
 		static GameObject* GetPlayer() { return Player; }
 
+		static void SetInventory3(GameObject* it3) { Inventory3 = it3; }
+		static GameObject* GetInventory3() { return Inventory3; }
+
 		static void SetPlayerScript(PlayerScript* playerscript) { mPlayerScript = playerscript; }
 		static PlayerScript* GetPlayerScript() { return mPlayerScript; }
 
@@ -63,6 +66,7 @@ namespace ya
 		static Scene* mActiveScene;
 		static std::map<std::wstring, Scene*> mScenes;
 		static GameObject* Player;
+		static GameObject* Inventory3;
 
 		static class PlayerScript* mPlayerScript;
 		static class HpScript* mHpScript;
@@ -70,5 +74,6 @@ namespace ya
 		static class ExpScript* mExpScript;
 		static class CurSorScript* mCursorScript;
 		static class InventoryScript* mInventoryScript;
+
 	};
 }

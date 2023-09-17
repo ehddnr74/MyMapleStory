@@ -222,20 +222,19 @@ namespace ya
 	}
 	void PlayerScript::OnInventory()
 	{
+		if (mCameraScript != nullptr)
+		{
 			{
-				Transform* PlayerTr = GetOwner()->GetComponent<Transform>();
-				Vector3 PlayerPos = PlayerTr->GetPosition();
-
+				Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
+				Vector3 CameraPos = tr->GetPosition();
 				mInventory1
-					= object::Instantiate<GameObject>(Vector3(1.0f, 0.68f, 0.999f), eLayerType::UI);
+					= object::Instantiate<GameObject>(Vector3(CameraPos.x + 1.0f, CameraPos.y + 0.68f, 0.999f), eLayerType::Inventory);
 
 				SetInventory1(mInventory1);
+				mCameraScript->SetInventory1(mInventory1);
 
 				mInventory1->SetName(L"Inventory1");
-
-				//Collider2D* cd = Inventory->AddComponent<Collider2D>();
-				//cd->SetCenter(Vector2(0.0f, 0.0f));
-				//cd->SetSize(Vector2(0.22f, 0.38f));
+				
 
 				MeshRenderer* mr = mInventory1->AddComponent<MeshRenderer>();
 				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -245,13 +244,14 @@ namespace ya
 			}
 
 			{
-				Transform* PlayerTr = GetOwner()->GetComponent<Transform>();
-				Vector3 PlayerPos = PlayerTr->GetPosition();
+				Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
+				Vector3 CameraPos = tr->GetPosition();
 
 				mInventory2
-					= object::Instantiate<GameObject>(Vector3(1.0f, 0.38f, 0.998f), eLayerType::UI);
+					= object::Instantiate<GameObject>(Vector3(CameraPos.x + 2.0f, CameraPos.y + 0.38f, 0.998f), eLayerType::Inventory);
 
 				SetInventory2(mInventory2);
+				mCameraScript->SetInventory2(mInventory2);
 
 				mInventory2->SetName(L"mInventory2");
 
@@ -267,40 +267,49 @@ namespace ya
 			}
 
 			{
-				Transform* PlayerTr = GetOwner()->GetComponent<Transform>();
-				Vector3 PlayerPos = PlayerTr->GetPosition();
+				Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
+				Vector3 CameraPos = tr->GetPosition();
 
 				mInventory3
-					= object::Instantiate<GameObject>(Vector3(1.0f, 0.5f, 0.997f), eLayerType::UI);
+					= object::Instantiate<GameObject>(Vector3(CameraPos.x + 1.0f, CameraPos.y + 0.5f, 0.997f), eLayerType::Inventory);
+				mInventory3->GetComponent<Transform>()->SetScale(Vector3(1.38f, 2.2f, 1.0001f));
+
+				Collider2D* cd = mInventory3->AddComponent<Collider2D>();
+				cd->SetCenter(Vector2(0.0f, 1.3f));
+				cd->SetSize(Vector2(1.0f, 0.05f));
 
 				SetInventory3(mInventory3);
+				SceneManager::SetInventory3(mInventory3);
+				mCameraScript->SetInventory3(mInventory3);
 
 				mInventory3->SetName(L"mInventory3");
 
-				//Collider2D* cd = Inventory->AddComponent<Collider2D>();
-				//cd->SetCenter(Vector2(0.0f, 0.0f));
-				//cd->SetSize(Vector2(0.22f, 0.38f));
+				//cd->SetCenter(Vector2(CameraPos.x - 1.0f, 1.3f));
+				//cd->SetSize(Vector2(1.0f, 0.05f));
 
 				MeshRenderer* mr = mInventory3->AddComponent<MeshRenderer>();
 				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 				mr->SetMaterial(Resources::Find<Material>(L"inventory3"));
 
-				mInventory3->GetComponent<Transform>()->SetScale(Vector3(1.38f, 2.2f, 1.0001f));
-
 				mInventoryScript = mInventory3->AddComponent<InventoryScript>();
-				//SceneManager::SetInventoryScript(mInventoryScript);
+				mInventoryScript->SetCameraScript(mCameraScript);
+				SceneManager::SetInventoryScript(mInventoryScript);
 				SetInventoryScript(mInventoryScript);
+				//{
+					//object::Instantiate<GameObject>(Vector3)
+				//}
 
 			}
 
 			{
-				Transform* PlayerTr = GetOwner()->GetComponent<Transform>();
-				Vector3 PlayerPos = PlayerTr->GetPosition();
+				Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
+				Vector3 CameraPos = tr->GetPosition();
 
 				mInventoryEtc
-					= object::Instantiate<GameObject>(Vector3(0.88f, 1.67f, 0.996f), eLayerType::UI);
+					= object::Instantiate<GameObject>(Vector3(CameraPos.x + 0.88f, CameraPos.y + 1.67f, 0.996f), eLayerType::Inventory);
 
 				SetInventoryEtc(mInventoryEtc);
+				mCameraScript->SetInventoryEtc(mInventoryEtc);
 
 				mInventoryEtc->SetName(L"mInventoryEtc");
 
@@ -316,13 +325,14 @@ namespace ya
 			}
 
 			{
-				Transform* PlayerTr = GetOwner()->GetComponent<Transform>();
-				Vector3 PlayerPos = PlayerTr->GetPosition();
+				Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
+				Vector3 CameraPos = tr->GetPosition();
 
 				mInventoryMeso
-					= object::Instantiate<GameObject>(Vector3(0.475f, -0.37f, 0.996f), eLayerType::UI);
+					= object::Instantiate<GameObject>(Vector3(CameraPos.x + 0.475f, CameraPos.y - 0.37f, 0.996f), eLayerType::Inventory);
 
 				SetInventoryMeso(mInventoryMeso);
+				mCameraScript->SetInventoryMeso(mInventoryMeso);
 
 				mInventoryMeso->SetName(L"mInventoryMeso");
 
@@ -338,13 +348,14 @@ namespace ya
 			}
 
 			{
-				Transform* PlayerTr = GetOwner()->GetComponent<Transform>();
-				Vector3 PlayerPos = PlayerTr->GetPosition();
+				Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
+				Vector3 CameraPos = tr->GetPosition();
 
 				mInventoryMesoBar
-					= object::Instantiate<GameObject>(Vector3(1.2f, -0.38f, 0.996f), eLayerType::UI);
+					= object::Instantiate<GameObject>(Vector3(CameraPos.x + 1.2f, CameraPos.y - 0.38f, 0.996f), eLayerType::Inventory);
 
 				SetInventoryMesoBar(mInventoryMesoBar);
+				mCameraScript->SetInventoryMesoBar(mInventoryMesoBar);
 
 				mInventoryMesoBar->SetName(L"mInventoryMesoBar");
 
@@ -358,15 +369,25 @@ namespace ya
 
 				mInventoryMesoBar->GetComponent<Transform>()->SetScale(Vector3(1.1f, 0.15f, 1.0001f));
 			}
+		}
 	}
 	void PlayerScript::CloseInventory()
 	{
+		mCameraScript->SetInventory1(nullptr);
+		mCameraScript->SetInventory2(nullptr);
+		mCameraScript->SetInventory3(nullptr);
+		mCameraScript->SetInventoryEtc(nullptr);
+		mCameraScript->SetInventoryMeso(nullptr);
+		mCameraScript->SetInventoryMesoBar(nullptr);
 		object::Destroy(mInventory1);
 		object::Destroy(mInventory2);
-		object::Destroy(mInventory3);
+		Transform* tr = mInventory3->GetComponent<Transform>();
+		Vector3 Pos = tr->GetPosition();
+		tr->SetPosition(Pos.x, Pos.y, 1.1f);
 		object::Destroy(mInventoryEtc);
 		object::Destroy(mInventoryMeso);
 		object::Destroy(mInventoryMesoBar);
+		mInventoryScript->SetCameraScript(nullptr);
 	}
 	void PlayerScript::OnCollisionEnter(Collider2D* other)
 	{

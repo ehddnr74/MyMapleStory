@@ -22,9 +22,14 @@ namespace ya
 		void SetPlayerScript(class PlayerScript* mps) { mPlayerScript = mps; }
 		PlayerScript* GetPlayerScript() { return mPlayerScript; }
 
+		void SetCameraScript(class CameraScript* cs) { mCameraScript = cs; }
+		CameraScript* GetCameraScript() { return mCameraScript; }
+
 	private:
 		class PlayerScript* mPlayerScript;
+		class CameraScript* mCameraScript;
 		class Player* mPlayer;
+
 
 	};
 }

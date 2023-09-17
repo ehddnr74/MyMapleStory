@@ -21,6 +21,8 @@ namespace ya
 		, ShopExit(false)
 		, KeySelect(false)
 		, ShopBuy(false)
+		, InventoryClick(false)
+		, ShopToInventory(false)
 	{
 	}
 
@@ -62,6 +64,7 @@ namespace ya
 			{
 				havis = false;
 				GetHavisScript()->OnShop();
+				ShopToInventory = true;
 			}
 		}
 
@@ -131,12 +134,14 @@ namespace ya
 		{
 			ShopBuy = true;
 		}
-
 	}
 
 	void CurSorScript::OnCollisionStay(Collider2D* other)
 	{
-
+		if (other->GetOwner()->GetName() == L"mInventory3")
+		{
+			InventoryClick = true;
+		}
 	}
 
 	void CurSorScript::OnCollisionExit(Collider2D* other)

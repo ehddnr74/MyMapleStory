@@ -47,6 +47,9 @@ namespace ya
 		void SetInventoryScript(class InventoryScript* is) { mInventoryScript = is; }
 		InventoryScript* GetInventoryScript() { return mInventoryScript; }
 
+		void SetCameraScript(class CameraScript* cs) { mCameraScript = cs; }
+		CameraScript* GetCameraScript() { return mCameraScript; }
+
 
 		int GetDir() { return dir; }
 
@@ -114,6 +117,7 @@ namespace ya
 		class MpScript* mMpScript;
 		class ExpScript* mExpScript;
 		class InventoryScript* mInventoryScript;
+		class CameraScript* mCameraScript;
 
 	private:
 		bool inventory;

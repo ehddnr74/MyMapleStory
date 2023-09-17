@@ -264,7 +264,7 @@ namespace ya
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
 			cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
-			camera->AddComponent<CameraScript>();
+		    camera->AddComponent<CameraScript>();
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 
@@ -282,6 +282,7 @@ namespace ya
 			cameraComp->TurnLayerMask(eLayerType::Monster, false);
 			cameraComp->TurnLayerMask(eLayerType::Skill, false);
 			cameraComp->TurnLayerMask(eLayerType::Cursor, false);
+			cameraComp->TurnLayerMask(eLayerType::Inventory, false);
 			//camera->AddComponent<CameraScript>();
 		}
 		Scene::Initialize();

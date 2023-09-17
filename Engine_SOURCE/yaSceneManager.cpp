@@ -12,6 +12,7 @@ namespace ya
 	Scene* SceneManager::mActiveScene = nullptr;
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
 	GameObject* SceneManager::Player = nullptr;
+	GameObject* SceneManager::Inventory3 = nullptr;
 	PlayerScript* SceneManager::mPlayerScript = nullptr;
 	HpScript* SceneManager::mHpScript = nullptr;
 	MpScript* SceneManager::mMpScript = nullptr;

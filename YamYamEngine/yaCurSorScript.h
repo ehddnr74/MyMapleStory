@@ -30,6 +30,9 @@ namespace ya
 		void SetHavisScript(class HavisScript* havis) { mHavisScript = havis; }
 		HavisScript* GetHavisScript() { return mHavisScript; }
 
+		void SetShopToInventory(bool shoptoinventory) {ShopToInventory = shoptoinventory;}
+		bool GetShopToInventory() { return ShopToInventory; }
+
 		Vector3 GetMouseWorldPos() {return MouseWorldPos;}
 
 
@@ -47,12 +50,15 @@ namespace ya
 		GameObject* mCursor;
 		bool CursorChange;
 
+
 	private:
 		class PlayerScript* mPlayerScript;
 		class HavisScript* mHavisScript;
 
 	private:
+		bool InventoryClick;
 		bool havis;
+		bool ShopToInventory;
 		bool ShopExit;
 		bool KeySelect;
 		bool ShopBuy;

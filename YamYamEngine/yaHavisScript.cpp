@@ -14,6 +14,8 @@
 #include "yaFontWrapper.h"
 #include "yaCamera.h"
 #include "yaInventoryScript.h"
+#include "yaSceneManager.h"
+#include "yaCurSorScript.h"
 
 namespace ya
 {
@@ -21,6 +23,7 @@ namespace ya
 		: LookingShop(false)
 		, rootabysskeyselect(false)
 		, isBuy(false)
+		, Shop(false)
 	{
 	}
 	HavisScript::~HavisScript()
@@ -76,6 +79,11 @@ namespace ya
 	}
 	void HavisScript::OnShop() // 아이템창 켠 상태로 상점 클릭 시 전의 아이템창 Delete 해줘야함!!
 	{
+		Shop = true;
+		if (mCameraScript != nullptr)
+		{
+			mCameraScript->SetHavisScript(this);
+		}
 		Transform* tr = mCameraScript->GetOwner()->GetComponent<Transform>();
 		Vector3 CameraPos = tr->GetPosition();
 
@@ -336,6 +344,8 @@ namespace ya
 	}
 	void HavisScript::CloseShop()
 	{
+		Shop = false;
+		SceneManager::GetPlayerScript()->CloseInventory();
 		object::Destroy(mShop1);
 		object::Destroy(mShop2);
 		object::Destroy(mShop3);
@@ -350,13 +360,18 @@ namespace ya
 		object::Destroy(mRootaByssKey);
 		object::Destroy(mShopMeso1);
 
+		if (mCameraScript != nullptr)
+		{
+			mCameraScript->SetHavisScript(nullptr);
+		}
+
 		if (rootabysskeyselect)
 		{
 			object::Destroy(mRootaByssKeySelect);
 			object::Destroy(mSelectRootaByssKey);
 			object::Destroy(mSelectRootaByssMeso);
-
 		}
+		SceneManager::GetCursorScript()->SetShopToInventory(false);
 	}
 	void HavisScript::Buy()
 	{
@@ -373,10 +388,13 @@ namespace ya
 	}
 	void HavisScript::RootaByssKeySelect()
 	{
+		Transform* tr = mCameraScript->GetOwner()->GetComponent<Transform>();
+		Vector3 CameraPos = tr->GetPosition();
+
 		rootabysskeyselect = true;
 		{
 			mRootaByssKeySelect
-				= object::Instantiate<GameObject>(Vector3(-0.905f, 1.065f, 0.995f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 0.905f, CameraPos.y + 1.065f, 0.995f), eLayerType::Shop);
 
 			mRootaByssKeySelect->SetName(L"mRootaByssKeySelect");
 
@@ -395,7 +413,7 @@ namespace ya
 
 		{
 			mSelectRootaByssKey
-				= object::Instantiate<GameObject>(Vector3(-1.69f, 1.06f, 0.994f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 1.69f, CameraPos.y + 1.06f, 0.994f), eLayerType::Shop);
 
 			SetSelctRootaByssKey(mSelectRootaByssKey);
 
@@ -412,7 +430,7 @@ namespace ya
 
 		{
 			mSelectRootaByssMeso
-				= object::Instantiate<GameObject>(Vector3(-1.475f, 1.007f, 0.994f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 1.475f, CameraPos.y + 1.007f, 0.994f), eLayerType::Shop);
 
 			mSelectRootaByssMeso->SetName(L"mShopMeso1");
 
