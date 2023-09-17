@@ -27,8 +27,13 @@ namespace ya
 		void SetPlayerScript(class PlayerScript* mps) { mPScript = mps; }
 		PlayerScript* GetPlayerScript() { return mPScript; }
 
+		void SetCameraScript(class CameraScript* cs) { mCameraScript = cs; }
+		CameraScript* GetCameraScript() { return mCameraScript; }
+
 		void SetInventoryScript(class InventoryScript* is) { mInventoryScript = is; }
 		InventoryScript* GetInventoryScript() { return mInventoryScript; }
+
+
 
 		void SetIsBuy(bool ib) { isBuy = ib; }
 
@@ -67,6 +72,7 @@ namespace ya
 		Transform* tr;
 		Vector3 pos;
 		class PlayerScript* mPScript;
+		class CameraScript* mCameraScript;
 		class InventoryScript* mInventoryScript;
 
 	private:

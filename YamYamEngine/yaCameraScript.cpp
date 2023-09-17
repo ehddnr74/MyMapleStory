@@ -6,6 +6,7 @@
 #include "yaCollider2D.h"
 #include "yaPlayerScript.h"
 #include "yaCamera.h"
+#include "yaRootaByssScene.h"
 
 namespace ya
 {

@@ -17,6 +17,9 @@ namespace ya
 		void SetHavisScript(class HavisScript* hs) { mHavisScript = hs; }
 		HavisScript* GetHavisScript() { return mHavisScript; }
 
+		void SetCameraScript(class CameraScript* cs) { mCameraScript = cs; }
+		CameraScript* GetCameraScript() { return mCameraScript; }
+
 
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
@@ -24,6 +27,7 @@ namespace ya
 	private:
 		GameObject* mPlayer;
 		class HavisScript* mHavisScript;
+		class CameraScript* mCameraScript;
 
 	};
 }

@@ -76,6 +76,9 @@ namespace ya
 	}
 	void HavisScript::OnShop() // 아이템창 켠 상태로 상점 클릭 시 전의 아이템창 Delete 해줘야함!!
 	{
+		Transform* tr = mCameraScript->GetOwner()->GetComponent<Transform>();
+		Vector3 CameraPos = tr->GetPosition();
+
 		if (SceneManager::GetPlayerScript()->GetOnInventory())
 		{
 			SceneManager::GetPlayerScript()->SetOnInventory(false);
@@ -86,7 +89,7 @@ namespace ya
 		SceneManager::GetPlayerScript()->SetInventory(true);
 		{
 			mShop1
-				= object::Instantiate<GameObject>(Vector3(0.0f , 0.3f, 0.999f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x, CameraPos.y + 0.3f, 0.999f), eLayerType::Shop);
 
 			SetShop1(mShop1);
 
@@ -105,7 +108,7 @@ namespace ya
 
 		{
 			mShop2
-				= object::Instantiate<GameObject>(Vector3(0.0f,0.3f, 0.998f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x, CameraPos.y + 0.3f, 0.998f), eLayerType::Shop);
 
 			SetShop2(mShop2);
 
@@ -124,7 +127,7 @@ namespace ya
 
 		{
 			mShop3
-				= object::Instantiate<GameObject>(Vector3(0.0f, -0.08f, 0.997f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x, CameraPos.y - 0.08f, 0.997f), eLayerType::Shop);
 
 			mShop3->SetName(L"Shop3");
 
@@ -142,8 +145,8 @@ namespace ya
 		}
 
 		{
-			 mShopHavis
-				= object::Instantiate<GameObject>(Vector3(-1.42f, 1.7f, 0.996f), eLayerType::Shop);
+			mShopHavis
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 1.42f, CameraPos.y + 1.7f, 0.996f), eLayerType::Shop);
 
 			 mShopHavis->SetName(L"ShopHavis");
 
@@ -162,7 +165,7 @@ namespace ya
 
 		{
 			mShopPlayer
-				= object::Instantiate<GameObject>(Vector3(0.585f, 1.68f, 0.996f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x + 0.585f, CameraPos.y + 1.68f, 0.996f), eLayerType::Shop);
 
 			mShopPlayer->SetName(L"ShopPlayer");
 
@@ -181,7 +184,7 @@ namespace ya
 
 		{
 			mShopBuy
-				= object::Instantiate<GameObject>(Vector3(- 0.15f, 1.5f, 0.995f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 0.15f, CameraPos.y + 1.5f, 0.995f), eLayerType::Shop);
 
 			mShopBuy->SetName(L"ShopBuy");
 
@@ -200,7 +203,7 @@ namespace ya
 
 		{
 			mShopSell
-				= object::Instantiate<GameObject>(Vector3(1.57f, 1.5f, 0.996f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x + 1.57f, CameraPos.y + 1.5f, 0.996f), eLayerType::Shop);
 
 			mShopSell->SetName(L"ShopSell");
 
@@ -219,7 +222,7 @@ namespace ya
 
 		{
 			mShopExit
-				= object::Instantiate<GameObject>(Vector3(- 0.15f, 1.85f, 0.996f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 0.15f, CameraPos.y + 1.85f, 0.996f), eLayerType::Shop);
 
 			mShopExit->SetName(L"ShopExit");
 
@@ -238,7 +241,7 @@ namespace ya
 
 		{
 			mShopEtc
-				= object::Instantiate<GameObject>(Vector3(-1.3f, 1.292f, 0.996f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 1.3f, CameraPos.y + 1.292f, 0.996f), eLayerType::Shop);
 		
 			mShopEtc->SetName(L"ShopEtc");
 
@@ -257,7 +260,7 @@ namespace ya
 
 		{
 			mShopEtc2
-				= object::Instantiate<GameObject>(Vector3(0.745f, 1.292f, 0.996f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x + 0.745f, CameraPos.y + 1.292f, 0.996f), eLayerType::Shop);
 
 			mShopEtc2->SetName(L"ShopEtc2");
 
@@ -276,7 +279,7 @@ namespace ya
 
 		{
 			mShopMesoBox
-				= object::Instantiate<GameObject>(Vector3(1.4f, 1.64f, 0.996f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x + 1.4f, CameraPos.y + 1.64f, 0.996f), eLayerType::Shop);
 
 			mShopMesoBox->SetName(L"mShopMesoBox");
 
@@ -295,7 +298,7 @@ namespace ya
 
 		{
 			mRootaByssKey
-				= object::Instantiate<GameObject>(Vector3(- 1.69f, 1.06f, 0.996f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 1.69f, CameraPos.y + 1.06f, 0.996f), eLayerType::Shop);
 
 			mRootaByssKey->SetName(L"RootaByssKey");
 
@@ -314,7 +317,7 @@ namespace ya
 
 		{
 			mShopMeso1
-				= object::Instantiate<GameObject>(Vector3(- 1.475f,1.007f, 0.996f), eLayerType::Shop);
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 1.475f, CameraPos.y + 1.007f, 0.996f), eLayerType::Shop);
 
 			mShopMeso1->SetName(L"mShopMeso1");
 

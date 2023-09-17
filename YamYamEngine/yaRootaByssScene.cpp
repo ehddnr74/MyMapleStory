@@ -58,7 +58,7 @@ namespace ya
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
 			mHavisScript = Havis->AddComponent<HavisScript>();
-			SetHavisScript(mHavisScript);
+			SetHavisScript(mHavisScript);	
 		}
 
 		{
@@ -409,7 +409,12 @@ namespace ya
 			cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			cameraComp->TurnLayerMask(eLayerType::Item, false);
-			camera->AddComponent<CameraScript>();
+			CameraScript* mCameraScript = camera->AddComponent<CameraScript>();
+			SetCameraScript(mCameraScript);
+			if (mCameraScript != nullptr)
+			{
+				mHavisScript->SetCameraScript(mCameraScript);
+			}
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 		}
