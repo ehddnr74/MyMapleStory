@@ -29,11 +29,22 @@ namespace ya
 
 		void Complete();
 
-		void CreateDevide();
-		void CreateRightDevide();
+		void CreatePhantomBlow();
+		void CreateRightPhantomBlow();
+		void CreateBladeTornado();
+		void CreateRightBladeTornado();
+		//void CreateCaremaPury();
+		//void CreateRightCaremaPury();
+		//void CreatePhantomBlow();
+		//void CreateRightPhantomBlow();
+		//void CreatePhantomBlow();
+		//void CreateRightPhantomBlow();
 
-		void SetDevide(GameObject* dv) { mDevide = dv; }
-		void SetDevideScript(class SkillScript* mScript) { mSkillScript = mScript; }
+
+		void SetPhantomBlow(GameObject* pb) { mPhantomBlow = pb; }
+		void SetBladeTornado(GameObject* bt) { mBladeTornado = bt; }
+		/*void SetCaremaPury(GameObject* cp) { mCaremaPury = cp; }*/
+		void SetSkillScript(class SkillScript* mScript) { mSkillScript = mScript; }
 
 		void SetHpScript(class HpScript* hpscript) { mHpScript = hpscript; }
 		HpScript* GetHpScript() { return mHpScript; }
@@ -110,7 +121,11 @@ namespace ya
 		bool devide;
 		bool portal;
 
-		GameObject* mDevide;
+		GameObject* mPhantomBlow;
+		GameObject* mBladeTornado;
+		/*GameObject* mCaremaPury;*/
+		//GameObject* mBladePury;
+		//GameObject* mBladeStorm;
 		class SkillScript* mSkillScript;
 		class PortalScript* mPortalScript;
 		class HpScript* mHpScript;

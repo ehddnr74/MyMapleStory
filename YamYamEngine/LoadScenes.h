@@ -21,9 +21,9 @@ namespace ya
 {
 	void InitializeScenes()
 	{
-		//PlayScene* playScene = new PlayScene();
-		//SceneManager::CreateScene<BanBanScene>(L"BanBanScene");
-		//SceneManager::CreateScene<EastGardenScene>(L"EastGardenScene");
+		PlayScene* playScene = new PlayScene();
+		SceneManager::CreateScene<BanBanScene>(L"BanBanScene");
+		SceneManager::CreateScene<EastGardenScene>(L"EastGardenScene");
 		SceneManager::CreateScene<RootaByssScene>(L"RootaByssScene");
 		SceneManager::CreateScene<HenesisScene>(L"HenesisScene");
 		SceneManager::CreateScene<LogoScene>(L"LogoScene");

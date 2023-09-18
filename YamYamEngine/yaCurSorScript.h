@@ -35,6 +35,8 @@ namespace ya
 
 		Vector3 GetMouseWorldPos() {return MouseWorldPos;}
 
+		//bool GetInventoryClick() {return InventoryClick	;}
+
 
 	private:
 		void none();

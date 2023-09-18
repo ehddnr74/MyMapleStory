@@ -83,8 +83,6 @@ void ya::BanBanScene::Initialize()
 
 		BanBanBG->SetName(L"BanBanBG");
 
-		Camera::SetBanBanScene(this);
-
 		MeshRenderer* mr = BanBanBG->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"BanBan"));
@@ -161,7 +159,22 @@ void ya::BanBanScene::Render()
 
 void ya::BanBanScene::OnEnter()
 {
-	Camera::SetTarget(mPlayer);
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
+	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Portal, true);
+	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::NPC, true);
+	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::UI, true);
+	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Shop, true);
+	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Inventory, true);
+
+	mPlayer = SceneManager::GetPlayer();
+	Transform* tr = mPlayer->GetComponent<Transform>();
+	Vector3 pos = tr->GetPosition();
+
+	tr->SetPosition(-4.5f, -0.75f, pos.z);
+
+	Camera::SetTarget(SceneManager::GetPlayer());
 	Camera::SetHeneSisScene(nullptr);
 	Camera::SetRootaByssScene(nullptr);
 	Camera::SetEastGardenScene(nullptr);
@@ -171,5 +184,6 @@ void ya::BanBanScene::OnEnter()
 
 void ya::BanBanScene::OnExit()
 {
+	Camera::SetBanBanScene(nullptr);
 	Scene::OnExit();
 }

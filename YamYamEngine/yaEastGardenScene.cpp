@@ -431,6 +431,14 @@ void ya::EastGardenScene::Render()
 }
 void ya::EastGardenScene::OnEnter()
 {
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
+	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Portal, true);
+	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::NPC, true);
+	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::UI, true);
+	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Shop, true);
+	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Inventory, true);
 
 	mPlayer = SceneManager::GetPlayer();
 	Transform * tr = mPlayer->GetComponent<Transform>();
@@ -448,5 +456,6 @@ void ya::EastGardenScene::OnEnter()
 }
 void ya::EastGardenScene::OnExit()
 {
+	Camera::SetEastGardenScene(nullptr);
 	Scene::OnExit();
 }

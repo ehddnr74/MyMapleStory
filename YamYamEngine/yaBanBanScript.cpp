@@ -14,14 +14,14 @@
 #include "yaBallScript.h"
 
 
-std::mt19937_64 rng1(0);
-std::uniform_int_distribution<__int64> dist1(-1, 1);
+std::mt19937_64 rng2(0);
+std::uniform_real_distribution<float> dist2(-1, 1);
 
 namespace ya
 {
 	BanBanScript::BanBanScript()
 		: dir(0)
-		, randompos(dist1(rng1))
+		, randompos(dist2(rng2))
 		, zentime(0.0f)
 		, smack(true)
 		, smackingtime(0.0f)
@@ -94,7 +94,7 @@ namespace ya
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
-		Transform* Playertr = GetPlayerScript()->GetOwner()->GetComponent<Transform>();
+		Transform* Playertr = SceneManager::GetPlayerScript()->GetOwner()->GetComponent<Transform>();
 		Vector3 Playerpos = Playertr->GetPosition();
 
 		if (dir == 0 && smack == true)
@@ -318,7 +318,7 @@ namespace ya
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
-		Transform* Playertr = GetPlayerScript()->GetOwner()->GetComponent<Transform>();
+		Transform* Playertr = SceneManager::GetPlayerScript()->GetOwner()->GetComponent<Transform>();
 		Vector3 Playerpos = Playertr->GetPosition();
 
 		if (dir == 0)
@@ -486,8 +486,10 @@ namespace ya
 		if (btime >= 0.35f)
 		{
 			btime = 0.0f;
-			randompos = dist1(rng1);
+			randompos = dist2(rng2);
 
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
 			GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(pos.x + randompos, -0.8f, 0.999f));
 			mBanBanState = BanBanState::BlinkOut;
 			at->PlayAnimation(L"BlinkOut", false);

@@ -199,7 +199,7 @@ namespace ya
 			SetShopBuy(mShopBuy);
 
 			Collider2D* cd = mShopBuy->AddComponent<Collider2D>();
-			cd->SetCenter(Vector2(0.0f, 0.0f));
+			cd->SetCenter(Vector2(0.0f, 1.0f));
 			cd->SetSize(Vector2(1.0f, 0.7f));
 
 			MeshRenderer* mr = mShopBuy->AddComponent<MeshRenderer>();

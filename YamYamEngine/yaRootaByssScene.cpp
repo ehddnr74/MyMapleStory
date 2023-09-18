@@ -171,7 +171,6 @@ namespace ya
 			Collider2D* cd = Ground->AddComponent<Collider2D>();
 			cd->SetCenter(Vector2(0.0f, 0.0f));
 			cd->SetSize(Vector2(1.0f, 1.0f));
-
 		}
 
 		{
@@ -192,7 +191,7 @@ namespace ya
 
 		{
 			GameObject* Fire1
-				= object::Instantiate<GameObject>(Vector3(-3.82f, -0.3f, 0.999f), eLayerType::Player);
+				= object::Instantiate<GameObject>(Vector3(-3.82f, -0.3f, 1.0f), eLayerType::BG);
 
 			Fire1->SetName(L"Fire1");
 
@@ -213,7 +212,7 @@ namespace ya
 
 		{
 			GameObject* Fire1
-				= object::Instantiate<GameObject>(Vector3(-2.6f, -0.3f, 0.999f), eLayerType::Player);
+				= object::Instantiate<GameObject>(Vector3(-2.6f, -0.3f, 1.0f), eLayerType::BG);
 
 			Fire1->SetName(L"Fire1");
 
@@ -234,7 +233,7 @@ namespace ya
 
 		{
 			GameObject* Fire2
-				= object::Instantiate<GameObject>(Vector3(-1.47f, -0.5f, 0.999f), eLayerType::Player);
+				= object::Instantiate<GameObject>(Vector3(-1.47f, -0.5f, 1.0f), eLayerType::BG);
 
 			Fire2->SetName(L"Fire2");
 
@@ -255,7 +254,7 @@ namespace ya
 
 		{
 			GameObject* Fire2
-				= object::Instantiate<GameObject>(Vector3(-0.38f, -0.5f, 0.999f), eLayerType::Player);
+				= object::Instantiate<GameObject>(Vector3(-0.38f, -0.5f, 1.0f), eLayerType::BG);
 
 			Fire2->SetName(L"Fire2");
 
@@ -276,7 +275,7 @@ namespace ya
 
 		{
 			GameObject* Fire3
-				= object::Instantiate<GameObject>(Vector3(1.1f, -0.5f, 0.999f), eLayerType::Player);
+				= object::Instantiate<GameObject>(Vector3(1.1f, -0.5f, 1.0f), eLayerType::BG);
 
 			Fire3->SetName(L"Fire3");
 
@@ -297,7 +296,7 @@ namespace ya
 
 		{
 			GameObject* Fire3
-				= object::Instantiate<GameObject>(Vector3(2.2f, -0.5f, 0.999f), eLayerType::Player);
+				= object::Instantiate<GameObject>(Vector3(2.2f, -0.5f, 1.0f), eLayerType::BG);
 
 			Fire3->SetName(L"Fire3");
 
@@ -318,7 +317,7 @@ namespace ya
 
 		{
 			GameObject* Fire4
-				= object::Instantiate<GameObject>(Vector3(3.37f, -0.3f, 0.999f), eLayerType::Player);
+				= object::Instantiate<GameObject>(Vector3(3.37f, -0.3f, 1.0f), eLayerType::BG);
 
 			Fire4->SetName(L"Fire4");
 
@@ -382,7 +381,7 @@ namespace ya
 
 		{
 			GameObject* Fire4
-				= object::Instantiate<GameObject>(Vector3(4.58f, -0.3f, 0.999f), eLayerType::Player);
+				= object::Instantiate<GameObject>(Vector3(4.58f, -0.3f, 0.999f), eLayerType::BG);
 
 			Fire4->SetName(L"Fire4");
 
@@ -546,6 +545,7 @@ namespace ya
 	}
 	void RootaByssScene::OnExit()
 	{
+		Camera::SetRootaByssScene(nullptr);
 		Scene::OnExit();
 	}
 }

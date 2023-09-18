@@ -99,6 +99,6 @@ namespace ya
 		double blinktime;
 		double btime;
 
-		int randompos;
+		float randompos;
 	};
 }

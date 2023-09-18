@@ -12,6 +12,7 @@
 #include "yaGameObject.h"
 #include "yaTime.h"
 #include "yaHavisScript.h"
+#include "yaInventoryScript.h"
 
 namespace ya
 {
@@ -96,6 +97,31 @@ namespace ya
 			}
 		}
 
+		//if (InventoryClick == true)
+		//{
+		//	if (Input::GetKey(eKeyCode::LBUTTON))
+		//	{
+		//		Transform* tr = GetOwner()->GetComponent<Transform>();
+		//		Vector3 Pos = tr->GetPosition();
+
+		//		Transform* InvenTr = SceneManager::GetInventoryScript()->GetOwner()->GetComponent<Transform>();
+		//		Vector3 InvenPos = InvenTr->GetPosition();
+
+		//		InvenTr->SetPosition(
+		//			Vector3(Pos.x,
+		//				Pos.y,
+		//				InvenPos.z
+		//			));
+		//	}
+		//	if (Input::GetKeyUp(eKeyCode::LBUTTON))
+		//	{
+		//		InventoryClick = false;
+		//	}
+		//}
+
+
+		
+
 		switch (mCursorState)
 		{
 		case CursorState::None:
@@ -138,10 +164,10 @@ namespace ya
 
 	void CurSorScript::OnCollisionStay(Collider2D* other)
 	{
-		if (other->GetOwner()->GetName() == L"mInventory3")
-		{
-			InventoryClick = true;
-		}
+		//if (other->GetOwner()->GetName() == L"mInventoryClickCol")
+		//{
+		//	InventoryClick = true;
+		//}
 	}
 
 	void CurSorScript::OnCollisionExit(Collider2D* other)

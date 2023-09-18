@@ -37,10 +37,13 @@ namespace ya
 			CameraPos = tr->GetPosition();
 
 			//Transform* OwnerTr = GetOwner()->GetComponent<Transform>();
-			//Vector3 OwenrPos = OwnerTr->GetPosition();
+			//OwnerPos = OwnerTr->GetPosition();
+
+			//RealPos.x = OwnerPos.x - CameraPos.x - 1.0f;
+			//RealPos.y = OwnerPos.y - 0.5f;
 
 			//Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
-			//cd->SetCenter(Vector2(OwenrPos.x - CameraPos.x - 1.0f, 1.3f));
+			//cd->SetCenter(Vector2(RealPos.x, RealPos.y));
 			//cd->SetSize(Vector2(1.0f, 0.05f));
 		}
 

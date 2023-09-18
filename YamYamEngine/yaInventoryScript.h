@@ -49,6 +49,8 @@ namespace ya
 		
 
 		Vector3 mLeftTop;
+		//Vector3 OwnerPos;
+		//Vector2 RealPos;
 
 		std::vector<std::vector<Vector3>> mInventoryIndex;
 

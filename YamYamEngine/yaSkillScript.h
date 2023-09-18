@@ -14,8 +14,16 @@ namespace ya
 
 		enum class SkillState
 		{
-			Devide,
-			RightDevide,
+			PhantomBlow,
+			RightPhantomBlow,
+			BladePury,
+			RightBladePury,
+			BladeTornado,
+			RightBladeTornado,
+			CaremaPury,
+			RightCaremaPury,
+			BladeStorm,
+			RightBladeStorm,
 		};
 
 
@@ -23,7 +31,15 @@ namespace ya
 		virtual void Update() override;
 
 		void Complete();
-		void SetDir(bool right) { Right = right; }
+
+		void SetRightPhantomBlow(bool rpb) { Rightphantomblow = rpb; }
+		void SetLeftBladeTornado(bool lbt) { Leftbladetornado = lbt; }
+		void SetRightBladeTornado(bool rbt) { Rightbladetornado = rbt; }
+		//void SetLeftCaremaPury(bool lcp) { Leftcaremapury = lcp; }
+		//void SetRightCaremaPury(bool rcp) { Rightcaremapury = rcp; }
+
+
+
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
@@ -35,14 +51,35 @@ namespace ya
 		Transform* tr;
 		Vector3 pos;
 
-	private:
-		void devide();
-		void rightdevide();
-
-
+		Vector3 BladePos;
 
 	private:
-		double DevideTime;
-		bool Right;
+		void phantomblow();
+		void rightphantomblow();
+		void bladepury();
+		void rightbladepury();
+		void bladetornado();
+		void rightbladetornado();
+		void caremapury();
+		void rightcaremapury();
+		void bladestorm();
+		void rightbladestorm();
+
+
+
+
+	private:
+		double phantomblowTime;
+		bool Rightphantomblow;
+
+		bool Leftbladetornado;
+		bool Rightbladetornado;
+
+		double bladetornadotime1;
+		bool bladetornadotime2;
+
+		bool Leftcaremapury;
+		bool Rightcaremapury;
+
 	};
 }

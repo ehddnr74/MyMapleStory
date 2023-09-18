@@ -300,8 +300,6 @@ namespace ya
 				);
 				Transform* tr = GetOwner()->GetComponent<Transform>();
 				mPrevPos = tr->GetPosition();
-
-				int a = 0;
 			}
 
 			//if (TrPos.y >= -1.299f)

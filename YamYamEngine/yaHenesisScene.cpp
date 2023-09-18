@@ -321,11 +321,12 @@ namespace ya
 	}
 	void HenesisScene::OnEnter()
 	{
+		Camera::SetHeneSisScene(this);
 		Scene::OnEnter();
 	}
 	void HenesisScene::OnExit()
 	{
-
+		Camera::SetHeneSisScene(nullptr);
 		Scene::OnExit();
 
 	}

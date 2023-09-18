@@ -45,8 +45,8 @@ namespace ya
 		GetOwner()->AddComponent<Animator>();
 		Animator* at = GetOwner()->GetComponent<Animator>();
 
-		std::shared_ptr<Texture> LeftAnimation = Resources::Load<Texture>(L"LeftAnimation", L"..\\Resources\\Texture\\LeftAnimation.png");
-		std::shared_ptr<Texture> RightAnimation = Resources::Load<Texture>(L"RightAnimation", L"..\\Resources\\Texture\\RightAnimation.png");
+		std::shared_ptr<Texture> LeftAnimation = Resources::Load<Texture>(L"LeftAnimation", L"..\\Resources\\Texture\\LeftPlayerFsm.png");
+		std::shared_ptr<Texture> RightAnimation = Resources::Load<Texture>(L"RightAnimation", L"..\\Resources\\Texture\\RightPlayerFsm.png");
 		std::shared_ptr<Texture> Prone = Resources::Load<Texture>(L"Prone", L"..\\Resources\\Texture\\Prone.png");
 		std::shared_ptr<Texture> RightProne = Resources::Load<Texture>(L"RightProne", L"..\\Resources\\Texture\\RightProne.png");
 		std::shared_ptr<Texture> LeftJump = Resources::Load<Texture>(L"LeftJump", L"..\\Resources\\Texture\\LeftJump.png");
@@ -132,16 +132,28 @@ namespace ya
 			}
 		}
 
-		if (mDevide != nullptr)
+		if (mPhantomBlow != nullptr)
 		{
 			devidetime += Time::DeltaTime();
 
 			if (devidetime >= 0.75f)
 			{
 				devidetime = 0.0f;
-				object::Destroy(mDevide);
-				SetDevide(nullptr);
-				SetDevideScript(nullptr);
+				object::Destroy(mPhantomBlow);
+				SetPhantomBlow(nullptr);
+				SetSkillScript(nullptr);
+			}
+		}
+
+		if (mBladeTornado != nullptr)
+		{
+			devidetime += Time::DeltaTime();
+			if (devidetime >= 1.3f)
+			{
+				devidetime = 0.0f;
+				object::Destroy(mBladeTornado);
+				SetBladeTornado(nullptr);
+				SetSkillScript(nullptr);
 			}
 		}
 
@@ -173,53 +185,149 @@ namespace ya
 	{
 		int a = 0;
 	}
-	void PlayerScript::CreateDevide()
+	void PlayerScript::CreatePhantomBlow()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
-		GameObject* Devide
-			= object::Instantiate<GameObject>(Vector3(pos.x - 0.5f, pos.y + 0.2f, 0.9991f), eLayerType::Skill);
+		GameObject* mPhantomBlow
+			= object::Instantiate<GameObject>(Vector3(pos.x - 0.9f, pos.y + 0.15f, 0.998f), eLayerType::Skill);
 
-		SetDevide(Devide);
+		SetPhantomBlow(mPhantomBlow);
 
-		Devide->SetName(L"Devide");
+		mPhantomBlow->SetName(L"LeftPhantomBlow");
 
 
-		MeshRenderer* mr = Devide->AddComponent<MeshRenderer>();
+		MeshRenderer* mr = mPhantomBlow->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-		Devide->GetComponent<Transform>()->SetScale(Vector3(3.0f, 3.0f, 1.0005f));
+		mPhantomBlow->GetComponent<Transform>()->SetScale(Vector3(4.0f, 4.0f, 1.0005f));
 
-		Animator* at = Devide->AddComponent<Animator>();
-		Devide->AddComponent<SkillScript>();
+		Animator* at = mPhantomBlow->AddComponent<Animator>();
+		mPhantomBlow->AddComponent<SkillScript>();
 	}
-	void PlayerScript::CreateRightDevide()
+	void PlayerScript::CreateRightPhantomBlow()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
-		GameObject* Devide
-			= object::Instantiate<GameObject>(Vector3(pos.x + 0.5f, pos.y + 0.2f, 0.9991f), eLayerType::Skill);
+		GameObject* mPhantomBlow
+			= object::Instantiate<GameObject>(Vector3(pos.x + 0.9f, pos.y + 0.15f, 0.998f), eLayerType::Skill);
 
-		SetDevide(Devide);
+		SetPhantomBlow(mPhantomBlow);
 
-		Devide->SetName(L"Devide");
+		mPhantomBlow->SetName(L"RightPhantomBlow");
 
 
-		MeshRenderer* mr = Devide->AddComponent<MeshRenderer>();
+		MeshRenderer* mr = mPhantomBlow->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-		Devide->GetComponent<Transform>()->SetScale(Vector3(3.0f, 3.0f, 1.0005f));
+		mPhantomBlow->GetComponent<Transform>()->SetScale(Vector3(4.0f, 4.0f, 1.0005f));
 
-		Animator* at = Devide->AddComponent<Animator>();
-		Devide->AddComponent<SkillScript>();
+		Animator* at = mPhantomBlow->AddComponent<Animator>();
+		mPhantomBlow->AddComponent<SkillScript>();
 
-		SkillScript* ss = Devide->GetComponent<SkillScript>();
-		ss->SetDir(true);
+		SkillScript* ss = mPhantomBlow->GetComponent<SkillScript>();
+		ss->SetRightPhantomBlow(true);
 	}
+	void PlayerScript::CreateBladeTornado()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		GameObject* mBladeTornado
+			= object::Instantiate<GameObject>(Vector3(pos.x, pos.y + 1.45f, 0.998f), eLayerType::Skill);
+
+			SetBladeTornado(mBladeTornado);
+
+			mBladeTornado->SetName(L"LeftBladeTornado");
+
+
+		MeshRenderer* mr = mBladeTornado->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		mBladeTornado->GetComponent<Transform>()->SetScale(Vector3(4.2f, 4.5f, 1.0005f));
+
+		Animator* at = mBladeTornado->AddComponent<Animator>();
+		SkillScript* ss = mBladeTornado->AddComponent<SkillScript>();
+		ss->SetLeftBladeTornado(mBladeTornado);
+	}
+	void PlayerScript::CreateRightBladeTornado()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		GameObject* mBladeTornado
+			= object::Instantiate<GameObject>(Vector3(pos.x , pos.y + 1.45f, 0.998f), eLayerType::Skill);
+
+		SetBladeTornado(mBladeTornado);
+
+		mBladeTornado->SetName(L"RightBladeTornado");
+
+
+		MeshRenderer* mr = mBladeTornado->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		mBladeTornado->GetComponent<Transform>()->SetScale(Vector3(4.2f, 4.5f, 1.0005f));
+
+		Animator* at = mBladeTornado->AddComponent<Animator>();
+		mBladeTornado->AddComponent<SkillScript>();
+
+		SkillScript* ss = mBladeTornado->GetComponent<SkillScript>();
+		ss->SetRightBladeTornado(true);
+	}
+	//void PlayerScript::CreateCaremaPury()
+	//{
+	//	Transform* tr = GetOwner()->GetComponent<Transform>();
+	//	Vector3 pos = tr->GetPosition();
+
+	//	GameObject* mCaremaPury
+	//		= object::Instantiate<GameObject>(Vector3(pos.x, pos.y + 1.45f, 0.998f), eLayerType::Skill);
+
+	//	SetCaremaPury(mCaremaPury);
+
+	//	mCaremaPury->SetName(L"LeftCaremaPury");
+
+
+	//	MeshRenderer* mr = mCaremaPury->AddComponent<MeshRenderer>();
+	//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+	//	mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+	//	mCaremaPury->GetComponent<Transform>()->SetScale(Vector3(4.2f, 4.5f, 1.0005f));
+
+	//	Animator* at = mCaremaPury->AddComponent<Animator>();
+	//	SkillScript* ss = mCaremaPury->AddComponent<SkillScript>();
+	//	ss->SetLeftCaremaPury(mCaremaPury);
+	//}
+	//void PlayerScript::CreateRightCaremaPury()
+	//{
+	//	Transform* tr = GetOwner()->GetComponent<Transform>();
+	//	Vector3 pos = tr->GetPosition();
+
+	//	GameObject* mCaremaPury
+	//		= object::Instantiate<GameObject>(Vector3(pos.x, pos.y + 1.45f, 0.998f), eLayerType::Skill);
+
+	//	SetCaremaPury(mCaremaPury);
+
+	//	mCaremaPury->SetName(L"RightCaremaPury");
+
+
+	//	MeshRenderer* mr = mCaremaPury->AddComponent<MeshRenderer>();
+	//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+	//	mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+	//	mCaremaPury->GetComponent<Transform>()->SetScale(Vector3(4.2f, 4.5f, 1.0005f));
+
+	//	Animator* at = mCaremaPury->AddComponent<Animator>();
+	//	mCaremaPury->AddComponent<SkillScript>();
+
+	//	SkillScript* ss = mCaremaPury->GetComponent<SkillScript>();
+	//	ss->SetRightCaremaPury(true);
+	//}
 	void PlayerScript::OnInventory()
 	{
 		if (mCameraScript != nullptr)
@@ -233,7 +341,7 @@ namespace ya
 				SetInventory1(mInventory1);
 				mCameraScript->SetInventory1(mInventory1);
 
-				mInventory1->SetName(L"Inventory1");
+				mInventory1->SetName(L"mInventory1");
 				
 
 				MeshRenderer* mr = mInventory1->AddComponent<MeshRenderer>();
@@ -242,6 +350,21 @@ namespace ya
 
 				mInventory1->GetComponent<Transform>()->SetScale(Vector3(1.5f, 2.4f, 1.0001f));
 			}
+
+			//{
+			//	Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
+			//	Vector3 CameraPos = tr->GetPosition();
+
+			//	GameObject* mInventoryClickCol
+			//		= object::Instantiate<GameObject>(Vector3(CameraPos.x + 1.0f, CameraPos.y + 1.8f, 0.995f), eLayerType::Inventory);
+			//	mInventoryClickCol->GetComponent<Transform>()->SetScale(Vector3(1.5f, 0.15f, 1.0001f));
+
+			//	mInventoryClickCol->SetName(L"mInventoryClickCol");
+
+			//	Collider2D* cd = mInventoryClickCol->AddComponent<Collider2D>();
+			//	cd->SetCenter(Vector2(0.0f, 0.0f));
+			//	cd->SetSize(Vector2(1.0f, 1.0f));
+			//}
 
 			{
 				Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
@@ -274,9 +397,9 @@ namespace ya
 					= object::Instantiate<GameObject>(Vector3(CameraPos.x + 1.0f, CameraPos.y + 0.5f, 0.997f), eLayerType::Inventory);
 				mInventory3->GetComponent<Transform>()->SetScale(Vector3(1.38f, 2.2f, 1.0001f));
 
-				Collider2D* cd = mInventory3->AddComponent<Collider2D>();
-				cd->SetCenter(Vector2(0.0f, 1.3f));
-				cd->SetSize(Vector2(1.0f, 0.05f));
+				//Collider2D* cd = mInventory3->AddComponent<Collider2D>();
+				//cd->SetCenter(Vector2(0.0f, 1.3f));
+				//cd->SetSize(Vector2(1.0f, 0.05f));
 
 				SetInventory3(mInventory3);
 				SceneManager::SetInventory3(mInventory3);
@@ -470,9 +593,9 @@ namespace ya
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"LeftAttack", false);
 
-				if (mDevide == nullptr)
+				if (mBladeTornado == nullptr)
 				{
-					CreateDevide();
+					CreateBladeTornado();
 					SceneManager::GetMpScript()->OnDamage(40);
 				}
 			}
@@ -523,9 +646,9 @@ namespace ya
 				at->PlayAnimation(L"RightAttack", false);
 
 
-				if (mDevide == nullptr)
+				if (mPhantomBlow == nullptr)
 				{
-					CreateRightDevide();
+					CreateRightBladeTornado();
 					SceneManager::GetMpScript()->OnDamage(40);
 					SceneManager::GetExpScript()->OnDamage(32);
 				}
@@ -593,9 +716,9 @@ namespace ya
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"LeftAttack", false);
 
-				if (mDevide == nullptr)
+				if (mPhantomBlow == nullptr)
 				{
-					CreateDevide();
+					CreatePhantomBlow();
 					SceneManager::GetMpScript()->OnDamage(40);
 				}
 			}
@@ -655,9 +778,9 @@ namespace ya
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"RightAttack", false);
 
-				if (mDevide == nullptr)
+				if (mPhantomBlow == nullptr)
 				{
-					CreateRightDevide();
+					CreateRightPhantomBlow();
 					SceneManager::GetMpScript()->OnDamage(40);
 				}
 			}

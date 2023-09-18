@@ -14,8 +14,14 @@
 namespace ya
 {
 	ya::SkillScript::SkillScript()
-		: DevideTime(0.f)
-		, Right(false)
+		: phantomblowTime(0.0f)
+		, Rightphantomblow(false)
+		, Leftbladetornado(false)
+		, Rightbladetornado(false)
+		, bladetornadotime1(0.0f)
+		, bladetornadotime2(false)
+		, Leftcaremapury(false)
+	    , Rightcaremapury(false)
 	{
 	}
 	SkillScript::~SkillScript()
@@ -26,18 +32,20 @@ namespace ya
 		GetOwner()->AddComponent<Animator>();
 		Animator* at = GetOwner()->GetComponent<Animator>();
 
-		std::shared_ptr<Texture> LeftDevide = Resources::Load<Texture>(L"LeftDevide", L"..\\Resources\\Texture\\LeftDevide.png");
+		std::shared_ptr<Texture> LeftPhantomBlow = Resources::Load<Texture>(L"LeftPhantomBlow", L"..\\Resources\\Texture\\LeftPhantomBlow.png");
+		std::shared_ptr<Texture> RightPhantomBlow = Resources::Load<Texture>(L"RightPhantomBlow", L"..\\Resources\\Texture\\RightPhantomBlow.png");
+		std::shared_ptr<Texture> LeftBladeTornado = Resources::Load<Texture>(L"LeftBladeTornado", L"..\\Resources\\Texture\\LeftBladeTornado.png");
+		std::shared_ptr<Texture> RightBladeTornado = Resources::Load<Texture>(L"RightBladeTornado", L"..\\Resources\\Texture\\RightBladeTornado.png");
 
-		std::shared_ptr<Texture> RightDevide = Resources::Load<Texture>(L"RightDevide", L"..\\Resources\\Texture\\RightDevide.png");
+		at->Create(L"LeftPhantomBlow", LeftPhantomBlow, Vector2(0.0f, 0.0f), Vector2(616.0f, 300.0f), 10, Vector2::Zero, 0.08f);
+		at->Create(L"RightPhantomBlow", RightPhantomBlow, Vector2(0.0f, 0.0f), Vector2(616.0f, 300.0f), 10, Vector2::Zero, 0.08f);
+		at->Create(L"LeftBladeTornado", LeftBladeTornado, Vector2(0.0f, 0.0f), Vector2(592.0f, 616.0f), 21, Vector2::Zero, 0.06f);
+		at->Create(L"RightBladeTornado", RightBladeTornado, Vector2(0.0f, 0.0f), Vector2(592.0f, 616.0f), 21, Vector2::Zero, 0.06f);
 
 
-		at->Create(L"LeftDevide", LeftDevide, Vector2(0.0f, 0.0f), Vector2(695.0f, 501.0f), 10, Vector2::Zero, 0.08f);
-		at->Create(L"RightDevide", RightDevide, Vector2(0.0f, 0.0f), Vector2(695.0f, 501.0f), 10, Vector2::Zero, 0.08f);
+		at->PlayAnimation(L"LeftPhantomBlow", false);
 
-
-		at->PlayAnimation(L"LeftDevide", false);
-
-		mSkillState = SkillState::Devide;
+		mSkillState = SkillState::PhantomBlow;
 	}
 	void SkillScript::Update()
 	{
@@ -46,24 +54,70 @@ namespace ya
 
 		switch (mSkillState)
 		{
-		case SkillScript::SkillState::Devide:
-			devide();
+		case SkillScript::SkillState::PhantomBlow:
+			phantomblow();
 			break;
-		case SkillScript::SkillState::RightDevide:
-			rightdevide();
+		case SkillScript::SkillState::RightPhantomBlow:
+			rightphantomblow();
+			break;
+		case SkillScript::SkillState::BladePury:
+			bladepury();
+			break;
+		case SkillScript::SkillState::RightBladePury:
+			rightbladepury();
+			break;
+		case SkillScript::SkillState::BladeTornado:
+			bladetornado();
+			break;
+		case SkillScript::SkillState::RightBladeTornado:
+			rightbladetornado();
+			break;
+		case SkillScript::SkillState::CaremaPury:
+			caremapury();
+			break;
+		case SkillScript::SkillState::RightCaremaPury:
+			rightcaremapury();
+			break;
+		case SkillScript::SkillState::BladeStorm:
+			bladestorm();
+			break;
+		case SkillScript::SkillState::RightBladeStorm:
+			rightbladestorm();
 			break;
 		default:
 			break;
 		}
-		if (Right == true)
+		if (Rightphantomblow == true)
 		{
 			GetOwner()->AddComponent<Animator>();
 			Animator* at = GetOwner()->GetComponent<Animator>();
 
-			Right = false;
-			mSkillState = SkillState::RightDevide;
-			at->PlayAnimation(L"RightDevide", false);
+			Rightphantomblow = false;
+			mSkillState = SkillState::RightPhantomBlow;
+			at->PlayAnimation(L"RightPhantomBlow", false);
 		}
+
+		if (Leftbladetornado == true)
+		{
+			GetOwner()->AddComponent<Animator>();
+			Animator* at = GetOwner()->GetComponent<Animator>();
+
+			Leftbladetornado = false;
+			mSkillState = SkillState::BladeTornado;
+			at->PlayAnimation(L"LeftBladeTornado", false);
+		}
+
+		if (Rightbladetornado == true)
+		{
+			GetOwner()->AddComponent<Animator>();
+			Animator* at = GetOwner()->GetComponent<Animator>();
+
+			Rightbladetornado = false;
+			mSkillState = SkillState::RightBladeTornado;
+			at->PlayAnimation(L"RightBladeTornado", false);
+		}
+
+
 	}
 	void SkillScript::Complete()
 	{
@@ -77,12 +131,97 @@ namespace ya
 	void SkillScript::OnCollisionExit(Collider2D* other)
 	{
 	}
-	void SkillScript::devide()
+	void SkillScript::phantomblow()
 	{
 		GetOwner()->AddComponent<Animator>();
 		Animator* at = GetOwner()->GetComponent<Animator>();
 	}
-	void SkillScript::rightdevide()
+	void SkillScript::rightphantomblow()
+	{
+		GetOwner()->AddComponent<Animator>();
+		Animator* at = GetOwner()->GetComponent<Animator>();
+	}
+	void SkillScript::bladepury()
+	{
+		GetOwner()->AddComponent<Animator>();
+		Animator* at = GetOwner()->GetComponent<Animator>();
+	}
+	void SkillScript::rightbladepury()
+	{
+		GetOwner()->AddComponent<Animator>();
+		Animator* at = GetOwner()->GetComponent<Animator>();
+	}
+	void SkillScript::bladetornado()
+	{
+		GetOwner()->AddComponent<Animator>();
+		Animator* at = GetOwner()->GetComponent<Animator>();
+
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		BladePos = tr->GetPosition();
+
+		if (bladetornadotime2)
+		{
+			BladePos.x -= 3.5f * Time::DeltaTime();
+		}
+
+		tr->SetPosition(BladePos);
+
+
+		if (bladetornadotime1 <= 0.6f && bladetornadotime2 == false)
+		{
+			bladetornadotime1 += Time::DeltaTime();
+		}
+
+		if (bladetornadotime1 >= 0.6f && bladetornadotime2 == false)
+		{
+			bladetornadotime1 = 0.0f;
+			bladetornadotime2 = true;
+		}
+
+	}
+	void SkillScript::rightbladetornado()
+	{
+		GetOwner()->AddComponent<Animator>();
+		Animator* at = GetOwner()->GetComponent<Animator>();
+
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		BladePos = tr->GetPosition();
+
+		if (bladetornadotime2)
+		{
+			BladePos.x += 3.5f * Time::DeltaTime();
+		}
+
+		tr->SetPosition(BladePos);
+
+
+		if (bladetornadotime1 <= 0.6f && bladetornadotime2 == false)
+		{
+			bladetornadotime1 += Time::DeltaTime();
+		}
+
+		if (bladetornadotime1 >= 0.6f && bladetornadotime2 == false)
+		{
+			bladetornadotime1 = 0.0f;
+			bladetornadotime2 = true;
+		}
+	}
+	void SkillScript::caremapury()
+	{
+		GetOwner()->AddComponent<Animator>();
+		Animator* at = GetOwner()->GetComponent<Animator>();
+	}
+	void SkillScript::rightcaremapury()
+	{
+		GetOwner()->AddComponent<Animator>();
+		Animator* at = GetOwner()->GetComponent<Animator>();
+	}
+	void SkillScript::bladestorm()
+	{
+		GetOwner()->AddComponent<Animator>();
+		Animator* at = GetOwner()->GetComponent<Animator>();
+	}
+	void SkillScript::rightbladestorm()
 	{
 		GetOwner()->AddComponent<Animator>();
 		Animator* at = GetOwner()->GetComponent<Animator>();
