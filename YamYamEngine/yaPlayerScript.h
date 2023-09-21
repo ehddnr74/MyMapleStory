@@ -20,31 +20,45 @@ namespace ya
 			ProneStab,
 			Attack,
 			Jump,
+			DoubleJump,
 			Alert,
 		};
 
 
 		virtual void Initialize() override;
 		virtual void Update() override;
-
-		void Complete();
-
+;
+		void CreateLeftDoubleJump();
+		void CreateRightDoubleJump();
 		void CreatePhantomBlow();
 		void CreateRightPhantomBlow();
 		void CreateBladeTornado();
 		void CreateRightBladeTornado();
-		//void CreateCaremaPury();
-		//void CreateRightCaremaPury();
-		//void CreatePhantomBlow();
-		//void CreateRightPhantomBlow();
+		void CreateBladePury();
+		void CreateRightBladePury();
+		void CreateCaremaPury();
+		void CreateRightCaremaPury();
+
+
+		void CreateDamage(GameObject* Monster, Vector3 Pos);
+
 		//void CreatePhantomBlow();
 		//void CreateRightPhantomBlow();
 
 
 		void SetPhantomBlow(GameObject* pb) { mPhantomBlow = pb; }
 		void SetBladeTornado(GameObject* bt) { mBladeTornado = bt; }
-		/*void SetCaremaPury(GameObject* cp) { mCaremaPury = cp; }*/
-		void SetSkillScript(class SkillScript* mScript) { mSkillScript = mScript; }
+		void SetBladePury(GameObject* bp) { mBladePury = bp; }
+		void SetCaremaPury(GameObject* cp) { mCaremaPury = cp; }
+		void SetDoubleJump(GameObject* dj) { mDoubleJump = dj; }
+
+		
+		void SetBladePuryScript(class BladePuryScript* bps) { mBladePuryScript = bps; }
+		void SetPhantomBlowScript(class PhantomBlowScript* pbs) { mPhantomBlowScript = pbs; }
+		void SetCaremaPuryScript(class CaremaPuryScript* cps) { mCaremaPuryScript = cps; }
+		void SetBladeTornadoScript(class BladeTornadoScript* bts) { mBladeTornadoScript = bts; }
+		void SetDoubleJumpScript(class DoubleJumpScript* djs) { mDoubleJumpScript = djs; }
+		void SetDamageScript(class DamageScript*dms) { mDamageScript = dms; }
 
 		void SetHpScript(class HpScript* hpscript) { mHpScript = hpscript; }
 		HpScript* GetHpScript() { return mHpScript; }
@@ -62,6 +76,8 @@ namespace ya
 		CameraScript* GetCameraScript() { return mCameraScript; }
 
 
+
+
 		int GetDir() { return dir; }
 
 		bool GetPortal() { return portal; }
@@ -70,7 +86,6 @@ namespace ya
 
 		void OnInventory();
 		void CloseInventory();
-
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
@@ -89,6 +104,9 @@ namespace ya
 		void SetInventoryMeso(GameObject* inventorymeso) { mInventoryMeso = inventorymeso; }
 		void SetInventoryMesoBar(GameObject* inventorymesobar) { mInventoryMesoBar = inventorymesobar; }
 
+		//void SetDmg(int DMG) { dmg = DMG; }
+		//int GetDmg() { return dmg; }
+
 	
 
 	private:
@@ -106,6 +124,7 @@ namespace ya
 		void pronestab();
 		void attack();
 		void jump();
+		void doublejump();
 		void alert();
 
 
@@ -114,25 +133,40 @@ namespace ya
 		double attacktime;
 		double jumptime;
 		double alerttime;
-		double devidetime;
+		double pbtime;
+		double bptime;
+		double bttime;
+		double cptime;
+		double djtime;
+		double dmgtime;
 
 		bool hit;
 		bool jum;
+		bool isjump;
+		bool jumpdouble;
 		bool devide;
 		bool portal;
 
+		GameObject* mDoubleJump;
 		GameObject* mPhantomBlow;
 		GameObject* mBladeTornado;
-		/*GameObject* mCaremaPury;*/
-		//GameObject* mBladePury;
+		GameObject* mBladePury;
+		GameObject* mCaremaPury;
+
 		//GameObject* mBladeStorm;
-		class SkillScript* mSkillScript;
+		class BladePuryScript* mBladePuryScript;
+		class PhantomBlowScript* mPhantomBlowScript;
+		class CaremaPuryScript* mCaremaPuryScript;
+		class BladeTornadoScript* mBladeTornadoScript;
+		class DoubleJumpScript* mDoubleJumpScript;
+		class DamageScript* mDamageScript;
 		class PortalScript* mPortalScript;
 		class HpScript* mHpScript;
 		class MpScript* mMpScript;
 		class ExpScript* mExpScript;
 		class InventoryScript* mInventoryScript;
 		class CameraScript* mCameraScript;
+		
 
 	private:
 		bool inventory;

@@ -79,6 +79,26 @@
     <ClCompile Include="yaPlayer.cpp">
       <Filter>Contents\Player</Filter>
     </ClCompile>
+    <ClCompile Include="yaBladePuryScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBladeTornadoScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCaremaPuryScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPhantomBlowScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDamageScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDoubleJumpScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBasic0Script.cpp" />
+    <ClCompile Include="yaBasic1Script.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -160,6 +180,26 @@
     <ClInclude Include="yaPlayer.h">
       <Filter>Contents\Player</Filter>
     </ClInclude>
+    <ClInclude Include="yaPhantomBlowScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBladePuryScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBladeTornadoScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCaremaPuryScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaDoubleJumpScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaDamageScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBasic0Script.h" />
+    <ClInclude Include="yaBasic1Script.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -188,6 +228,15 @@
     </Filter>
     <Filter Include="Contents\Player">
       <UniqueIdentifier>{69383024-38cc-44d8-94bd-ff144529d164}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\DamageResource">
+      <UniqueIdentifier>{1559855f-8007-4d66-8335-3f2e07174b7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\DamageResource\Basic">
+      <UniqueIdentifier>{925c557e-bb1d-4c1e-a0ae-aa3971493311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\DamageResource\Critical">
+      <UniqueIdentifier>{161b93a7-401e-4f1f-a591-4a1ca9ddfa21}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

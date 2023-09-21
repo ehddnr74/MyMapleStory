@@ -157,8 +157,15 @@
     <ClInclude Include="yaBallScript.h" />
     <ClInclude Include="yaBanBanScene.h" />
     <ClInclude Include="yaBanBanScript.h" />
+    <ClInclude Include="yaBasic0Script.h" />
+    <ClInclude Include="yaBasic1Script.h" />
+    <ClInclude Include="yaBladePuryScript.h" />
+    <ClInclude Include="yaBladeTornadoScript.h" />
     <ClInclude Include="yaCameraScript.h" />
+    <ClInclude Include="yaCaremaPuryScript.h" />
     <ClInclude Include="yaCurSorScript.h" />
+    <ClInclude Include="yaDamageScript.h" />
+    <ClInclude Include="yaDoubleJumpScript.h" />
     <ClInclude Include="yaEastGardenScene.h" />
     <ClInclude Include="yaExpScript.h" />
     <ClInclude Include="yaFireImpScript.h" />
@@ -171,6 +178,7 @@
     <ClInclude Include="yaLogoScript.h" />
     <ClInclude Include="yaMpScript.h" />
     <ClInclude Include="yaMushroomScript.h" />
+    <ClInclude Include="yaPhantomBlowScript.h" />
     <ClInclude Include="yaPlayer.h" />
     <ClInclude Include="yaPlayerScript.h" />
     <ClInclude Include="yaPlayScene.h" />
@@ -184,8 +192,15 @@
     <ClCompile Include="yaBallScript.cpp" />
     <ClCompile Include="yaBanBanScene.cpp" />
     <ClCompile Include="yaBanBanScript.cpp" />
+    <ClCompile Include="yaBasic0Script.cpp" />
+    <ClCompile Include="yaBasic1Script.cpp" />
+    <ClCompile Include="yaBladePuryScript.cpp" />
+    <ClCompile Include="yaBladeTornadoScript.cpp" />
     <ClCompile Include="yaCameraScript.cpp" />
+    <ClCompile Include="yaCaremaPuryScript.cpp" />
     <ClCompile Include="yaCurSorScript.cpp" />
+    <ClCompile Include="yaDamageScript.cpp" />
+    <ClCompile Include="yaDoubleJumpScript.cpp" />
     <ClCompile Include="yaEastGardenScene.cpp" />
     <ClCompile Include="yaExpScript.cpp" />
     <ClCompile Include="yaFireImpScript.cpp" />
@@ -199,6 +214,7 @@
     <ClCompile Include="yaMpScript.cpp" />
     <ClCompile Include="yaMushroomScript.cpp" />
     <ClCompile Include="YamYamEngine.cpp" />
+    <ClCompile Include="yaPhantomBlowScript.cpp" />
     <ClCompile Include="yaPlayer.cpp" />
     <ClCompile Include="yaPlayerScript.cpp" />
     <ClCompile Include="yaPlayScene.cpp" />

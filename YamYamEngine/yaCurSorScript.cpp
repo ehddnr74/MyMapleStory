@@ -160,6 +160,11 @@ namespace ya
 		{
 			ShopBuy = true;
 		}
+
+		if (other->GetOwner()->GetName() == L"Slot")
+		{
+			int a = 0;
+		}
 	}
 
 	void CurSorScript::OnCollisionStay(Collider2D* other)

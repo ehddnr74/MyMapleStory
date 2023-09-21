@@ -22,6 +22,8 @@ namespace ya
 		, bladetornadotime2(false)
 		, Leftcaremapury(false)
 	    , Rightcaremapury(false)
+		, Leftbladepury(false)
+	    , Rightbladepury(false)
 	{
 	}
 	SkillScript::~SkillScript()
@@ -36,11 +38,17 @@ namespace ya
 		std::shared_ptr<Texture> RightPhantomBlow = Resources::Load<Texture>(L"RightPhantomBlow", L"..\\Resources\\Texture\\RightPhantomBlow.png");
 		std::shared_ptr<Texture> LeftBladeTornado = Resources::Load<Texture>(L"LeftBladeTornado", L"..\\Resources\\Texture\\LeftBladeTornado.png");
 		std::shared_ptr<Texture> RightBladeTornado = Resources::Load<Texture>(L"RightBladeTornado", L"..\\Resources\\Texture\\RightBladeTornado.png");
+		std::shared_ptr<Texture> LeftBladePury = Resources::Load<Texture>(L"LeftBladePury", L"..\\Resources\\Texture\\LeftBladePury.png");
+		std::shared_ptr<Texture> RightBladePury = Resources::Load<Texture>(L"RightBladePury", L"..\\Resources\\Texture\\RightBladePury.png");
+		std::shared_ptr<Texture> KarmaPury = Resources::Load<Texture>(L"KarmaPury", L"..\\Resources\\Texture\\KarmaPury.png");
 
 		at->Create(L"LeftPhantomBlow", LeftPhantomBlow, Vector2(0.0f, 0.0f), Vector2(616.0f, 300.0f), 10, Vector2::Zero, 0.08f);
 		at->Create(L"RightPhantomBlow", RightPhantomBlow, Vector2(0.0f, 0.0f), Vector2(616.0f, 300.0f), 10, Vector2::Zero, 0.08f);
 		at->Create(L"LeftBladeTornado", LeftBladeTornado, Vector2(0.0f, 0.0f), Vector2(592.0f, 616.0f), 21, Vector2::Zero, 0.06f);
 		at->Create(L"RightBladeTornado", RightBladeTornado, Vector2(0.0f, 0.0f), Vector2(592.0f, 616.0f), 21, Vector2::Zero, 0.06f);
+		at->Create(L"LeftBladePury", LeftBladePury, Vector2(0.0f, 0.0f), Vector2(712.0f, 586.0f), 14, Vector2::Zero, 0.05f);
+		at->Create(L"RightBladePury", RightBladePury, Vector2(0.0f, 0.0f), Vector2(712.0f, 586.0f), 14, Vector2::Zero, 0.05f);
+		at->Create(L"KarmaPury", KarmaPury, Vector2(0.0f, 0.0f), Vector2(613.34f, 274.0f), 26, Vector2::Zero, 0.05f);
 
 
 		at->PlayAnimation(L"LeftPhantomBlow", false);
@@ -115,6 +123,46 @@ namespace ya
 			Rightbladetornado = false;
 			mSkillState = SkillState::RightBladeTornado;
 			at->PlayAnimation(L"RightBladeTornado", false);
+		}
+
+		if (Leftbladepury == true)
+		{
+			GetOwner()->AddComponent<Animator>();
+			Animator* at = GetOwner()->GetComponent<Animator>();
+
+			Leftbladepury = false;
+			mSkillState = SkillState::BladePury;
+			at->PlayAnimation(L"LeftBladePury", false);
+		}
+
+		if (Rightbladepury == true)
+		{
+			GetOwner()->AddComponent<Animator>();
+			Animator* at = GetOwner()->GetComponent<Animator>();
+
+			Rightbladepury = false;
+			mSkillState = SkillState::RightBladePury;
+			at->PlayAnimation(L"RightBladePury", false);
+		}
+
+		if (Leftcaremapury == true)
+		{
+			GetOwner()->AddComponent<Animator>();
+			Animator* at = GetOwner()->GetComponent<Animator>();
+
+			Leftcaremapury = false;
+			mSkillState = SkillState::CaremaPury;
+			at->PlayAnimation(L"KarmaPury", false);
+		}
+
+		if (Rightcaremapury == true)
+		{
+			GetOwner()->AddComponent<Animator>();
+			Animator* at = GetOwner()->GetComponent<Animator>();
+
+			Rightcaremapury = false;
+			mSkillState = SkillState::RightCaremaPury;
+			at->PlayAnimation(L"KarmaPury", false);
 		}
 
 

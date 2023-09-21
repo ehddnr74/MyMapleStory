@@ -135,22 +135,7 @@ namespace ya
 	}
 	void FireImpScript::Rand()
 	{
-		//randtime += Time::DeltaTime();
 
-		//if (randtime >= 0.5f)
-		//{
-		//	mFireImpState = eBloodyQueenState::Idle;
-		//	mChangeTime = 0.0f;
-		//	isChanging = false;
-		//}
-
-		//if (isChanging == false)
-		//	return;
-
-		//randtime = 0;
-		//int typeNum = rand();
-		//typeNum %= 4;
-		//mBloodyQueenInfo.mBossType = (eBloodyQueenType)typeNum;
 	}
 	void FireImpScript::RandDir()
 	{

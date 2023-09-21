@@ -39,6 +39,7 @@ namespace ya
 		Camera::SetHeneSisScene(this);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
+		CollisionManager::SetLayer(eLayerType::Skill, eLayerType::Monster, true);
 
 		{
 			GameObject* Cursor = new GameObject();
@@ -71,30 +72,6 @@ namespace ya
 			mr->SetMaterial(Resources::Find<Material>(L"Hene"));
 
 			BG->GetComponent<Transform>()->SetScale(Vector3(35.0f, 8.5f, 1.0f));
-		}
-
-		{
-			GameObject* player = new GameObject();
-			player->SetName(L"Adel");
-			AddGameObject(eLayerType::Player, player);
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-
-			Camera::SetTarget(player);
-
-			Collider2D* cd = player->AddComponent<Collider2D>();
-			cd->SetCenter(Vector2(0.008f, 0.065f));
-			cd->SetSize(Vector2(0.18f, 0.28f));
-
-		    mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		    mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
-			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.999f));
-			player->GetComponent<Transform>()->SetScale(Vector3(1.6f, 1.6f, 0.999f));
-			PlayerScript* mPlayerScript = player->AddComponent<PlayerScript>();
-			SceneManager::SetPlayer(player);
-			SceneManager::SetPlayerScript(mPlayerScript);
-			InventoryScript* mInventoryScript = player->AddComponent<InventoryScript>();
-			SceneManager::SetInventoryScript(mInventoryScript);
-			object::DontDestroyOnLoad(player);
 		}
 
 		{
@@ -210,6 +187,10 @@ namespace ya
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"Slot"));
 
+			Collider2D* cd = Slot->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.0f, 0.0f));
+			cd->SetSize(Vector2(1.0f, 1.0f));
+
 			Slot->GetComponent<Transform>()->SetPosition(Vector3(2.25f, -1.93f, 0.999f));
 			Slot->GetComponent<Transform>()->SetScale(Vector3(3.48f, 0.48f, 1.001f));
 			object::DontDestroyOnLoad(Slot);
@@ -238,6 +219,29 @@ namespace ya
 
 		}
 
+		{
+			GameObject* player = new GameObject();
+			player->SetName(L"Adel");
+			AddGameObject(eLayerType::Player, player);
+			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+
+			//Camera::SetTarget(player);
+
+			Collider2D* cd = player->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.008f, 0.065f));
+			cd->SetSize(Vector2(0.18f, 0.28f));
+
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.999f));
+			player->GetComponent<Transform>()->SetScale(Vector3(1.6f, 1.6f, 0.999f));
+			PlayerScript* mPlayerScript = player->AddComponent<PlayerScript>();
+			SceneManager::SetPlayer(player);
+			SceneManager::SetPlayerScript(mPlayerScript);
+			InventoryScript* mInventoryScript = player->AddComponent<InventoryScript>();
+			SceneManager::SetInventoryScript(mInventoryScript);
+			object::DontDestroyOnLoad(player);
+		}
 		//{
 		//	GameObject* light = new GameObject();
 		//	light->SetName(L"Henesis");
@@ -321,7 +325,7 @@ namespace ya
 	}
 	void HenesisScene::OnEnter()
 	{
-		Camera::SetHeneSisScene(this);
+		//Camera::SetHeneSisScene(this);
 		Scene::OnEnter();
 	}
 	void HenesisScene::OnExit()

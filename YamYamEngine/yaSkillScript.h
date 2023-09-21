@@ -35,8 +35,10 @@ namespace ya
 		void SetRightPhantomBlow(bool rpb) { Rightphantomblow = rpb; }
 		void SetLeftBladeTornado(bool lbt) { Leftbladetornado = lbt; }
 		void SetRightBladeTornado(bool rbt) { Rightbladetornado = rbt; }
-		//void SetLeftCaremaPury(bool lcp) { Leftcaremapury = lcp; }
-		//void SetRightCaremaPury(bool rcp) { Rightcaremapury = rcp; }
+		void SetLeftBladePury(bool lbp) { Leftbladepury = lbp; }
+	    void SetRightBladePury(bool rbp) { Rightbladepury = rbp; }
+		void SetLeftCaremaPury(bool lcp) { Leftcaremapury = lcp; }
+		void SetRightCaremaPury(bool rcp) { Rightcaremapury = rcp; }
 
 
 
@@ -77,6 +79,9 @@ namespace ya
 
 		double bladetornadotime1;
 		bool bladetornadotime2;
+
+		bool Leftbladepury;
+		bool Rightbladepury;
 
 		bool Leftcaremapury;
 		bool Rightcaremapury;

@@ -33,13 +33,14 @@ namespace ya::enums
 		Skill,
 		Portal,
 		Monster,
+		Damage,
 		Light,
 		Inventory,
 		Shop,
 		UI,
 		Item,
 		Camera,
-		End = 16,
+		End = 32,
 	};
 
 	enum class eResourceType

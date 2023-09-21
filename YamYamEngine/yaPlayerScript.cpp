@@ -17,6 +17,12 @@
 #include "yaMpScript.h"
 #include "yaExpScript.h"
 #include "yaInventoryScript.h"	
+#include "yaPhantomBlowScript.h"
+#include "yaBladePuryScript.h"
+#include "yaBladeTornadoScript.h"
+#include "yaCaremaPuryScript.h"
+#include "yaDoubleJumpScript.h"
+#include "yaDamageScript.h"
 
 namespace ya
 {
@@ -27,8 +33,13 @@ namespace ya
 		, alerttime(0.f)
 		, hit(false)
 		, jum(false)
-		, devide(false)
-		, devidetime(0.f)
+		, isjump(false)
+		, jumpdouble(false)
+		, pbtime(0.0f)
+		, bptime(0.0f)
+		, bttime(0.0f)
+		, cptime(0.0f)
+		, djtime(0.0f)
 		, portal(false)
 		, inventory(false)
 		, OnShop(false)
@@ -134,28 +145,77 @@ namespace ya
 
 		if (mPhantomBlow != nullptr)
 		{
-			devidetime += Time::DeltaTime();
+			pbtime += Time::DeltaTime();
 
-			if (devidetime >= 0.75f)
+			if (pbtime >= 0.75f)
 			{
-				devidetime = 0.0f;
+				pbtime = 0.0f;
 				object::Destroy(mPhantomBlow);
 				SetPhantomBlow(nullptr);
-				SetSkillScript(nullptr);
+				SetCaremaPuryScript(nullptr);
 			}
 		}
 
 		if (mBladeTornado != nullptr)
 		{
-			devidetime += Time::DeltaTime();
-			if (devidetime >= 1.3f)
+			bttime += Time::DeltaTime();
+			if (bttime >= 1.47f)
 			{
-				devidetime = 0.0f;
+				bttime = 0.0f;
 				object::Destroy(mBladeTornado);
 				SetBladeTornado(nullptr);
-				SetSkillScript(nullptr);
+				SetBladeTornadoScript(nullptr);
 			}
 		}
+
+		if (mBladePury != nullptr)
+		{
+			bptime += Time::DeltaTime();
+			if (bptime >= 0.7f)
+			{
+				bptime = 0.0f;
+				object::Destroy(mBladePury);
+				SetBladePury(nullptr);
+				SetBladePuryScript(nullptr);
+			}
+		}
+
+		if (mCaremaPury != nullptr)
+		{
+			cptime += Time::DeltaTime();
+			if (cptime >= 1.3f)
+			{
+				cptime = 0.0f;
+				object::Destroy(mCaremaPury);
+				SetCaremaPury(nullptr);
+				SetCaremaPuryScript(nullptr);
+			}
+		}
+
+		if (mDoubleJump != nullptr)
+		{
+			djtime += Time::DeltaTime();
+			if (djtime >= 0.8f)
+			{
+				djtime = 0.0f;
+				object::Destroy(mDoubleJump);
+				SetDoubleJump(nullptr);
+				SetDoubleJumpScript(nullptr);
+			}
+		}
+
+		//if (mDamage != nullptr)
+		//{
+		//	dmgtime += Time::DeltaTime();
+		//	if (dmgtime >= 1.0f)
+		//	{
+		//		dmgtime = 0.0f;
+		//		object::Destroy(mDamage);
+		//		SetDamage(nullptr);
+		//		SetDamageScript(nullptr);
+		//	}
+		//}
+
 
 		switch (mPlayerState)
 		{
@@ -174,6 +234,9 @@ namespace ya
 		case PlayerScript::PlayerState::Jump:
 			jump();
 			break;
+		case PlayerScript::PlayerState::DoubleJump:
+			doublejump();
+			break;
 		case PlayerScript::PlayerState::Alert:
 			alert();
 			break;
@@ -181,9 +244,52 @@ namespace ya
 			break;
 		}
 	}
-	void PlayerScript::Complete()
+	void PlayerScript::CreateLeftDoubleJump()
 	{
-		int a = 0;
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		GameObject* mDoubleJump
+			= object::Instantiate<GameObject>(Vector3(pos.x + 0.5f, pos.y, 0.998f), eLayerType::Skill);
+
+		SetDoubleJump(mDoubleJump);
+
+		mDoubleJump->SetName(L"LeftDoubleJump");
+
+
+		MeshRenderer* mr = mDoubleJump->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		mDoubleJump->GetComponent<Transform>()->SetScale(Vector3(2.0f, 2.0f, 1.0005f));
+
+		Animator* at = mDoubleJump->AddComponent<Animator>();
+		mDoubleJump->AddComponent<DoubleJumpScript>();
+	}
+	void PlayerScript::CreateRightDoubleJump()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		GameObject* mDoubleJump
+			= object::Instantiate<GameObject>(Vector3(pos.x - 0.5f, pos.y, 0.998f), eLayerType::Skill);
+
+		SetDoubleJump(mDoubleJump);
+
+		mDoubleJump->SetName(L"RightDoubleJump");
+
+
+		MeshRenderer* mr = mDoubleJump->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		mDoubleJump->GetComponent<Transform>()->SetScale(Vector3(2.0f, 2.0f, 1.0005f));
+
+		Animator* at = mDoubleJump->AddComponent<Animator>();
+		mDoubleJump->AddComponent<DoubleJumpScript>();
+
+		DoubleJumpScript* ds = mDoubleJump->GetComponent<DoubleJumpScript>();
+		ds->SetRightDoubleJump(true);
 	}
 	void PlayerScript::CreatePhantomBlow()
 	{
@@ -197,6 +303,9 @@ namespace ya
 
 		mPhantomBlow->SetName(L"LeftPhantomBlow");
 
+		Collider2D* cd = mPhantomBlow->AddComponent<Collider2D>();
+		cd->SetCenter(Vector2(0.0f, 0.0f));
+		cd->SetSize(Vector2(0.5f, 0.2f));
 
 		MeshRenderer* mr = mPhantomBlow->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -205,7 +314,7 @@ namespace ya
 		mPhantomBlow->GetComponent<Transform>()->SetScale(Vector3(4.0f, 4.0f, 1.0005f));
 
 		Animator* at = mPhantomBlow->AddComponent<Animator>();
-		mPhantomBlow->AddComponent<SkillScript>();
+		mPhantomBlow->AddComponent<PhantomBlowScript>();
 	}
 	void PlayerScript::CreateRightPhantomBlow()
 	{
@@ -227,10 +336,10 @@ namespace ya
 		mPhantomBlow->GetComponent<Transform>()->SetScale(Vector3(4.0f, 4.0f, 1.0005f));
 
 		Animator* at = mPhantomBlow->AddComponent<Animator>();
-		mPhantomBlow->AddComponent<SkillScript>();
+		mPhantomBlow->AddComponent<PhantomBlowScript>();
 
-		SkillScript* ss = mPhantomBlow->GetComponent<SkillScript>();
-		ss->SetRightPhantomBlow(true);
+		PhantomBlowScript* ps = mPhantomBlow->GetComponent<PhantomBlowScript>();
+		ps->SetRightPhantomBlow(true);
 	}
 	void PlayerScript::CreateBladeTornado()
 	{
@@ -252,8 +361,8 @@ namespace ya
 		mBladeTornado->GetComponent<Transform>()->SetScale(Vector3(4.2f, 4.5f, 1.0005f));
 
 		Animator* at = mBladeTornado->AddComponent<Animator>();
-		SkillScript* ss = mBladeTornado->AddComponent<SkillScript>();
-		ss->SetLeftBladeTornado(mBladeTornado);
+		mBladeTornado->AddComponent<BladeTornadoScript>();
+
 	}
 	void PlayerScript::CreateRightBladeTornado()
 	{
@@ -275,10 +384,183 @@ namespace ya
 		mBladeTornado->GetComponent<Transform>()->SetScale(Vector3(4.2f, 4.5f, 1.0005f));
 
 		Animator* at = mBladeTornado->AddComponent<Animator>();
-		mBladeTornado->AddComponent<SkillScript>();
+		mBladeTornado->AddComponent<BladeTornadoScript>();
 
-		SkillScript* ss = mBladeTornado->GetComponent<SkillScript>();
-		ss->SetRightBladeTornado(true);
+		BladeTornadoScript* bs = mBladeTornado->GetComponent<BladeTornadoScript>();
+		bs->SetRightBladeTornado(true);
+	}
+	void PlayerScript::CreateBladePury()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		GameObject* mBladePury
+			= object::Instantiate<GameObject>(Vector3(pos.x - 0.2f, pos.y + 0.5f, 0.998f), eLayerType::Skill);
+
+		SetBladePury(mBladePury);
+
+		mBladePury->SetName(L"LeftBladePury");
+
+
+		MeshRenderer* mr = mBladePury->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		mBladePury->GetComponent<Transform>()->SetScale(Vector3(4.0f, 4.0f, 1.0005f));
+
+		Animator* at = mBladePury->AddComponent<Animator>();
+		mBladePury->AddComponent<BladePuryScript>();
+	}
+	void PlayerScript::CreateRightBladePury()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		GameObject* mBladePury
+			= object::Instantiate<GameObject>(Vector3(pos.x + 0.2f, pos.y + 0.5f, 0.998f), eLayerType::Skill);
+
+		SetBladePury(mBladePury);
+
+		mBladePury->SetName(L"RightBladePury");
+
+
+		MeshRenderer* mr = mBladePury->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		mBladePury->GetComponent<Transform>()->SetScale(Vector3(4.0f, 4.0f, 1.0005f));
+
+		Animator* at = mBladePury->AddComponent<Animator>();
+		mBladePury->AddComponent<BladePuryScript>();
+
+		BladePuryScript* bs = mBladePury->GetComponent<BladePuryScript>();
+		bs->SetRightBladePury(true);
+	}
+	void PlayerScript::CreateCaremaPury()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		GameObject* KarmaPury
+			= object::Instantiate<GameObject>(Vector3(pos.x + 0.2f, pos.y + 0.8f, 0.998f), eLayerType::Skill);
+
+		SetCaremaPury(KarmaPury);
+
+		KarmaPury->SetName(L"LeftKarmaPury");
+
+
+		MeshRenderer* mr = KarmaPury->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		KarmaPury->GetComponent<Transform>()->SetScale(Vector3(9.0f, 9.0f, 1.0005f));
+
+		Animator* at = KarmaPury->AddComponent<Animator>();
+		KarmaPury->AddComponent<CaremaPuryScript>();
+	}
+	void PlayerScript::CreateRightCaremaPury()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		GameObject* KarmaPury
+			= object::Instantiate<GameObject>(Vector3(pos.x + 0.2f, pos.y + 0.8f, 0.998f), eLayerType::Skill);
+
+		SetCaremaPury(KarmaPury);
+
+		KarmaPury->SetName(L"RightKarmaPury");
+
+
+		MeshRenderer* mr = KarmaPury->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		KarmaPury->GetComponent<Transform>()->SetScale(Vector3(9.0f, 9.0f, 1.0005f));
+
+		Animator* at = KarmaPury->AddComponent<Animator>();
+		KarmaPury->AddComponent<CaremaPuryScript>();
+
+		CaremaPuryScript* cs = KarmaPury->GetComponent<CaremaPuryScript>();
+		cs->SetRightCaremaPury(true);
+	}
+	void PlayerScript::CreateDamage(GameObject* Monster, Vector3 Pos)
+	{
+		{
+			GameObject* mDamage
+				= object::Instantiate<GameObject>(Vector3(Pos.x - 0.3f , Pos.y + 0.3f, 0.997f), eLayerType::Damage);
+
+			mDamage->SetName(L"Damage1");
+
+			MeshRenderer* mr = mDamage->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			mDamage->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0005f));
+
+			Animator* at = mDamage->AddComponent<Animator>();
+			mDamage->AddComponent<DamageScript>();
+		}
+		{
+			GameObject* mDamage
+				= object::Instantiate<GameObject>(Vector3(Pos.x - 0.15f , Pos.y + 0.3f, 0.997f), eLayerType::Damage);
+
+			mDamage->SetName(L"Damage2");
+
+			MeshRenderer* mr = mDamage->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			mDamage->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0005f));
+
+			Animator* at = mDamage->AddComponent<Animator>();
+			mDamage->AddComponent<DamageScript>();
+
+		}
+		{
+			GameObject* mDamage
+				= object::Instantiate<GameObject>(Vector3(Pos.x, Pos.y + 0.3f, 0.997f), eLayerType::Damage);
+
+			mDamage->SetName(L"Damage3");
+
+			MeshRenderer* mr = mDamage->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			mDamage->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0005f));
+
+			Animator* at = mDamage->AddComponent<Animator>();
+			mDamage->AddComponent<DamageScript>();
+		}
+		{
+			GameObject* mDamage
+				= object::Instantiate<GameObject>(Vector3(Pos.x + 0.15f, Pos.y + 0.3f, 0.997f), eLayerType::Damage);
+
+			mDamage->SetName(L"Damage4");
+
+			MeshRenderer* mr = mDamage->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			mDamage->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0005f));
+
+			Animator* at = mDamage->AddComponent<Animator>();
+			mDamage->AddComponent<DamageScript>();
+		}
+		{
+			GameObject* mDamage
+				= object::Instantiate<GameObject>(Vector3(Pos.x + 0.3f, Pos.y + 0.3f, 0.997f), eLayerType::Damage);
+
+			mDamage->SetName(L"Damage5");
+
+			MeshRenderer* mr = mDamage->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			mDamage->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0005f));
+
+			Animator* at = mDamage->AddComponent<Animator>();
+			mDamage->AddComponent<DamageScript>();
+		}
 	}
 	//void PlayerScript::CreateCaremaPury()
 	//{
@@ -512,6 +794,7 @@ namespace ya
 		object::Destroy(mInventoryMesoBar);
 		mInventoryScript->SetCameraScript(nullptr);
 	}
+
 	void PlayerScript::OnCollisionEnter(Collider2D* other)
 	{
 		if (other->GetOwner()->GetName() == L"MushRoom")
@@ -587,21 +870,64 @@ namespace ya
 				mPlayerState = PlayerState::ProneStab;
 			}
 
+
+			if (Input::GetKeyDown(eKeyCode::V))
+			{
+				dir = 0;
+				mPlayerState = PlayerState::Attack;
+				at->PlayAnimation(L"LeftAttack", false);
+
+				if (mBladePury == nullptr)
+				{
+					CreateBladePury();
+					SceneManager::GetMpScript()->OnDamage(40);
+				}
+			}
+
 			if (Input::GetKeyDown(eKeyCode::B))
 			{
 				dir = 0;
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"LeftAttack", false);
 
-				if (mBladeTornado == nullptr)
+				if (mPhantomBlow == nullptr)
+				{
+					CreatePhantomBlow();
+					SceneManager::GetMpScript()->OnDamage(40);
+				}
+			}
+
+			if (Input::GetKeyDown(eKeyCode::D))
+			{
+				dir = 0;
+				mPlayerState = PlayerState::Attack;
+				at->PlayAnimation(L"LeftAttack", false);
+
+				if (mBladeTornado == nullptr && mCaremaPury == nullptr)
 				{
 					CreateBladeTornado();
 					SceneManager::GetMpScript()->OnDamage(40);
 				}
 			}
 
+			if (Input::GetKeyDown(eKeyCode::F))
+			{
+				dir = 0;
+				mPlayerState = PlayerState::Attack;
+				at->PlayAnimation(L"LeftAttack", false);
+
+				if (mCaremaPury == nullptr && mBladeTornado == nullptr)
+				{
+					CreateCaremaPury();
+					SceneManager::GetMpScript()->OnDamage(40);
+				}
+			}
+
+
+
 			if (Input::GetKeyDown(eKeyCode::X))
 			{
+				isjump = true;
 				RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
 
 				mRigidBody->SetGround(false);
@@ -646,9 +972,9 @@ namespace ya
 				at->PlayAnimation(L"RightAttack", false);
 
 
-				if (mPhantomBlow == nullptr)
+				if (mCaremaPury == nullptr)
 				{
-					CreateRightBladeTornado();
+					CreateRightCaremaPury();
 					SceneManager::GetMpScript()->OnDamage(40);
 					SceneManager::GetExpScript()->OnDamage(32);
 				}
@@ -657,6 +983,7 @@ namespace ya
 			}
 			if (Input::GetKeyDown(eKeyCode::X))
 			{
+				isjump = true;
 				RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
 
 				Vector2 velocity = mRigidBody->GetVelocity();
@@ -724,6 +1051,7 @@ namespace ya
 			}
 			if (Input::GetKeyDown(eKeyCode::X))
 			{
+				isjump = true;
 				RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
 
 				Vector2 velocity = mRigidBody->GetVelocity();
@@ -786,6 +1114,7 @@ namespace ya
 			}
 			if (Input::GetKeyDown(eKeyCode::X))
 			{
+				isjump = true;
 				RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
 
 				Vector2 velocity = mRigidBody->GetVelocity();
@@ -834,6 +1163,15 @@ namespace ya
 
 		attacktime += Time::DeltaTime();
 
+		if (mBladeTornado != nullptr && mCaremaPury == nullptr)
+		{
+			if (Input::GetKeyDown(eKeyCode::F))
+			{
+				CreateCaremaPury();
+				SceneManager::GetMpScript()->OnDamage(40);
+			}
+		}
+
 		if (attacktime >= 0.6f)
 		{
 			mPlayerState = PlayerState::Idle;
@@ -850,8 +1188,6 @@ namespace ya
 	}
 	void PlayerScript::jump()
 	{
-
-
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 		Animator* at = GetOwner()->GetComponent<Animator>();
@@ -860,8 +1196,73 @@ namespace ya
 
 
 
-		//jumptime += Time::DeltaTime();
+		jumptime += Time::DeltaTime();
 
+		if (jumptime >=0.15f && isjump == true && mRigidBody->GetGround() == false)
+		{
+			if (Input::GetKeyDown(eKeyCode::X))
+			{
+				if (dir == 0)
+				{
+					jumptime = 0.0f;
+					isjump = false;
+					jumpdouble = true;
+					CreateLeftDoubleJump();
+					mPlayerState = PlayerState::DoubleJump;
+					at->PlayAnimation(L"LeftJump", true);
+				}
+				if (dir == 1)
+				{
+					jumptime = 0.0f;
+					isjump = false;
+					jumpdouble = true;
+					CreateRightDoubleJump();
+					mPlayerState = PlayerState::DoubleJump;
+					at->PlayAnimation(L"RightJump", true);
+				}
+			}
+		}
+
+
+		if (mRigidBody->GetGround() == true)
+		{
+			mRigidBody->SetVelocity(Vector2::Zero);
+			mRigidBody->SetGround(true);
+			mPlayerState = PlayerState::Idle;
+			//jumptime = 0.0f;
+			if (dir == 0)
+			{
+				at->PlayAnimation(L"LeftIdle", true);
+			}
+			if (dir == 1)
+			{
+				at->PlayAnimation(L"RightIdle", true);
+			}
+		}
+	}
+	void PlayerScript::doublejump()
+	{
+		Animator* at = GetOwner()->GetComponent<Animator>();
+		RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
+
+		if (dir == 0 && jumpdouble)
+		{
+			jumpdouble = false;
+			RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
+			Vector2 velocity = mRigidBody->GetVelocity();
+			velocity.x -= 1.7f;
+			velocity.y += 0.3f;
+			mRigidBody->SetVelocity(velocity);
+		}
+		if (dir == 1 && jumpdouble)
+		{
+			jumpdouble = false;
+			RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
+			Vector2 velocity = mRigidBody->GetVelocity();
+			velocity.x += 1.7f;
+			velocity.y += 0.3f;
+			mRigidBody->SetVelocity(velocity);
+		}
 
 		if (mRigidBody->GetGround() == true)
 		{
