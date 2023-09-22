@@ -164,7 +164,7 @@ namespace ya
 
 		dmgtime += Time::DeltaTime();
 
-		if (dmgtime >= 1.0f)
+		if (dmgtime >= 1.3f)
 		{
 			dmgtime = 0.0f;
 			object::Destroy(GetOwner());

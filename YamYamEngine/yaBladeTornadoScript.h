@@ -27,6 +27,9 @@ namespace ya
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+		void SetMushRoom(GameObject* mr) { MushRoom = mr; }
+		GameObject* GetMushRoom() { return MushRoom; }
+
 	private:
 		Animator* at;
 		SkillState mSkillState;
@@ -47,5 +50,20 @@ namespace ya
 
 		double bladetornadotime1;
 		bool bladetornadotime2;
+
+		bool DamageView;
+
+		bool Stay;
+
+		double Attackingtime;
+
+		GameObject* MushRoom;
+
+		bool ta1;
+		bool ta2;
+		bool ta3;
+		bool ta4;
+		bool ta5;
+		bool ta6;
 	};
 }

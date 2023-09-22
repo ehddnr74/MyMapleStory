@@ -74,16 +74,17 @@ namespace ya
 	{
 		if (other->GetOwner()->GetName() == L"MushRoom" && DamageView == false)
 		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
 				DamageView = true;
-				Transform* tr = other->GetOwner()->GetComponent<Transform>();
-				Vector3 pos = tr->GetPosition();
 				SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
 				SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
 				SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
 				SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
 				SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
 				SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
-			}
+		}
 	}
 	void PhantomBlowScript::OnCollisionStay(Collider2D* other)
 	{

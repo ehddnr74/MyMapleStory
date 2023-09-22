@@ -23,6 +23,11 @@
 #include "yaCaremaPuryScript.h"
 #include "yaDoubleJumpScript.h"
 #include "yaDamageScript.h"
+#include "yaPhantomBlowSmokeScript.h"
+#include "yaPhantomBlowHitEffectScript.h"
+#include "yaBladePuryHitEffectScript.h"
+#include "yaKarmaPuryHitEffectScript.h"
+#include "yaBladeTornadoHitEffectScript.h"
 
 namespace ya
 {
@@ -40,6 +45,7 @@ namespace ya
 		, bttime(0.0f)
 		, cptime(0.0f)
 		, djtime(0.0f)
+		, pbstime(0.0f)
 		, portal(false)
 		, inventory(false)
 		, OnShop(false)
@@ -195,28 +201,26 @@ namespace ya
 		if (mDoubleJump != nullptr)
 		{
 			djtime += Time::DeltaTime();
-			if (djtime >= 0.8f)
+			if (GetOwner()->GetComponent<RigidBody>()->GetGround())//djtime >= 0.75f
 			{
-				djtime = 0.0f;
+				//djtime = 0.0f;
 				object::Destroy(mDoubleJump);
 				SetDoubleJump(nullptr);
 				SetDoubleJumpScript(nullptr);
 			}
 		}
 
-		//if (mDamage != nullptr)
-		//{
-		//	dmgtime += Time::DeltaTime();
-		//	if (dmgtime >= 1.0f)
-		//	{
-		//		dmgtime = 0.0f;
-		//		object::Destroy(mDamage);
-		//		SetDamage(nullptr);
-		//		SetDamageScript(nullptr);
-		//	}
-		//}
-
-
+		if (mPhantomBlowSmoke != nullptr)
+		{
+			pbstime += Time::DeltaTime();
+			if (pbstime >= 0.75f)
+			{
+				pbstime = 0.0f;
+				object::Destroy(mPhantomBlowSmoke);
+				SetPhantomBlowSmoke(nullptr);
+				SetPhantomBlowSmokeScript(nullptr);
+			}
+		}
 		switch (mPlayerState)
 		{
 		case PlayerScript::PlayerState::Idle:
@@ -230,6 +234,18 @@ namespace ya
 			break;
 		case PlayerScript::PlayerState::Attack:
 			attack();
+			break;
+		case PlayerScript::PlayerState::BladePury:
+			bladepury();
+			break;
+		case PlayerScript::PlayerState::BladeTornado:
+			bladetornado();
+			break;
+		case PlayerScript::PlayerState::KarmaPury:
+			karmapury();
+			break;
+		case PlayerScript::PlayerState::PhantomBlow:
+			phantomblow();
 			break;
 		case PlayerScript::PlayerState::Jump:
 			jump();
@@ -297,7 +313,7 @@ namespace ya
 		Vector3 pos = tr->GetPosition();
 
 		GameObject* mPhantomBlow
-			= object::Instantiate<GameObject>(Vector3(pos.x - 0.9f, pos.y + 0.15f, 0.998f), eLayerType::Skill);
+			= object::Instantiate<GameObject>(Vector3(pos.x - 0.9f, pos.y + 0.15f, 0.999f), eLayerType::Skill);
 
 		SetPhantomBlow(mPhantomBlow);
 
@@ -316,18 +332,42 @@ namespace ya
 		Animator* at = mPhantomBlow->AddComponent<Animator>();
 		mPhantomBlow->AddComponent<PhantomBlowScript>();
 	}
+	void PlayerScript::CreatePhantomBlowSmoke()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		GameObject* mPhantomBlowSmoke
+			= object::Instantiate<GameObject>(Vector3(pos.x + 0.5f, pos.y, 0.999f), eLayerType::Skill);
+
+		SetPhantomBlowSmoke(mPhantomBlowSmoke);
+
+		mPhantomBlowSmoke->SetName(L"LeftPhantomBlowSmoke");
+
+		MeshRenderer* mr = mPhantomBlowSmoke->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		mPhantomBlowSmoke->GetComponent<Transform>()->SetScale(Vector3(2.0f, 2.0f, 1.0005f));
+
+		Animator* at = mPhantomBlowSmoke->AddComponent<Animator>();
+		mPhantomBlowSmoke->AddComponent<PhantomBlowSmokeScript>();
+	}
 	void PlayerScript::CreateRightPhantomBlow()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
 		GameObject* mPhantomBlow
-			= object::Instantiate<GameObject>(Vector3(pos.x + 0.9f, pos.y + 0.15f, 0.998f), eLayerType::Skill);
+			= object::Instantiate<GameObject>(Vector3(pos.x + 0.9f, pos.y + 0.15f, 0.999f), eLayerType::Skill);
 
 		SetPhantomBlow(mPhantomBlow);
 
 		mPhantomBlow->SetName(L"RightPhantomBlow");
 
+		Collider2D* cd = mPhantomBlow->AddComponent<Collider2D>();
+		cd->SetCenter(Vector2(0.0f, 0.0f));
+		cd->SetSize(Vector2(0.5f, 0.2f));
 
 		MeshRenderer* mr = mPhantomBlow->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -341,17 +381,64 @@ namespace ya
 		PhantomBlowScript* ps = mPhantomBlow->GetComponent<PhantomBlowScript>();
 		ps->SetRightPhantomBlow(true);
 	}
+	void PlayerScript::CreateRightPhantomBlowSmoke()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		GameObject* mPhantomBlowSmoke
+			= object::Instantiate<GameObject>(Vector3(pos.x - 0.9f, pos.y, 0.998f), eLayerType::Skill);
+
+		SetPhantomBlowSmoke(mPhantomBlowSmoke);
+
+		mPhantomBlowSmoke->SetName(L"RightPhantomBlowSmoke");
+
+		MeshRenderer* mr = mPhantomBlowSmoke->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		mPhantomBlowSmoke->GetComponent<Transform>()->SetScale(Vector3(2.0f, 2.0f, 1.0005f));
+
+		Animator* at = mPhantomBlowSmoke->AddComponent<Animator>();
+		mPhantomBlowSmoke->AddComponent<PhantomBlowSmokeScript>();
+
+		PhantomBlowSmokeScript* pbss = mPhantomBlowSmoke->GetComponent<PhantomBlowSmokeScript>();
+		pbss->SetRightPhantomBlowSmoke(true);
+	}
+	void PlayerScript::CreatePhantomBlowHitEffect(GameObject* Monster, Vector3(pos))
+	{
+		Transform* tr = Monster->GetComponent<Transform>();
+		pos = tr->GetPosition();
+
+		GameObject* mPhantomBlowHitEffect
+			= object::Instantiate<GameObject>(Vector3(pos.x - 0.15f, pos.y + 0.1, 0.997f), eLayerType::Effect);
+
+		mPhantomBlowHitEffect->SetName(L"PhantomBlowHitEffect");
+
+		MeshRenderer* mr = mPhantomBlowHitEffect->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		mPhantomBlowHitEffect->GetComponent<Transform>()->SetScale(Vector3(2.0f, 2.0f, 1.0005f));
+
+		Animator* at = mPhantomBlowHitEffect->AddComponent<Animator>();
+		mPhantomBlowHitEffect->AddComponent<PhantomBlowHitEffectScript>();
+	}
 	void PlayerScript::CreateBladeTornado()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
 		GameObject* mBladeTornado
-			= object::Instantiate<GameObject>(Vector3(pos.x, pos.y + 1.45f, 0.998f), eLayerType::Skill);
+			= object::Instantiate<GameObject>(Vector3(pos.x, pos.y + 1.45f, 0.999f), eLayerType::Skill);
 
 			SetBladeTornado(mBladeTornado);
 
 			mBladeTornado->SetName(L"LeftBladeTornado");
+
+			Collider2D* cd = mBladeTornado->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.0f, -0.45f));
+			cd->SetSize(Vector2(0.45f, 0.55f));
 
 
 		MeshRenderer* mr = mBladeTornado->AddComponent<MeshRenderer>();
@@ -370,12 +457,15 @@ namespace ya
 		Vector3 pos = tr->GetPosition();
 
 		GameObject* mBladeTornado
-			= object::Instantiate<GameObject>(Vector3(pos.x , pos.y + 1.45f, 0.998f), eLayerType::Skill);
+			= object::Instantiate<GameObject>(Vector3(pos.x , pos.y + 1.45f, 0.999f), eLayerType::Skill);
 
 		SetBladeTornado(mBladeTornado);
 
 		mBladeTornado->SetName(L"RightBladeTornado");
 
+		Collider2D* cd = mBladeTornado->AddComponent<Collider2D>();
+		cd->SetCenter(Vector2(0.0f, -0.45f));
+		cd->SetSize(Vector2(0.45f, 0.55f));
 
 		MeshRenderer* mr = mBladeTornado->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -389,18 +479,40 @@ namespace ya
 		BladeTornadoScript* bs = mBladeTornado->GetComponent<BladeTornadoScript>();
 		bs->SetRightBladeTornado(true);
 	}
+	void PlayerScript::CreateBladeTornadoHitEffect(GameObject* Monster, Vector3(pos))
+	{
+		Transform* tr = Monster->GetComponent<Transform>();
+		pos = tr->GetPosition();
+
+		GameObject* mBladeTornadoHitEffect
+			= object::Instantiate<GameObject>(Vector3(pos.x - 0.15f, pos.y + 0.1, 0.9975f), eLayerType::Effect);
+
+		mBladeTornadoHitEffect->SetName(L"BladeTornadoHitEffect");
+
+		MeshRenderer* mr = mBladeTornadoHitEffect->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		mBladeTornadoHitEffect->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0005f));
+
+		Animator* at = mBladeTornadoHitEffect->AddComponent<Animator>();
+		mBladeTornadoHitEffect->AddComponent<BladeTornadoHitEffectScript>();
+	}
 	void PlayerScript::CreateBladePury()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
 		GameObject* mBladePury
-			= object::Instantiate<GameObject>(Vector3(pos.x - 0.2f, pos.y + 0.5f, 0.998f), eLayerType::Skill);
+			= object::Instantiate<GameObject>(Vector3(pos.x - 0.2f, pos.y + 0.5f, 0.9991f), eLayerType::Skill);
 
 		SetBladePury(mBladePury);
 
 		mBladePury->SetName(L"LeftBladePury");
 
+		Collider2D* cd = mBladePury->AddComponent<Collider2D>();
+		cd->SetCenter(Vector2(0.1f, -0.25f));
+		cd->SetSize(Vector2(0.6f, 0.3f));
 
 		MeshRenderer* mr = mBladePury->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -417,12 +529,15 @@ namespace ya
 		Vector3 pos = tr->GetPosition();
 
 		GameObject* mBladePury
-			= object::Instantiate<GameObject>(Vector3(pos.x + 0.2f, pos.y + 0.5f, 0.998f), eLayerType::Skill);
+			= object::Instantiate<GameObject>(Vector3(pos.x + 0.2f, pos.y + 0.5f, 0.9991f), eLayerType::Skill);
 
 		SetBladePury(mBladePury);
 
 		mBladePury->SetName(L"RightBladePury");
 
+		Collider2D* cd = mBladePury->AddComponent<Collider2D>();
+		cd->SetCenter(Vector2(0.1f, -0.25f));
+		cd->SetSize(Vector2(0.6f, 0.3f));
 
 		MeshRenderer* mr = mBladePury->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -436,18 +551,40 @@ namespace ya
 		BladePuryScript* bs = mBladePury->GetComponent<BladePuryScript>();
 		bs->SetRightBladePury(true);
 	}
+	void PlayerScript::CreateBladePuryHitEffect(GameObject* Monster, Vector3(pos))
+	{
+		Transform* tr = Monster->GetComponent<Transform>();
+		pos = tr->GetPosition();
+
+		GameObject* mBladePuryHitEffect
+			= object::Instantiate<GameObject>(Vector3(pos.x - 0.15f, pos.y + 0.1, 0.997f), eLayerType::Effect);
+
+		mBladePuryHitEffect->SetName(L"BladePuryHitEffect");
+
+		MeshRenderer* mr = mBladePuryHitEffect->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		mBladePuryHitEffect->GetComponent<Transform>()->SetScale(Vector3(2.0f, 2.0f, 1.0005f));
+
+		Animator* at = mBladePuryHitEffect->AddComponent<Animator>();
+		mBladePuryHitEffect->AddComponent<BladePuryHitEffectScript>();
+	}
 	void PlayerScript::CreateCaremaPury()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
 		GameObject* KarmaPury
-			= object::Instantiate<GameObject>(Vector3(pos.x + 0.2f, pos.y + 0.8f, 0.998f), eLayerType::Skill);
+			= object::Instantiate<GameObject>(Vector3(pos.x + 0.2f, pos.y + 0.8f, 0.999f), eLayerType::Skill);
 
 		SetCaremaPury(KarmaPury);
 
 		KarmaPury->SetName(L"LeftKarmaPury");
 
+		Collider2D* cd = KarmaPury->AddComponent<Collider2D>();
+		cd->SetCenter(Vector2(0.0f, -0.5f));
+		cd->SetSize(Vector2(1.0f, 0.6f));
 
 		MeshRenderer* mr = KarmaPury->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -464,12 +601,15 @@ namespace ya
 		Vector3 pos = tr->GetPosition();
 
 		GameObject* KarmaPury
-			= object::Instantiate<GameObject>(Vector3(pos.x + 0.2f, pos.y + 0.8f, 0.998f), eLayerType::Skill);
+			= object::Instantiate<GameObject>(Vector3(pos.x + 0.2f, pos.y + 0.8f, 0.999f), eLayerType::Skill);
 
 		SetCaremaPury(KarmaPury);
 
 		KarmaPury->SetName(L"RightKarmaPury");
 
+		Collider2D* cd = KarmaPury->AddComponent<Collider2D>();
+		cd->SetCenter(Vector2(0.0f, -0.5f));
+		cd->SetSize(Vector2(1.0f, 0.6f));
 
 		MeshRenderer* mr = KarmaPury->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -482,6 +622,25 @@ namespace ya
 
 		CaremaPuryScript* cs = KarmaPury->GetComponent<CaremaPuryScript>();
 		cs->SetRightCaremaPury(true);
+	}
+	void PlayerScript::CreateCaremaPuryHitEffect(GameObject* Monster, Vector3(pos))
+	{
+		Transform* tr = Monster->GetComponent<Transform>();
+		pos = tr->GetPosition();
+
+		GameObject* mKarmaPuryHitEffect
+			= object::Instantiate<GameObject>(Vector3(pos.x - 0.15f, pos.y + 0.1, 0.997f), eLayerType::Effect);
+
+		mKarmaPuryHitEffect->SetName(L"KarmaPuryHitEffect");
+
+		MeshRenderer* mr = mKarmaPuryHitEffect->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		mKarmaPuryHitEffect->GetComponent<Transform>()->SetScale(Vector3(2.0f, 2.0f, 1.0005f));
+
+		Animator* at = mKarmaPuryHitEffect->AddComponent<Animator>();
+		mKarmaPuryHitEffect->AddComponent<KarmaPuryHitEffectScript>();
 	}
 	void PlayerScript::CreateDamage(GameObject* Monster, Vector3 Pos)
 	{
@@ -874,7 +1033,7 @@ namespace ya
 			if (Input::GetKeyDown(eKeyCode::V))
 			{
 				dir = 0;
-				mPlayerState = PlayerState::Attack;
+				mPlayerState = PlayerState::BladePury;
 				at->PlayAnimation(L"LeftAttack", false);
 
 				if (mBladePury == nullptr)
@@ -887,12 +1046,13 @@ namespace ya
 			if (Input::GetKeyDown(eKeyCode::B))
 			{
 				dir = 0;
-				mPlayerState = PlayerState::Attack;
+				mPlayerState = PlayerState::PhantomBlow;
 				at->PlayAnimation(L"LeftAttack", false);
 
 				if (mPhantomBlow == nullptr)
 				{
 					CreatePhantomBlow();
+					CreatePhantomBlowSmoke();
 					SceneManager::GetMpScript()->OnDamage(40);
 				}
 			}
@@ -923,8 +1083,6 @@ namespace ya
 				}
 			}
 
-
-
 			if (Input::GetKeyDown(eKeyCode::X))
 			{
 				isjump = true;
@@ -933,8 +1091,6 @@ namespace ya
 				mRigidBody->SetGround(false);
 				Vector2 velocity = mRigidBody->GetVelocity();
 				velocity.y += 2.0f;
-				mRigidBody->SetVelocity(velocity);
-
 				mRigidBody->SetVelocity(velocity);
 				dir = 0;
 				at->PlayAnimation(L"LeftJump", false);
@@ -965,21 +1121,57 @@ namespace ya
 				mPlayerState = PlayerState::ProneStab;
 			}
 
-			if (Input::GetKeyDown(eKeyCode::B))
+			if (Input::GetKeyDown(eKeyCode::D))
 			{
 				dir = 1;
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"RightAttack", false);
 
+				if (mBladeTornado == nullptr && mCaremaPury == nullptr)
+				{
+					CreateRightBladeTornado();
+					SceneManager::GetMpScript()->OnDamage(40);
+				}
+			}
 
-				if (mCaremaPury == nullptr)
+			if (Input::GetKeyDown(eKeyCode::V))
+			{
+				dir = 1;
+				mPlayerState = PlayerState::BladePury;
+				at->PlayAnimation(L"RightAttack", false);
+
+				if (mBladePury == nullptr)
+				{
+					CreateRightBladePury();
+					SceneManager::GetMpScript()->OnDamage(40);
+				}
+			}
+
+			if (Input::GetKeyDown(eKeyCode::F))
+			{
+				dir = 1;
+				mPlayerState = PlayerState::Attack;
+				at->PlayAnimation(L"RightAttack", false);
+
+				if (mCaremaPury == nullptr && mBladeTornado == nullptr)
 				{
 					CreateRightCaremaPury();
 					SceneManager::GetMpScript()->OnDamage(40);
-					SceneManager::GetExpScript()->OnDamage(32);
 				}
+			}
 
+			if (Input::GetKeyDown(eKeyCode::B))
+			{
+				dir = 1;
+				mPlayerState = PlayerState::PhantomBlow;
+				at->PlayAnimation(L"RightAttack", false);
 
+				if (mPhantomBlow == nullptr)
+				{
+					CreateRightPhantomBlow();
+					CreateRightPhantomBlowSmoke();
+					SceneManager::GetMpScript()->OnDamage(40);
+				}
 			}
 			if (Input::GetKeyDown(eKeyCode::X))
 			{
@@ -1037,18 +1229,60 @@ namespace ya
 				pos.x += 1.2f * Time::DeltaTime();
 				tr->SetPosition(pos);
 			}
-			if (Input::GetKey(eKeyCode::B))
+
+			if (Input::GetKeyDown(eKeyCode::V))
 			{
 				dir = 0;
-				mPlayerState = PlayerState::Attack;
+				mPlayerState = PlayerState::BladePury;
+				at->PlayAnimation(L"LeftAttack", false);
+
+				if (mBladePury == nullptr)
+				{
+					CreateBladePury();
+					SceneManager::GetMpScript()->OnDamage(40);
+				}
+			}
+
+			if (Input::GetKeyDown(eKeyCode::B))
+			{
+				dir = 0;
+				mPlayerState = PlayerState::PhantomBlow;
 				at->PlayAnimation(L"LeftAttack", false);
 
 				if (mPhantomBlow == nullptr)
 				{
 					CreatePhantomBlow();
+					CreatePhantomBlowSmoke();
 					SceneManager::GetMpScript()->OnDamage(40);
 				}
 			}
+
+			if (Input::GetKeyDown(eKeyCode::D))
+			{
+				dir = 0;
+				mPlayerState = PlayerState::Attack;
+				at->PlayAnimation(L"LeftAttack", false);
+
+				if (mBladeTornado == nullptr && mCaremaPury == nullptr)
+				{
+					CreateBladeTornado();
+					SceneManager::GetMpScript()->OnDamage(40);
+				}
+			}
+
+			if (Input::GetKeyDown(eKeyCode::F))
+			{
+				dir = 0;
+				mPlayerState = PlayerState::Attack;
+				at->PlayAnimation(L"LeftAttack", false);
+
+				if (mCaremaPury == nullptr && mBladeTornado == nullptr)
+				{
+					CreateCaremaPury();
+					SceneManager::GetMpScript()->OnDamage(40);
+				}
+			}
+
 			if (Input::GetKeyDown(eKeyCode::X))
 			{
 				isjump = true;
@@ -1100,18 +1334,60 @@ namespace ya
 				mPlayerState = PlayerState::Idle;
 				at->PlayAnimation(L"RightIdle", true);
 			}
-			if (Input::GetKey(eKeyCode::B))
+
+			if (Input::GetKeyDown(eKeyCode::D))
 			{
 				dir = 1;
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"RightAttack", false);
 
-				if (mPhantomBlow == nullptr)
+				if (mBladeTornado == nullptr && mCaremaPury == nullptr)
 				{
-					CreateRightPhantomBlow();
+					CreateRightBladeTornado();
 					SceneManager::GetMpScript()->OnDamage(40);
 				}
 			}
+
+			if (Input::GetKeyDown(eKeyCode::V))
+			{
+				dir = 1;
+				mPlayerState = PlayerState::BladePury;
+				at->PlayAnimation(L"RightAttack", false);
+
+				if (mBladePury == nullptr)
+				{
+					CreateRightBladePury();
+					SceneManager::GetMpScript()->OnDamage(40);
+				}
+			}
+
+			if (Input::GetKeyDown(eKeyCode::F))
+			{
+				dir = 1;
+				mPlayerState = PlayerState::Attack;
+				at->PlayAnimation(L"RightAttack", false);
+
+				if (mCaremaPury == nullptr && mBladeTornado == nullptr)
+				{
+					CreateRightCaremaPury();
+					SceneManager::GetMpScript()->OnDamage(40);
+				}
+			}
+
+			if (Input::GetKeyDown(eKeyCode::B))
+			{
+				dir = 1;
+				mPlayerState = PlayerState::PhantomBlow;
+				at->PlayAnimation(L"RightAttack", false);
+
+				if (mPhantomBlow == nullptr)
+				{
+					CreateRightPhantomBlow();
+					CreateRightPhantomBlowSmoke();
+					SceneManager::GetMpScript()->OnDamage(40);
+				}
+			}
+
 			if (Input::GetKeyDown(eKeyCode::X))
 			{
 				isjump = true;
@@ -1174,6 +1450,94 @@ namespace ya
 
 		if (attacktime >= 0.6f)
 		{
+			attacktime = 0.0f;
+			mPlayerState = PlayerState::Idle;
+			if (dir == 0)
+			{
+				at->PlayAnimation(L"LeftIdle", true);
+			}
+			if (dir == 1)
+			{
+				at->PlayAnimation(L"RightIdle", true);
+			}
+		}
+	}
+	void PlayerScript::bladepury()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		Animator* at = GetOwner()->GetComponent<Animator>();
+
+		attacktime += Time::DeltaTime();
+
+		if (attacktime >= 0.7f)
+		{
+			mPlayerState = PlayerState::Idle;
+			attacktime = 0.0f;
+			if (dir == 0)
+			{
+				at->PlayAnimation(L"LeftIdle", true);
+			}
+			if (dir == 1)
+			{
+				at->PlayAnimation(L"RightIdle", true);
+			}
+		}
+	}
+	void PlayerScript::bladetornado()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		Animator* at = GetOwner()->GetComponent<Animator>();
+
+		attacktime += Time::DeltaTime();
+
+		if (attacktime >= 1.47f)
+		{
+			mPlayerState = PlayerState::Idle;
+			attacktime = 0.0f;
+			if (dir == 0)
+			{
+				at->PlayAnimation(L"LeftIdle", true);
+			}
+			if (dir == 1)
+			{
+				at->PlayAnimation(L"RightIdle", true);
+			}
+		}
+	}
+	void PlayerScript::karmapury()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		Animator* at = GetOwner()->GetComponent<Animator>();
+
+		attacktime += Time::DeltaTime();
+
+		if (attacktime >= 1.3f)
+		{
+			mPlayerState = PlayerState::Idle;
+			attacktime = 0.0f;
+			if (dir == 0)
+			{
+				at->PlayAnimation(L"LeftIdle", true);
+			}
+			if (dir == 1)
+			{
+				at->PlayAnimation(L"RightIdle", true);
+			}
+		}
+	}
+	void PlayerScript::phantomblow()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		Animator* at = GetOwner()->GetComponent<Animator>();
+
+		attacktime += Time::DeltaTime();
+
+		if (attacktime >= 0.75f)
+		{
 			mPlayerState = PlayerState::Idle;
 			attacktime = 0.0f;
 			if (dir == 0)
@@ -1198,7 +1562,7 @@ namespace ya
 
 		jumptime += Time::DeltaTime();
 
-		if (jumptime >=0.15f && isjump == true && mRigidBody->GetGround() == false)
+		if (jumptime >= 0.15f && isjump == true && mRigidBody->GetGround() == false)
 		{
 			if (Input::GetKeyDown(eKeyCode::X))
 			{
@@ -1222,6 +1586,35 @@ namespace ya
 				}
 			}
 		}
+
+		//if (dir == 0)
+		//{
+		//	if (Input::GetKeyDown(eKeyCode::D))
+		//	{
+		//		dir = 0;
+		//		mPlayerState = PlayerState::Attack;
+		//		at->PlayAnimation(L"LeftAttack", false);
+
+		//		if (mBladeTornado == nullptr && mCaremaPury == nullptr)
+		//		{
+		//			CreateBladeTornado();
+		//			SceneManager::GetMpScript()->OnDamage(40);
+		//		}
+		//	}
+
+			//if (Input::GetKeyDown(eKeyCode::F))
+			//{
+			//	dir = 0;
+			//	mPlayerState = PlayerState::Attack;
+			//	at->PlayAnimation(L"LeftAttack", false);
+
+			//	if (mCaremaPury == nullptr && mBladeTornado == nullptr)
+			//	{
+			//		CreateCaremaPury();
+			//		SceneManager::GetMpScript()->OnDamage(40);
+			//	}
+			//}
+	//}
 
 
 		if (mRigidBody->GetGround() == true)

@@ -19,11 +19,14 @@ namespace ya
 			Walk,
 			ProneStab,
 			Attack,
+			BladePury,
+			BladeTornado,
+			KarmaPury,
+			PhantomBlow,
 			Jump,
 			DoubleJump,
 			Alert,
 		};
-
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -31,13 +34,19 @@ namespace ya
 		void CreateLeftDoubleJump();
 		void CreateRightDoubleJump();
 		void CreatePhantomBlow();
+		void CreatePhantomBlowSmoke();
 		void CreateRightPhantomBlow();
+		void CreateRightPhantomBlowSmoke();
+		void CreatePhantomBlowHitEffect(GameObject* Monster, Vector3(pos));
 		void CreateBladeTornado();
 		void CreateRightBladeTornado();
+		void CreateBladeTornadoHitEffect(GameObject* Monster, Vector3(pos));
 		void CreateBladePury();
 		void CreateRightBladePury();
+		void CreateBladePuryHitEffect(GameObject* Monster, Vector3(pos));
 		void CreateCaremaPury();
 		void CreateRightCaremaPury();
+		void CreateCaremaPuryHitEffect(GameObject* Monster, Vector3(pos));
 
 
 		void CreateDamage(GameObject* Monster, Vector3 Pos);
@@ -47,6 +56,7 @@ namespace ya
 
 
 		void SetPhantomBlow(GameObject* pb) { mPhantomBlow = pb; }
+		void SetPhantomBlowSmoke(GameObject* pbsmoke) { mPhantomBlowSmoke = pbsmoke; }
 		void SetBladeTornado(GameObject* bt) { mBladeTornado = bt; }
 		void SetBladePury(GameObject* bp) { mBladePury = bp; }
 		void SetCaremaPury(GameObject* cp) { mCaremaPury = cp; }
@@ -55,10 +65,12 @@ namespace ya
 		
 		void SetBladePuryScript(class BladePuryScript* bps) { mBladePuryScript = bps; }
 		void SetPhantomBlowScript(class PhantomBlowScript* pbs) { mPhantomBlowScript = pbs; }
+		void SetPhantomBlowSmokeScript(class PhantomBlowSmokeScript* pbss) { mPhantomBlowSmokeScript = pbss; }
 		void SetCaremaPuryScript(class CaremaPuryScript* cps) { mCaremaPuryScript = cps; }
 		void SetBladeTornadoScript(class BladeTornadoScript* bts) { mBladeTornadoScript = bts; }
 		void SetDoubleJumpScript(class DoubleJumpScript* djs) { mDoubleJumpScript = djs; }
 		void SetDamageScript(class DamageScript*dms) { mDamageScript = dms; }
+		
 
 		void SetHpScript(class HpScript* hpscript) { mHpScript = hpscript; }
 		HpScript* GetHpScript() { return mHpScript; }
@@ -123,6 +135,10 @@ namespace ya
 		void walk();
 		void pronestab();
 		void attack();
+		void bladepury();
+		void bladetornado();
+		void karmapury();
+		void phantomblow();
 		void jump();
 		void doublejump();
 		void alert();
@@ -139,6 +155,7 @@ namespace ya
 		double cptime;
 		double djtime;
 		double dmgtime;
+		double pbstime;
 
 		bool hit;
 		bool jum;
@@ -147,6 +164,8 @@ namespace ya
 		bool devide;
 		bool portal;
 
+		
+		GameObject* mPhantomBlowSmoke;
 		GameObject* mDoubleJump;
 		GameObject* mPhantomBlow;
 		GameObject* mBladeTornado;
@@ -154,6 +173,7 @@ namespace ya
 		GameObject* mCaremaPury;
 
 		//GameObject* mBladeStorm;
+		class PhantomBlowSmokeScript* mPhantomBlowSmokeScript;
 		class BladePuryScript* mBladePuryScript;
 		class PhantomBlowScript* mPhantomBlowScript;
 		class CaremaPuryScript* mCaremaPuryScript;

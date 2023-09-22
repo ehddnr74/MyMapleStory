@@ -16,6 +16,7 @@ namespace ya
 	ya::BladePuryScript::BladePuryScript()
 		: Leftbladepury(false)
 		, Rightbladepury(false)
+		, DamageView(false)
 	{
 
 	}
@@ -72,6 +73,18 @@ namespace ya
 
 	void BladePuryScript::OnCollisionEnter(Collider2D* other)
 	{
+		if (other->GetOwner()->GetName() == L"MushRoom" && DamageView == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreateBladePuryHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+		}
 	}
 	void BladePuryScript::OnCollisionStay(Collider2D* other)
 	{

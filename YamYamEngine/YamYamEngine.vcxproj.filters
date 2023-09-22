@@ -4,15 +4,6 @@
     <ClCompile Include="yaPlayScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="yaCameraScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaGridScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaPlayerScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
     <ClCompile Include="yaRootaByssScene.cpp">
       <Filter>Contents\Scene\RootaByssScene</Filter>
     </ClCompile>
@@ -28,94 +19,110 @@
     <ClCompile Include="yaLogoScene.cpp">
       <Filter>Contents\Scene\LogoScene</Filter>
     </ClCompile>
-    <ClCompile Include="yaBallScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaBanBanScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaCurSorScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaFireImpScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaLogoScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaMushroomScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
     <ClCompile Include="YamYamEngine.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaPortalScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaRootaByssFireScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaSkillScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaHpScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaMpScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaExpScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaHavisScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaShopScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaInventoryScript.cpp">
       <Filter>Contents\Script</Filter>
     </ClCompile>
     <ClCompile Include="yaPlayer.cpp">
       <Filter>Contents\Player</Filter>
     </ClCompile>
-    <ClCompile Include="yaBladePuryScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaBladeTornadoScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaCaremaPuryScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaPhantomBlowScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaDamageScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="yaDoubleJumpScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
     <ClCompile Include="yaBasic0Script.cpp" />
     <ClCompile Include="yaBasic1Script.cpp" />
+    <ClCompile Include="yaBallScript.cpp">
+      <Filter>Contents\Script\BanBanScriptInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBanBanScript.cpp">
+      <Filter>Contents\Script\BanBanScriptInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayerScript.cpp">
+      <Filter>Contents\Script\PlayerScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBladePuryScript.cpp">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBladeTornadoScript.cpp">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCaremaPuryScript.cpp">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDoubleJumpScript.cpp">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHavisScript.cpp">
+      <Filter>Contents\Script\RootaByssScriptInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="yaRootaByssFireScript.cpp">
+      <Filter>Contents\Script\RootaByssScriptInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDamageScript.cpp">
+      <Filter>Contents\Script\DamageScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCurSorScript.cpp">
+      <Filter>Contents\Script\CursorScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaExpScript.cpp">
+      <Filter>Contents\Script\UIScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHpScript.cpp">
+      <Filter>Contents\Script\UIScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaInventoryScript.cpp">
+      <Filter>Contents\Script\UIScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMpScript.cpp">
+      <Filter>Contents\Script\UIScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaShopScript.cpp">
+      <Filter>Contents\Script\UIScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPhantomBlowScript.cpp">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCameraScript.cpp">
+      <Filter>Contents\Script\CameraScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGridScript.cpp">
+      <Filter>Contents\Script\CameraScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPortalScript.cpp">
+      <Filter>Contents\Script\PortalScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMushroomScript.cpp">
+      <Filter>Contents\Script\MonsterScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaFireImpScript.cpp">
+      <Filter>Contents\Script\MonsterScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLogoScript.cpp">
+      <Filter>Contents\Script\LogoScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSkillScript.cpp">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPhantomBlowSmokeScript.cpp">
+      <Filter>Contents\Script\EffectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPhantomBlowHitEffectScript.cpp">
+      <Filter>Contents\Script\EffectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBladePuryHitEffectScript.cpp">
+      <Filter>Contents\Script\EffectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaKarmaPuryHitEffectScript.cpp">
+      <Filter>Contents\Script\EffectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBladeTornadoHitEffectScript.cpp">
+      <Filter>Contents\Script\EffectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="ShouldScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="yaPlayScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="yaCameraScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
     <ClInclude Include="LoadScenes.h">
       <Filter>Contents\Load</Filter>
-    </ClInclude>
-    <ClInclude Include="yaGridScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaPlayerScript.h">
-      <Filter>Contents\Script</Filter>
     </ClInclude>
     <ClInclude Include="yaRootaByssScene.h">
       <Filter>Contents\Scene\RootaByssScene</Filter>
@@ -132,74 +139,100 @@
     <ClInclude Include="yaLogoScene.h">
       <Filter>Contents\Scene\LogoScene</Filter>
     </ClInclude>
-    <ClInclude Include="yaBallScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaBanBanScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaCurSorScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaFireImpScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaLogoScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaMushroomScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaPortalScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaRootaByssFireScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaSkillScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaHpScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaMpScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaExpScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaHavisScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaShopScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaInventoryScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
     <ClInclude Include="yaPlayer.h">
       <Filter>Contents\Player</Filter>
     </ClInclude>
-    <ClInclude Include="yaPhantomBlowScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaBladePuryScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaBladeTornadoScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaCaremaPuryScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaDoubleJumpScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="yaDamageScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
     <ClInclude Include="yaBasic0Script.h" />
     <ClInclude Include="yaBasic1Script.h" />
+    <ClInclude Include="yaBallScript.h">
+      <Filter>Contents\Script\BanBanScriptInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBanBanScript.h">
+      <Filter>Contents\Script\BanBanScriptInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayerScript.h">
+      <Filter>Contents\Script\PlayerScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBladePuryScript.h">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBladeTornadoScript.h">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCaremaPuryScript.h">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaDoubleJumpScript.h">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHavisScript.h">
+      <Filter>Contents\Script\RootaByssScriptInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="yaRootaByssFireScript.h">
+      <Filter>Contents\Script\RootaByssScriptInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="yaDamageScript.h">
+      <Filter>Contents\Script\DamageScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCurSorScript.h">
+      <Filter>Contents\Script\CursorScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaExpScript.h">
+      <Filter>Contents\Script\UIScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHpScript.h">
+      <Filter>Contents\Script\UIScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaInventoryScript.h">
+      <Filter>Contents\Script\UIScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMpScript.h">
+      <Filter>Contents\Script\UIScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaShopScript.h">
+      <Filter>Contents\Script\UIScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPhantomBlowScript.h">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCameraScript.h">
+      <Filter>Contents\Script\CameraScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGridScript.h">
+      <Filter>Contents\Script\CameraScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPortalScript.h">
+      <Filter>Contents\Script\PortalScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMushroomScript.h">
+      <Filter>Contents\Script\MonsterScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaFireImpScript.h">
+      <Filter>Contents\Script\MonsterScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLogoScript.h">
+      <Filter>Contents\Script\LogoScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSkillScript.h">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPhantomBlowSmokeScript.h">
+      <Filter>Contents\Script\EffectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPhantomBlowHitEffectScript.h">
+      <Filter>Contents\Script\EffectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="yaBladePuryHitEffectScript.h">
+      <Filter>Contents\Script\EffectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaKarmaPuryHitEffectScript.h">
+      <Filter>Contents\Script\EffectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBladeTornadoHitEffectScript.h">
+      <Filter>Contents\Script\EffectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="ShouldScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -229,14 +262,44 @@
     <Filter Include="Contents\Player">
       <UniqueIdentifier>{69383024-38cc-44d8-94bd-ff144529d164}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Script\DamageResource">
-      <UniqueIdentifier>{1559855f-8007-4d66-8335-3f2e07174b7f}</UniqueIdentifier>
+    <Filter Include="Contents\Script\BanBanScriptInfo">
+      <UniqueIdentifier>{5c13322d-c8ae-4504-a87c-b9544f111fed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Script\DamageResource\Basic">
-      <UniqueIdentifier>{925c557e-bb1d-4c1e-a0ae-aa3971493311}</UniqueIdentifier>
+    <Filter Include="Contents\Script\PlayerScript">
+      <UniqueIdentifier>{f9fc6758-9253-4136-9ee6-a51f60dec73b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Script\DamageResource\Critical">
-      <UniqueIdentifier>{161b93a7-401e-4f1f-a591-4a1ca9ddfa21}</UniqueIdentifier>
+    <Filter Include="Contents\Script\SkillScript">
+      <UniqueIdentifier>{9ab63974-aea6-4520-86e7-d7dd984e4065}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Script\RootaByssScriptInfo">
+      <UniqueIdentifier>{54bd5765-3f82-4d58-b2bc-8151bbf7c4a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\DamageScript">
+      <UniqueIdentifier>{34a83d78-1521-434f-8109-5f001776f2aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\CursorScript">
+      <UniqueIdentifier>{8ad11866-0ce8-498e-acdf-67ed5e7b7065}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\UIScript">
+      <UniqueIdentifier>{de1a2faf-2362-48ae-977c-9a5ccea4f168}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\CameraScript">
+      <UniqueIdentifier>{ab33b4f1-ff95-476b-a250-1eeb543d6a8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\PortalScript">
+      <UniqueIdentifier>{f885bc01-5d04-427e-a4dc-a593ebbd5aa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\MonsterScript">
+      <UniqueIdentifier>{5185cc63-f881-462c-9b66-e53f0672b555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\LogoScript">
+      <UniqueIdentifier>{86e0a69b-a773-4d6b-94b5-8b9daaf42916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\EffectScript">
+      <UniqueIdentifier>{af4bc266-eb3c-408f-b4fa-0a2613826af5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="YamYamEngine.rc" />
   </ItemGroup>
 </Project>

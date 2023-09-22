@@ -60,6 +60,29 @@ namespace ya
 			object::DontDestroyOnLoad(Cursor);
 		}
 
+		{
+			GameObject* player = new GameObject();
+			player->SetName(L"Adel");
+			AddGameObject(eLayerType::Player, player);
+			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+
+			Camera::SetTarget(player);
+
+			Collider2D* cd = player->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.008f, 0.065f));
+			cd->SetSize(Vector2(0.18f, 0.28f));
+
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.999f));
+			player->GetComponent<Transform>()->SetScale(Vector3(1.6f, 1.6f, 0.999f));
+			PlayerScript* mPlayerScript = player->AddComponent<PlayerScript>();
+			SceneManager::SetPlayer(player);
+			SceneManager::SetPlayerScript(mPlayerScript);
+			InventoryScript* mInventoryScript = player->AddComponent<InventoryScript>();
+			SceneManager::SetInventoryScript(mInventoryScript);
+			object::DontDestroyOnLoad(player);
+		}
 
 		{
 			GameObject* BG
@@ -196,11 +219,9 @@ namespace ya
 			object::DontDestroyOnLoad(Slot);
 		}
 
-
-
 		{
 			GameObject* MushRoom
-				= object::Instantiate<GameObject>(Vector3(-0.6f, -0.5f, 0.998f), eLayerType::Monster);
+				= object::Instantiate<GameObject>(Vector3(1.0f, -0.5f, 0.998f), eLayerType::Monster);
 
 			MushRoom->SetName(L"MushRoom");
 
@@ -216,31 +237,26 @@ namespace ya
 
 			Animator* at = MushRoom->AddComponent<Animator>();
 			MushRoom->AddComponent<MushroomScript>();
-
 		}
 
 		{
-			GameObject* player = new GameObject();
-			player->SetName(L"Adel");
-			AddGameObject(eLayerType::Player, player);
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+			GameObject* MushRoom
+				= object::Instantiate<GameObject>(Vector3(-0.6f, -0.5f, 0.998f), eLayerType::Monster);
 
-			//Camera::SetTarget(player);
+			MushRoom->SetName(L"MushRoom1");
 
-			Collider2D* cd = player->AddComponent<Collider2D>();
-			cd->SetCenter(Vector2(0.008f, 0.065f));
-			cd->SetSize(Vector2(0.18f, 0.28f));
+			Collider2D* cd = MushRoom->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.0f, 0.0f));
+			cd->SetSize(Vector2(0.25f, 0.25f));
 
+			MeshRenderer* mr = MushRoom->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
-			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.999f));
-			player->GetComponent<Transform>()->SetScale(Vector3(1.6f, 1.6f, 0.999f));
-			PlayerScript* mPlayerScript = player->AddComponent<PlayerScript>();
-			SceneManager::SetPlayer(player);
-			SceneManager::SetPlayerScript(mPlayerScript);
-			InventoryScript* mInventoryScript = player->AddComponent<InventoryScript>();
-			SceneManager::SetInventoryScript(mInventoryScript);
-			object::DontDestroyOnLoad(player);
+
+			MushRoom->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0001f));
+
+			Animator* at = MushRoom->AddComponent<Animator>();
+			MushRoom->AddComponent<MushroomScript>();
 		}
 		//{
 		//	GameObject* light = new GameObject();
@@ -287,6 +303,8 @@ namespace ya
 			cameraComp->TurnLayerMask(eLayerType::Skill, false);
 			cameraComp->TurnLayerMask(eLayerType::Cursor, false);
 			cameraComp->TurnLayerMask(eLayerType::Inventory, false);
+			cameraComp->TurnLayerMask(eLayerType::Damage, false);
+			cameraComp->TurnLayerMask(eLayerType::Effect, false);
 			//camera->AddComponent<CameraScript>();
 		}
 		Scene::Initialize();
@@ -325,7 +343,7 @@ namespace ya
 	}
 	void HenesisScene::OnEnter()
 	{
-		//Camera::SetHeneSisScene(this);
+		Camera::SetHeneSisScene(this);
 		Scene::OnEnter();
 	}
 	void HenesisScene::OnExit()

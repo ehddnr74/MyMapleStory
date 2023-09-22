@@ -5,50 +5,40 @@
 
 namespace ya
 {
-	class BladePuryScript : public Script
+	class PhantomBlowSmokeScript : public Script
 	{
 	public:
-		BladePuryScript();
-		~BladePuryScript();
+		PhantomBlowSmokeScript();
+		~PhantomBlowSmokeScript();
 
-		enum class SkillState
+		enum class SmokeState
 		{
-			BladePury,
-			RightBladePury,
+			LeftSmoke,
+			RightSmoke,
 		};
-
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 
-		void SetRightBladePury(bool rbp) { Rightbladepury = rbp; }
-
-
+		void SetRightPhantomBlowSmoke(bool rs) { Rightsmoke = rs; }
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 	private:
+		void leftsmoke();
+		void rightsmoke();
+
+	private:
 		Animator* at;
-		SkillState mSkillState;
+		SmokeState mSmokeState;
 		Transform* tr;
 		Vector3 pos;
 
-		Vector3 BladePos;
+		double EffectTime;
 
-	private:
-		void bladepury();
-		void rightbladepury();
-
-
-
-
-	private:
-		bool Leftbladepury;
-		bool Rightbladepury;
-
-		bool DamageView;
-
+		bool Rightsmoke;
 	};
 }
+

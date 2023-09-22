@@ -18,6 +18,15 @@ namespace ya
 		, Rightbladetornado(false)
 		, bladetornadotime1(0.0f)
 		, bladetornadotime2(false)
+		, Stay(false)
+		, DamageView(false)
+		, Attackingtime(0.f)
+		, ta1(false)
+		, ta2(false)
+		, ta3(false)
+		, ta4(false)
+		, ta5(false)
+		, ta6(false)
 
 	{
 	}
@@ -67,13 +76,117 @@ namespace ya
 			mSkillState = SkillState::RightBladeTornado;
 			at->PlayAnimation(L"RightBladeTornado", false);
 		}
+
+		if (Stay)
+		{
+			Attackingtime += Time::DeltaTime();
+
+			Transform* tr = GetMushRoom()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+
+			if (Attackingtime >= 0.245f && ta1 == false)
+			{
+				ta1 = true;
+				SceneManager::GetPlayerScript()->CreateBladeTornadoHitEffect(GetMushRoom(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x, pos.y + 1.2f, pos.z));
+			}
+			if (Attackingtime >= 0.49f && ta2 == false)
+			{
+				ta2 = true;
+				SceneManager::GetPlayerScript()->CreateBladeTornadoHitEffect(GetMushRoom(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.05f, pos.y + 0.1f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.05f, pos.y + 0.3f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.05f, pos.y + 0.5f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.05f, pos.y + 0.7f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.05f, pos.y + 0.9f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.05f, pos.y + 1.1f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.05f, pos.y + 1.3f, pos.z));
+			}
+
+			if (Attackingtime >= 0.735f && ta3 == false)
+			{
+				ta3 = true;
+				SceneManager::GetPlayerScript()->CreateBladeTornadoHitEffect(GetMushRoom(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.1f, pos.y + 0.2f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.1f, pos.y + 0.4f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.1f, pos.y + 0.6f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.1f, pos.y + 0.8f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.1f, pos.y + 1.0f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.1f, pos.y + 1.2f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.1f, pos.y + 1.4f, pos.z));
+			}
+
+			if (Attackingtime >= 0.98f && ta4 == false)
+			{
+				ta4 = true;
+				SceneManager::GetPlayerScript()->CreateBladeTornadoHitEffect(GetMushRoom(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.15f, pos.y + 0.3f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.15f, pos.y + 0.5f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.15f, pos.y + 0.7f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.15f, pos.y + 0.9f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.15f, pos.y + 1.1f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.15f, pos.y + 1.3f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.15f, pos.y + 1.5f, pos.z));
+			}
+			if (Attackingtime >= 1.225f && ta5 == false)
+			{
+				ta5 = true;
+				SceneManager::GetPlayerScript()->CreateBladeTornadoHitEffect(GetMushRoom(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.2f, pos.y + 0.4f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.2f, pos.y + 0.6f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.2f, pos.y + 0.8f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.2f, pos.y + 1.0f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.2f, pos.y + 1.2f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.2f, pos.y + 1.4f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.2f, pos.y + 1.6f, pos.z));
+			}
+			if (Attackingtime >= 1.46f && ta6 == false)
+			{
+				Attackingtime = 0.0f;			
+				ta6 = true;
+				SceneManager::GetPlayerScript()->CreateBladeTornadoHitEffect(GetMushRoom(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.25f, pos.y + 0.5f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.25f, pos.y + 0.7f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.25f, pos.y + 0.9f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.25f, pos.y + 1.1f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.25f, pos.y + 1.3f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.25f, pos.y + 1.5f, pos.z));
+				SceneManager::GetPlayerScript()->CreateDamage(GetMushRoom(), Vector3(pos.x + 0.25f, pos.y + 1.7f, pos.z));
+			}
+		}
 	}
 
 	void BladeTornadoScript::OnCollisionEnter(Collider2D* other)
 	{
+		if (other->GetOwner()->GetName() == L"MushRoom" && DamageView == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreateBladeTornadoHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.2f, pos.z));
+		}
 	}
 	void BladeTornadoScript::OnCollisionStay(Collider2D* other)
 	{
+		if (other->GetOwner()->GetName() == L"MushRoom")
+		{
+			Stay = true;
+			SetMushRoom(other->GetOwner());
+		}
+
 	}
 	void BladeTornadoScript::OnCollisionExit(Collider2D* other)
 	{
