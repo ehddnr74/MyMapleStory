@@ -19,6 +19,9 @@ namespace ya
 
 		void CreateDevide();
 
+		void SetInventoryScript(class InventoryScript* its) { mInventoryScript = its; }
+		InventoryScript* GetInventoryScript() { return mInventoryScript; }
+
 		void SetPlayerScript(class PlayerScript* mps) { mPlayerScript = mps; }
 		PlayerScript* GetPlayerScript() { return mPlayerScript; }
 
@@ -28,6 +31,7 @@ namespace ya
 	private:
 		class PlayerScript* mPlayerScript;
 		class CameraScript* mCameraScript;
+		class InventoryScript* mInventoryScript;
 		class Player* mPlayer;
 
 

@@ -47,6 +47,8 @@ namespace ya
 		void CreateCaremaPury();
 		void CreateRightCaremaPury();
 		void CreateCaremaPuryHitEffect(GameObject* Monster, Vector3(pos));
+		void CreateSkillUI();
+		void CloseSkillUI();
 
 
 		void CreateDamage(GameObject* Monster, Vector3 Pos);
@@ -61,8 +63,13 @@ namespace ya
 		void SetBladePury(GameObject* bp) { mBladePury = bp; }
 		void SetCaremaPury(GameObject* cp) { mCaremaPury = cp; }
 		void SetDoubleJump(GameObject* dj) { mDoubleJump = dj; }
+		void SetSkillUI(GameObject* ss) { mSkillUI = ss; }
+		void SetBladePuryUI(GameObject* bpu) { mBladePuryUI = bpu; }
+		void SetPhantomBlowUI(GameObject* pbu) { mPhantomBlowUI = pbu; }
+		void SetBladeTornadoUI(GameObject* btu) { mBladeTornadoUI = btu; }
+		void SetKarmaPuryUI(GameObject* kpu) { mKarmaPuryUI = kpu; }
 
-		
+
 		void SetBladePuryScript(class BladePuryScript* bps) { mBladePuryScript = bps; }
 		void SetPhantomBlowScript(class PhantomBlowScript* pbs) { mPhantomBlowScript = pbs; }
 		void SetPhantomBlowSmokeScript(class PhantomBlowSmokeScript* pbss) { mPhantomBlowSmokeScript = pbss; }
@@ -96,25 +103,12 @@ namespace ya
 
 		Vector3 GetPos() { return pos; }
 
-		void OnInventory();
-		void CloseInventory();
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 		void SetOnShop(bool onshop) { OnShop = onshop; }
-		void SetInventory(bool it) { inventory = it; }
-
-		void SetOnInventory(bool oninventory) { Oninventory = oninventory; }
-		bool GetOnInventory() { return Oninventory; }
-
-		void SetInventory1(GameObject* inventory1) { mInventory1 = inventory1; }
-		void SetInventory2(GameObject* inventory2) { mInventory2 = inventory2; }
-		void SetInventory3(GameObject* inventory3) { mInventory3 = inventory3; }
-		void SetInventoryEtc(GameObject* inventoryetc) { mInventoryEtc = inventoryetc; }
-		void SetInventoryMeso(GameObject* inventorymeso) { mInventoryMeso = inventorymeso; }
-		void SetInventoryMesoBar(GameObject* inventorymesobar) { mInventoryMesoBar = inventorymesobar; }
 
 		//void SetDmg(int DMG) { dmg = DMG; }
 		//int GetDmg() { return dmg; }
@@ -171,6 +165,11 @@ namespace ya
 		GameObject* mBladeTornado;
 		GameObject* mBladePury;
 		GameObject* mCaremaPury;
+		GameObject* mSkillUI;
+		GameObject* mBladePuryUI;
+		GameObject* mPhantomBlowUI;
+		GameObject* mBladeTornadoUI;
+		GameObject* mKarmaPuryUI;
 
 		//GameObject* mBladeStorm;
 		class PhantomBlowSmokeScript* mPhantomBlowSmokeScript;
@@ -192,12 +191,9 @@ namespace ya
 		bool inventory;
 		bool OnShop;
 		bool Oninventory;
-		GameObject* mInventory1;
-		GameObject* mInventory2;
-		GameObject* mInventory3;
-		GameObject* mInventoryEtc;
-		GameObject* mInventoryMeso;
-		GameObject* mInventoryMesoBar;
+		bool skillui;
+		double skilluitime;
+		GameObject* mInventory;
 
 		double inventorytime;
 

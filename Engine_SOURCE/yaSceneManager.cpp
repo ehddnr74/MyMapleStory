@@ -4,6 +4,7 @@
 #include "..\YamYamEngine\yaMpScript.h"
 #include "..\YamYamEngine\yaCurSorScript.h"
 #include "..\YamYamEngine\yaInventoryScript.h"
+#include "..\YamYamEngine\yaSkillUIScript.h"
 
 //#include "yaPlayScene.h"
 
@@ -19,6 +20,7 @@ namespace ya
 	ExpScript* SceneManager::mExpScript = nullptr;
 	CurSorScript* SceneManager::mCursorScript = nullptr;
 	InventoryScript* SceneManager::mInventoryScript = nullptr;
+	SkillUIScript* SceneManager::mSkillUIScript = nullptr;
 
 	void SceneManager::Initialize()
 	{

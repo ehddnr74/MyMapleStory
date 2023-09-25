@@ -19,6 +19,12 @@ namespace ya
 
 		};
 
+		//enum class InventoryState
+		//{
+		//	OnInventory,
+		//	CloseInventory,
+		//};
+
 		virtual void Initialize() override;
 		virtual void Update() override;
 
@@ -35,15 +41,28 @@ namespace ya
 
 		void Buying();
 
+		void SetInventory(GameObject* it) { mInventory = it; }
+		GameObject* GetInventory() { return mInventory; }
+
+
+		void OnInventory();
+		void CloseInventory();
+
 	private:
 		class PlayerScript* mPlayerScript;
+		class CursorScript* mCursorScript;
 		class CameraScript* mCameraScript;
 		//Collider2D* cd;
+		//InventoryState mInventoryState;
 		Animator* at;
 		Transform* tr;
 		Vector3 pos;
+		Vector3 InventoryPos;
 		Vector3 CameraPos;
+		Vector3 FinalPos;
 
+
+		GameObject* mInventory;
 
 		GameObject* RootaByssKey;
 		

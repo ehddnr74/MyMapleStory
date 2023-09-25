@@ -13,37 +13,28 @@ namespace ya
 		//virtual void OnCollisionStay(Collider2D* other) override;
 		//virtual void OnCollisionExit(Collider2D* other) override;
 
+		void SetCursorScript(class CursorScript* cs) { mCursorScript = cs; }
+		CursorScript* GetCursorScript() { return mCursorScript; }
+
 		void SetHavisScript(class HavisScript* hs) { mHavisScript = hs; }
 		HavisScript* GetHavisScript() { return mHavisScript; }
 
-		void SetInventory1(GameObject* i1) { mInventory1 = i1; }
-		GameObject* GetInventory1() { return mInventory1; }
+		void SetInventoryScript(class InventoryScript* is) { mInventoryScript = is; }
+		InventoryScript* GetInventoryScript() { return mInventoryScript; }
 
-		void SetInventory2(GameObject* i2) { mInventory2 = i2; }
-		GameObject* GetInventory2() { return mInventory2; }
 
-		void SetInventory3(GameObject* i3) { mInventory3 = i3; }
-		GameObject* GetInventory3() { return mInventory3; }
-
-		void SetInventoryEtc(GameObject* etc) { mInventoryEtc = etc; }
-		GameObject* GetInventoryEtc() { return mInventoryEtc; }
-
-		void SetInventoryMeso(GameObject* inventorymeso) { mInventoryMeso = inventorymeso; }
-		GameObject* GetInventoryMeso() { return mInventoryMeso; }
-
-		void SetInventoryMesoBar(GameObject* inventorymesobar) { mInventoryMesoBar = inventorymesobar; }
-		GameObject* GetInventoryMesoBar() { return mInventoryMesoBar; }
-
+		void SetInventory(GameObject* it) { mInventory = it; }
+		void SetInventoryBtn1(GameObject* ib1) { mInventoryBtn1 = ib1; }
 
 	private:
 		class HavisScript* mHavisScript;
+		class InventoryScript* mInventoryScript;
+		class CursorScript* mCursorScript;
 		GameObject* mTarget;
-		GameObject* mInventory1;
-		GameObject* mInventory2;
-		GameObject* mInventory3;
-		GameObject* mInventoryEtc;
-		GameObject* mInventoryMeso;
-		GameObject* mInventoryMesoBar;
+
+
+		GameObject* mInventory;
+		GameObject* mInventoryBtn1;
 	
 		Vector3 mPrevPos;
 		Vector3 Ypos;

@@ -414,7 +414,7 @@ namespace ya
 			if (mCameraScript != nullptr)
 			{
 				mHavisScript->SetCameraScript(mCameraScript);
-				//mCameraScript->SetHavisScript(mHavisScript);
+				mCameraScript->SetHavisScript(mHavisScript);
 			}
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;

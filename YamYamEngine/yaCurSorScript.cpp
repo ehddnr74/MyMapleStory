@@ -24,6 +24,7 @@ namespace ya
 		, ShopBuy(false)
 		, InventoryClick(false)
 		, ShopToInventory(false)
+		, PortionSelect(false)
 	{
 	}
 
@@ -49,89 +50,111 @@ namespace ya
 
 	void CurSorScript::Update()
 	{
-		Vector2 pos = Input::GetMousePos();
-		mPos = Vector3(pos.x, pos.y, -10.0f);
-
-		Transform* tr = GetOwner()->GetComponent<Transform>();
-		MouseWorldPos = Camera::GetWorldPos(mPos);
-		Input::SetMouseWorldPos(mPos);
-		tr->SetPosition(Camera::GetWorldPos(mPos));
-
-		if (havis == true)
+		if (mCameraScript != nullptr)
 		{
-			GetHavisScript()->SetLookingShop(true);
+			Vector2 pos = Input::GetMousePos();
+			mPos = Vector3(pos.x, pos.y, -10.0f);
 
-			if (Input::GetKeyDown(eKeyCode::LBUTTON))
+			Transform* Cameratr = mCameraScript->GetOwner()->GetComponent<Transform>();
+			Vector3 CameraPos = Cameratr->GetPosition();
+
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			MouseWorldPos = Camera::GetWorldPos(mPos);
+			Input::SetMouseWorldPos(mPos);
+
+			tr->SetPosition(
+				Vector3
+				{ CameraPos.x + MouseWorldPos.x,
+				 CameraPos.y + MouseWorldPos.y,
+				 mPos.z
+				});
+
+
+			if (havis == true)
 			{
-				havis = false;
-				GetHavisScript()->OnShop();
-				ShopToInventory = true;
-			}
-		}
+				GetHavisScript()->SetLookingShop(true);
 
-		if (ShopExit == true)
-		{
-			if (Input::GetKeyDown(eKeyCode::LBUTTON))
+				if (Input::GetKeyDown(eKeyCode::LBUTTON))
+				{
+					havis = false;
+					GetHavisScript()->OnShop();
+					ShopToInventory = true;
+				}
+			}
+
+			if (ShopExit == true)
 			{
-				ShopExit = false;
-				GetHavisScript()->CloseShop();
+				if (Input::GetKeyDown(eKeyCode::LBUTTON))
+				{
+					ShopExit = false;
+					GetHavisScript()->CloseShop();
+				}
 			}
-		}
 
-		if (KeySelect == true)
-		{
-			if (Input::GetKeyDown(eKeyCode::LBUTTON))
+			if (KeySelect == true)
 			{
-				KeySelect = false;
-				GetHavisScript()->RootaByssKeySelect();
+				if (Input::GetKeyDown(eKeyCode::LBUTTON))
+				{
+					KeySelect = false;
+					GetHavisScript()->RootaByssKeySelect();
+				}
 			}
-		}
 
-		if (ShopBuy == true)
-		{
-			if (Input::GetKeyDown(eKeyCode::LBUTTON))
+			if (PortionSelect == true)
 			{
-				ShopBuy = false;
-				GetHavisScript()->SetIsBuy(true);
-				GetHavisScript()->Buy();
+				if (Input::GetKeyDown(eKeyCode::LBUTTON))
+				{
+					PortionSelect = false;
+					GetHavisScript()->PowerPortionSelect();
+				}
 			}
-		}
 
-		//if (InventoryClick == true)
-		//{
-		//	if (Input::GetKey(eKeyCode::LBUTTON))
-		//	{
-		//		Transform* tr = GetOwner()->GetComponent<Transform>();
-		//		Vector3 Pos = tr->GetPosition();
+			if (ShopBuy == true)
+			{
+				if (Input::GetKeyDown(eKeyCode::LBUTTON))
+				{
+					ShopBuy = false;
+					GetHavisScript()->SetIsBuy(true);
+					GetHavisScript()->Buy();
+				}
+			}
 
-		//		Transform* InvenTr = SceneManager::GetInventoryScript()->GetOwner()->GetComponent<Transform>();
-		//		Vector3 InvenPos = InvenTr->GetPosition();
+			//if (InventoryClick == true)
+			//{
+			//	if (Input::GetKey(eKeyCode::LBUTTON))
+			//	{
+			//		Transform* tr = GetOwner()->GetComponent<Transform>();
+			//		Vector3 Pos = tr->GetPosition();
 
-		//		InvenTr->SetPosition(
-		//			Vector3(Pos.x,
-		//				Pos.y,
-		//				InvenPos.z
-		//			));
-		//	}
-		//	if (Input::GetKeyUp(eKeyCode::LBUTTON))
-		//	{
-		//		InventoryClick = false;
-		//	}
-		//}
+			//		Transform* InvenTr = SceneManager::GetInventoryScript()->GetOwner()->GetComponent<Transform>();
+			//		Vector3 InvenPos = InvenTr->GetPosition();
+
+			//		InvenTr->SetPosition(
+			//			Vector3(Pos.x,
+			//				Pos.y,
+			//				InvenPos.z
+			//			));
+			//	}
+			//	if (Input::GetKeyUp(eKeyCode::LBUTTON))
+			//	{
+			//		InventoryClick = false;
+			//	}
+			//}
 
 
-		
 
-		switch (mCursorState)
-		{
-		case CursorState::None:
-			none();
-			break;
-		case CursorState::Click:
-			click();
-			break;
-		default:
-			break;
+
+			switch (mCursorState)
+			{
+			case CursorState::None:
+				none();
+				break;
+			case CursorState::Click:
+				click();
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
@@ -149,6 +172,11 @@ namespace ya
 		if (other->GetOwner()->GetName() == L"RootaByssKey")
 		{
 			KeySelect = true;
+		}
+
+		if (other->GetOwner()->GetName() == L"PowerPortion")
+		{
+			PortionSelect = true;
 		}
 
 		if (other->GetOwner()->GetName() == L"ShopExit")
@@ -186,7 +214,10 @@ namespace ya
 		{
 			KeySelect = false;
 		}
-
+		if (other->GetOwner()->GetName() == L"PowerPortion")
+		{
+			PortionSelect = false;
+		}
 		if (other->GetOwner()->GetName() == L"ShopExit")
 		{
 			ShopExit = false;

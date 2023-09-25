@@ -28,6 +28,7 @@
 #include "yaBladePuryHitEffectScript.h"
 #include "yaKarmaPuryHitEffectScript.h"
 #include "yaBladeTornadoHitEffectScript.h"
+#include "yaSkillUIScript.h"
 
 namespace ya
 {
@@ -50,6 +51,8 @@ namespace ya
 		, inventory(false)
 		, OnShop(false)
 		, Oninventory(false)
+		, skillui(false)
+		, skilluitime(0.0f)
 		, inventorytime(0.0f)
 		, meso(100)
 	{
@@ -114,28 +117,49 @@ namespace ya
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
+		if (skillui == false)
+		{
+			if (Input::GetKeyDown(eKeyCode::K))
+			{
+				skillui = true;
+				CreateSkillUI();
+			}
+		}
+
+		if (skillui)
+		{
+			skilluitime += Time::DeltaTime();
+
+			if (skilluitime >= 0.2f && Input::GetKeyDown(eKeyCode::K))
+			{
+				skilluitime = 0.0f;
+				skillui = false;
+				CloseSkillUI();
+			}
+		}
+
 		if (inventory == false && OnShop == false)
 		{
 			if (Input::GetKeyDown(eKeyCode::I))
 			{
 				inventory = true;
-				OnInventory();
+				SceneManager::GetInventoryScript()->OnInventory();
 				Oninventory = true;
 			}
 		}
 
-		if (inventory && OnShop)
-		{
-			inventorytime += Time::DeltaTime();
+		//if (inventory && OnShop)
+		//{
+		//	inventorytime += Time::DeltaTime();
 
-			if (inventorytime >= 0.2f && Input::GetKeyDown(eKeyCode::I))
-			{
-				inventorytime = 0.0f;
-				inventory = false;
-				OnShop = false;
-				CloseInventory();
-			}
-		}
+		//	if (inventorytime >= 0.2f && Input::GetKeyDown(eKeyCode::I))
+		//	{
+		//		inventorytime = 0.0f;
+		//		inventory = false;
+		//		OnShop = false;
+		//		SceneManager::GetInventoryScript()->CloseInventory();
+		//	}
+		//}
 
 		if (inventory == true && OnShop == false)
 		{
@@ -145,7 +169,7 @@ namespace ya
 			{
 				inventorytime = 0.0f;
 				inventory = false;
-				CloseInventory();
+				SceneManager::GetInventoryScript()->CloseInventory();
 			}
 		}
 
@@ -438,7 +462,7 @@ namespace ya
 
 			Collider2D* cd = mBladeTornado->AddComponent<Collider2D>();
 			cd->SetCenter(Vector2(0.0f, -0.45f));
-			cd->SetSize(Vector2(0.45f, 0.55f));
+			cd->SetSize(Vector2(0.45f, 0.6f));
 
 
 		MeshRenderer* mr = mBladeTornado->AddComponent<MeshRenderer>();
@@ -465,7 +489,7 @@ namespace ya
 
 		Collider2D* cd = mBladeTornado->AddComponent<Collider2D>();
 		cd->SetCenter(Vector2(0.0f, -0.45f));
-		cd->SetSize(Vector2(0.45f, 0.55f));
+		cd->SetSize(Vector2(0.45f, 0.6f));
 
 		MeshRenderer* mr = mBladeTornado->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -642,6 +666,93 @@ namespace ya
 		Animator* at = mKarmaPuryHitEffect->AddComponent<Animator>();
 		mKarmaPuryHitEffect->AddComponent<KarmaPuryHitEffectScript>();
 	}
+	void PlayerScript::CreateSkillUI()
+	{
+		{
+			GameObject* mSkillUI
+				= object::Instantiate<GameObject>(Vector3(0.3f, 0.6f, 1.0f), eLayerType::UI);
+
+			mSkillUI->SetName(L"SkillUI");
+
+			SetSkillUI(mSkillUI);
+
+			MeshRenderer* mr = mSkillUI->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"skillui"));
+
+			mSkillUI->GetComponent<Transform>()->SetScale(Vector3(2.3f, 2.3f, 1.000f));
+
+			mSkillUI->AddComponent<SkillUIScript>();
+		}
+
+		{
+			GameObject* mBladePuryUI
+				= object::Instantiate<GameObject>(Vector3(-0.65f, 1.055f, 0.99f), eLayerType::UI);
+
+			mBladePuryUI->SetName(L"BladePuryUI");
+
+			SetBladePuryUI(mBladePuryUI);
+
+			MeshRenderer* mr = mBladePuryUI->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"bladepuryui"));
+
+			mBladePuryUI->GetComponent<Transform>()->SetScale(Vector3(0.225f, 0.225f, 1.000f));
+		}
+
+		{
+			GameObject* mPhantomBlowUI
+				= object::Instantiate<GameObject>(Vector3(-0.65f, 0.81f, 0.99f), eLayerType::UI);
+
+			mPhantomBlowUI->SetName(L"PhantomBlowUI");
+
+			SetPhantomBlowUI(mPhantomBlowUI);
+
+			MeshRenderer* mr = mPhantomBlowUI->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"phantomblowui"));
+
+			mPhantomBlowUI->GetComponent<Transform>()->SetScale(Vector3(0.225f, 0.225f, 1.000f));
+		}
+
+		{
+			GameObject* mBladeTornadoUI
+				= object::Instantiate<GameObject>(Vector3(-0.65f, 0.565f, 0.99f), eLayerType::UI);
+
+			mBladeTornadoUI->SetName(L"BladeTornadoUI");
+
+			SetBladeTornadoUI(mBladeTornadoUI);
+
+			MeshRenderer* mr = mBladeTornadoUI->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"bladetornadoui"));
+
+			mBladeTornadoUI->GetComponent<Transform>()->SetScale(Vector3(0.225f, 0.225f, 1.000f));
+		}
+
+		{
+			GameObject* mKarmaPuryUI
+				= object::Instantiate<GameObject>(Vector3(-0.65f, 0.32f, 0.99f), eLayerType::UI);
+
+			mKarmaPuryUI->SetName(L"KarmaPuryUI");
+
+			SetKarmaPuryUI(mKarmaPuryUI);
+
+			MeshRenderer* mr = mKarmaPuryUI->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"karmapuryui"));
+
+			mKarmaPuryUI->GetComponent<Transform>()->SetScale(Vector3(0.225f, 0.225f, 1.000f));
+		}
+	}
+	void PlayerScript::CloseSkillUI()
+	{
+		object::Destroy(mSkillUI);
+		object::Destroy(mBladePuryUI);
+		object::Destroy(mPhantomBlowUI);
+		object::Destroy(mBladeTornadoUI);
+		object::Destroy(mKarmaPuryUI);
+	}
 	void PlayerScript::CreateDamage(GameObject* Monster, Vector3 Pos)
 	{
 		{
@@ -721,239 +832,7 @@ namespace ya
 			mDamage->AddComponent<DamageScript>();
 		}
 	}
-	//void PlayerScript::CreateCaremaPury()
-	//{
-	//	Transform* tr = GetOwner()->GetComponent<Transform>();
-	//	Vector3 pos = tr->GetPosition();
-
-	//	GameObject* mCaremaPury
-	//		= object::Instantiate<GameObject>(Vector3(pos.x, pos.y + 1.45f, 0.998f), eLayerType::Skill);
-
-	//	SetCaremaPury(mCaremaPury);
-
-	//	mCaremaPury->SetName(L"LeftCaremaPury");
-
-
-	//	MeshRenderer* mr = mCaremaPury->AddComponent<MeshRenderer>();
-	//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-	//	mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
-
-	//	mCaremaPury->GetComponent<Transform>()->SetScale(Vector3(4.2f, 4.5f, 1.0005f));
-
-	//	Animator* at = mCaremaPury->AddComponent<Animator>();
-	//	SkillScript* ss = mCaremaPury->AddComponent<SkillScript>();
-	//	ss->SetLeftCaremaPury(mCaremaPury);
-	//}
-	//void PlayerScript::CreateRightCaremaPury()
-	//{
-	//	Transform* tr = GetOwner()->GetComponent<Transform>();
-	//	Vector3 pos = tr->GetPosition();
-
-	//	GameObject* mCaremaPury
-	//		= object::Instantiate<GameObject>(Vector3(pos.x, pos.y + 1.45f, 0.998f), eLayerType::Skill);
-
-	//	SetCaremaPury(mCaremaPury);
-
-	//	mCaremaPury->SetName(L"RightCaremaPury");
-
-
-	//	MeshRenderer* mr = mCaremaPury->AddComponent<MeshRenderer>();
-	//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-	//	mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
-
-	//	mCaremaPury->GetComponent<Transform>()->SetScale(Vector3(4.2f, 4.5f, 1.0005f));
-
-	//	Animator* at = mCaremaPury->AddComponent<Animator>();
-	//	mCaremaPury->AddComponent<SkillScript>();
-
-	//	SkillScript* ss = mCaremaPury->GetComponent<SkillScript>();
-	//	ss->SetRightCaremaPury(true);
-	//}
-	void PlayerScript::OnInventory()
-	{
-		if (mCameraScript != nullptr)
-		{
-			{
-				Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
-				Vector3 CameraPos = tr->GetPosition();
-				mInventory1
-					= object::Instantiate<GameObject>(Vector3(CameraPos.x + 1.0f, CameraPos.y + 0.68f, 0.999f), eLayerType::Inventory);
-
-				SetInventory1(mInventory1);
-				mCameraScript->SetInventory1(mInventory1);
-
-				mInventory1->SetName(L"mInventory1");
-				
-
-				MeshRenderer* mr = mInventory1->AddComponent<MeshRenderer>();
-				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-				mr->SetMaterial(Resources::Find<Material>(L"inventory1"));
-
-				mInventory1->GetComponent<Transform>()->SetScale(Vector3(1.5f, 2.4f, 1.0001f));
-			}
-
-			//{
-			//	Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
-			//	Vector3 CameraPos = tr->GetPosition();
-
-			//	GameObject* mInventoryClickCol
-			//		= object::Instantiate<GameObject>(Vector3(CameraPos.x + 1.0f, CameraPos.y + 1.8f, 0.995f), eLayerType::Inventory);
-			//	mInventoryClickCol->GetComponent<Transform>()->SetScale(Vector3(1.5f, 0.15f, 1.0001f));
-
-			//	mInventoryClickCol->SetName(L"mInventoryClickCol");
-
-			//	Collider2D* cd = mInventoryClickCol->AddComponent<Collider2D>();
-			//	cd->SetCenter(Vector2(0.0f, 0.0f));
-			//	cd->SetSize(Vector2(1.0f, 1.0f));
-			//}
-
-			{
-				Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
-				Vector3 CameraPos = tr->GetPosition();
-
-				mInventory2
-					= object::Instantiate<GameObject>(Vector3(CameraPos.x + 2.0f, CameraPos.y + 0.38f, 0.998f), eLayerType::Inventory);
-
-				SetInventory2(mInventory2);
-				mCameraScript->SetInventory2(mInventory2);
-
-				mInventory2->SetName(L"mInventory2");
-
-				//Collider2D* cd = Inventory->AddComponent<Collider2D>();
-				//cd->SetCenter(Vector2(0.0f, 0.0f));
-				//cd->SetSize(Vector2(0.22f, 0.38f));
-
-				MeshRenderer* mr = mInventory2->AddComponent<MeshRenderer>();
-				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-				mr->SetMaterial(Resources::Find<Material>(L"inventory2"));
-
-				mInventory2->GetComponent<Transform>()->SetScale(Vector3(1.4f, 2.75f, 1.0001f));
-			}
-
-			{
-				Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
-				Vector3 CameraPos = tr->GetPosition();
-
-				mInventory3
-					= object::Instantiate<GameObject>(Vector3(CameraPos.x + 1.0f, CameraPos.y + 0.5f, 0.997f), eLayerType::Inventory);
-				mInventory3->GetComponent<Transform>()->SetScale(Vector3(1.38f, 2.2f, 1.0001f));
-
-				//Collider2D* cd = mInventory3->AddComponent<Collider2D>();
-				//cd->SetCenter(Vector2(0.0f, 1.3f));
-				//cd->SetSize(Vector2(1.0f, 0.05f));
-
-				SetInventory3(mInventory3);
-				SceneManager::SetInventory3(mInventory3);
-				mCameraScript->SetInventory3(mInventory3);
-
-				mInventory3->SetName(L"mInventory3");
-
-				//cd->SetCenter(Vector2(CameraPos.x - 1.0f, 1.3f));
-				//cd->SetSize(Vector2(1.0f, 0.05f));
-
-				MeshRenderer* mr = mInventory3->AddComponent<MeshRenderer>();
-				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-				mr->SetMaterial(Resources::Find<Material>(L"inventory3"));
-
-				mInventoryScript = mInventory3->AddComponent<InventoryScript>();
-				mInventoryScript->SetCameraScript(mCameraScript);
-				SceneManager::SetInventoryScript(mInventoryScript);
-				SetInventoryScript(mInventoryScript);
-				//{
-					//object::Instantiate<GameObject>(Vector3)
-				//}
-
-			}
-
-			{
-				Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
-				Vector3 CameraPos = tr->GetPosition();
-
-				mInventoryEtc
-					= object::Instantiate<GameObject>(Vector3(CameraPos.x + 0.88f, CameraPos.y + 1.67f, 0.996f), eLayerType::Inventory);
-
-				SetInventoryEtc(mInventoryEtc);
-				mCameraScript->SetInventoryEtc(mInventoryEtc);
-
-				mInventoryEtc->SetName(L"mInventoryEtc");
-
-				//Collider2D* cd = Inventory->AddComponent<Collider2D>();
-				//cd->SetCenter(Vector2(0.0f, 0.0f));
-				//cd->SetSize(Vector2(0.22f, 0.38f));
-
-				MeshRenderer* mr = mInventoryEtc->AddComponent<MeshRenderer>();
-				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-				mr->SetMaterial(Resources::Find<Material>(L"shopetc"));
-
-				mInventoryEtc->GetComponent<Transform>()->SetScale(Vector3(1.6f, 0.15f, 1.0001f));
-			}
-
-			{
-				Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
-				Vector3 CameraPos = tr->GetPosition();
-
-				mInventoryMeso
-					= object::Instantiate<GameObject>(Vector3(CameraPos.x + 0.475f, CameraPos.y - 0.37f, 0.996f), eLayerType::Inventory);
-
-				SetInventoryMeso(mInventoryMeso);
-				mCameraScript->SetInventoryMeso(mInventoryMeso);
-
-				mInventoryMeso->SetName(L"mInventoryMeso");
-
-				//Collider2D* cd = Inventory->AddComponent<Collider2D>();
-				//cd->SetCenter(Vector2(0.0f, 0.0f));
-				//cd->SetSize(Vector2(0.22f, 0.38f));
-
-				MeshRenderer* mr = mInventoryMeso->AddComponent<MeshRenderer>();
-				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-				mr->SetMaterial(Resources::Find<Material>(L"inventorymeso"));
-
-				mInventoryMeso->GetComponent<Transform>()->SetScale(Vector3(0.3f, 0.125f, 1.0001f));
-			}
-
-			{
-				Transform* tr = GetCameraScript()->GetOwner()->GetComponent<Transform>();
-				Vector3 CameraPos = tr->GetPosition();
-
-				mInventoryMesoBar
-					= object::Instantiate<GameObject>(Vector3(CameraPos.x + 1.2f, CameraPos.y - 0.38f, 0.996f), eLayerType::Inventory);
-
-				SetInventoryMesoBar(mInventoryMesoBar);
-				mCameraScript->SetInventoryMesoBar(mInventoryMesoBar);
-
-				mInventoryMesoBar->SetName(L"mInventoryMesoBar");
-
-				//Collider2D* cd = Inventory->AddComponent<Collider2D>();
-				//cd->SetCenter(Vector2(0.0f, 0.0f));
-				//cd->SetSize(Vector2(0.22f, 0.38f));
-
-				MeshRenderer* mr = mInventoryMesoBar->AddComponent<MeshRenderer>();
-				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-				mr->SetMaterial(Resources::Find<Material>(L"inventorymesobar"));
-
-				mInventoryMesoBar->GetComponent<Transform>()->SetScale(Vector3(1.1f, 0.15f, 1.0001f));
-			}
-		}
-	}
-	void PlayerScript::CloseInventory()
-	{
-		mCameraScript->SetInventory1(nullptr);
-		mCameraScript->SetInventory2(nullptr);
-		mCameraScript->SetInventory3(nullptr);
-		mCameraScript->SetInventoryEtc(nullptr);
-		mCameraScript->SetInventoryMeso(nullptr);
-		mCameraScript->SetInventoryMesoBar(nullptr);
-		object::Destroy(mInventory1);
-		object::Destroy(mInventory2);
-		Transform* tr = mInventory3->GetComponent<Transform>();
-		Vector3 Pos = tr->GetPosition();
-		tr->SetPosition(Pos.x, Pos.y, 1.1f);
-		object::Destroy(mInventoryEtc);
-		object::Destroy(mInventoryMeso);
-		object::Destroy(mInventoryMesoBar);
-		mInventoryScript->SetCameraScript(nullptr);
-	}
-
+	
 	void PlayerScript::OnCollisionEnter(Collider2D* other)
 	{
 		if (other->GetOwner()->GetName() == L"MushRoom")

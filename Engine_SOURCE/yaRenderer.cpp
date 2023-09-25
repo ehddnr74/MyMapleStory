@@ -607,6 +607,13 @@ namespace renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"rootabysskey", material);
 
+		texture = Resources::Load<Texture>(L"PowerPortion", L"..\\Resources\\Texture\\PowerPortion.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"powerportion", material);
+
 
 		texture = Resources::Load<Texture>(L"Inventory", L"..\\Resources\\Texture\\Inventory.png");
 		material = std::make_shared<Material>();
@@ -614,6 +621,41 @@ namespace renderer
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"Inven", material);
+
+		texture = Resources::Load<Texture>(L"BladePuryUI", L"..\\Resources\\Texture\\BladePuryUI.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"bladepuryui", material);
+
+		texture = Resources::Load<Texture>(L"PhantomBlowUI", L"..\\Resources\\Texture\\PhantomBlowUI.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"phantomblowui", material);
+
+		texture = Resources::Load<Texture>(L"KarmaPuryUI", L"..\\Resources\\Texture\\KarmaPuryUI.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"karmapuryui", material);
+
+		texture = Resources::Load<Texture>(L"BladeTornadoUI", L"..\\Resources\\Texture\\BladeTornadoUI.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"bladetornadoui", material);
+
+		texture = Resources::Load<Texture>(L"SkillUI", L"..\\Resources\\Texture\\SkillUI.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"skillui", material);
 
 		texture = Resources::Load<Texture>(L"FrontInventory", L"..\\Resources\\Texture\\FrontInventory.png");
 		material = std::make_shared<Material>();

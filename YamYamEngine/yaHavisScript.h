@@ -50,13 +50,19 @@ namespace ya
 		void SetShopEtc2(GameObject* shopetc2) { mShopEtc2 = shopetc2; }
 		void SetShopMesoBox(GameObject* shopmesobox) { mShopMesoBox = shopmesobox; }
 		void SetShopRootaByssKey(GameObject* shoprootabysskey) { mRootaByssKey = shoprootabysskey; }
+		void SetShopPowerPortion(GameObject* shoppowerportion) { mPowerPortion = shoppowerportion; }
 
 
 		void SetRootaByssKeySelect(GameObject* rk) { mRootaByssKeySelect = rk; }
 		void SetSelctRootaByssKey(GameObject* srk) { mSelectRootaByssKey = srk; }
 		void SetSelectRootByssKeyMeso(GameObject* srkm) { mSelectRootaByssMeso = srkm; }
 
+		void SetPowerPortionSelect(GameObject* pp) { mPowerPortionSelect = pp; }
+		void SetSelctPowerPortion(GameObject* spp) { mSelectPowerPortion = spp; }
+		void SetSelectPowerPortionMeso(GameObject* sppm) { mSelectPowerPortionMeso = sppm; }
+
 		void SetShopMeso1(GameObject* shopmeso1) { mShopMeso1 = shopmeso1; }
+		void SetShopMeso2(GameObject* shopmeso2) { mShopMeso2 = shopmeso2; }
 
 		void OnShop();
 		void CloseShop();
@@ -66,6 +72,7 @@ namespace ya
 		void SetLookingShop(bool look) { LookingShop = look; }
 
 		void RootaByssKeySelect();
+		void PowerPortionSelect();
 
 	private:
 		Animator* at;
@@ -93,17 +100,24 @@ namespace ya
 		GameObject* mShopMesoBox;
 
 		GameObject* mShopMeso1;
+		GameObject* mShopMeso2;
 
 		GameObject* mRootaByssKey;
 		GameObject* mRootaByssKeySelect;
 		GameObject* mSelectRootaByssKey;
 		GameObject* mSelectRootaByssMeso;
 
+		GameObject* mPowerPortion;
+		GameObject* mPowerPortionSelect;
+		GameObject* mSelectPowerPortion;
+		GameObject* mSelectPowerPortionMeso;
+
 
 		bool Shop;
 
 		bool LookingShop;
 		bool rootabysskeyselect;
+		bool powerportionselect;
 
 		bool isBuy;
 	};

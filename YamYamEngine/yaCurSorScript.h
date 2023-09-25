@@ -27,6 +27,9 @@ namespace ya
 		void SetPlayerScript(class PlayerScript* playerscript) { mPlayerScript = playerscript; }
 		PlayerScript* GetPlayerScript() { return mPlayerScript; }
 
+		void SetCameraScript(class CameraScript* cs) { mCameraScript = cs; }
+		CameraScript* GetCameraScript() { return mCameraScript; }
+
 		void SetHavisScript(class HavisScript* havis) { mHavisScript = havis; }
 		HavisScript* GetHavisScript() { return mHavisScript; }
 
@@ -45,6 +48,7 @@ namespace ya
 	private:
 		Vector3 mPos;
 		Vector3 MouseWorldPos;
+		Vector3 FinalPos;
 		Animator* at;
 		CursorState mCursorState;
 		Transform* tr;
@@ -55,6 +59,7 @@ namespace ya
 
 	private:
 		class PlayerScript* mPlayerScript;
+		class CameraScript* mCameraScript;
 		class HavisScript* mHavisScript;
 
 	private:
@@ -63,7 +68,10 @@ namespace ya
 		bool ShopToInventory;
 		bool ShopExit;
 		bool KeySelect;
+		bool PortionSelect;
 		bool ShopBuy;
+
+		
 
 	};
 

@@ -9,6 +9,7 @@ namespace ya
 	class ExpScript;
 	class CurSorScript;
 	class InventoryScript;
+	class SkillUIScript;
 	class SceneManager
 	{
 	public:
@@ -62,6 +63,9 @@ namespace ya
 		static void SetInventoryScript(InventoryScript* inventoryscript) { mInventoryScript = inventoryscript; }
 		static InventoryScript* GetInventoryScript() { return mInventoryScript; }
 
+		static void SetSkillUIScript(SkillUIScript* sus) { mSkillUIScript = sus; }
+		static SkillUIScript* GetSkillUIScript() { return mSkillUIScript; }
+
 	private:
 		static Scene* mActiveScene;
 		static std::map<std::wstring, Scene*> mScenes;
@@ -74,6 +78,7 @@ namespace ya
 		static class ExpScript* mExpScript;
 		static class CurSorScript* mCursorScript;
 		static class InventoryScript* mInventoryScript;
+		static class SkillUIScript* mSkillUIScript;
 
 	};
 }

@@ -25,8 +25,6 @@
     <ClCompile Include="yaPlayer.cpp">
       <Filter>Contents\Player</Filter>
     </ClCompile>
-    <ClCompile Include="yaBasic0Script.cpp" />
-    <ClCompile Include="yaBasic1Script.cpp" />
     <ClCompile Include="yaBallScript.cpp">
       <Filter>Contents\Script\BanBanScriptInfo</Filter>
     </ClCompile>
@@ -115,6 +113,9 @@
       <Filter>Contents\Script\EffectScript</Filter>
     </ClCompile>
     <ClCompile Include="ShouldScript.cpp" />
+    <ClCompile Include="yaSkillUIScript.cpp">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -142,8 +143,6 @@
     <ClInclude Include="yaPlayer.h">
       <Filter>Contents\Player</Filter>
     </ClInclude>
-    <ClInclude Include="yaBasic0Script.h" />
-    <ClInclude Include="yaBasic1Script.h" />
     <ClInclude Include="yaBallScript.h">
       <Filter>Contents\Script\BanBanScriptInfo</Filter>
     </ClInclude>
@@ -233,6 +232,9 @@
       <Filter>Contents\Script\EffectScript</Filter>
     </ClInclude>
     <ClInclude Include="ShouldScript.h" />
+    <ClInclude Include="yaSkillUIScript.h">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">

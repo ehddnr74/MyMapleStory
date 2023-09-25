@@ -22,6 +22,7 @@ namespace ya
 	HavisScript::HavisScript()
 		: LookingShop(false)
 		, rootabysskeyselect(false)
+		, powerportionselect(false)
 		, isBuy(false)
 		, Shop(false)
 	{
@@ -87,14 +88,14 @@ namespace ya
 		Transform* tr = mCameraScript->GetOwner()->GetComponent<Transform>();
 		Vector3 CameraPos = tr->GetPosition();
 
-		if (SceneManager::GetPlayerScript()->GetOnInventory())
-		{
-			SceneManager::GetPlayerScript()->SetOnInventory(false);
-			SceneManager::GetPlayerScript()->CloseInventory();
-		}
-		SceneManager::GetPlayerScript()->OnInventory();
-		SceneManager::GetPlayerScript()->SetOnShop(true);
-		SceneManager::GetPlayerScript()->SetInventory(true);
+		//if (SceneManager::GetInventoryScript()->OnInventory())
+		//{
+			//SceneManager::GetInventoryScript()->OnInventory(false);
+			//SceneManager::GetInventoryScript()->CloseInventory();
+		//}
+		SceneManager::SceneManager::GetInventoryScript()->OnInventory();
+		//SceneManager::GetPlayerScript()->SetOnShop(true);
+		//SceneManager::GetInventoryScript()->SetInventory(true);
 		{
 			mShop1
 				= object::Instantiate<GameObject>(Vector3(CameraPos.x, CameraPos.y + 0.3f, 0.999f), eLayerType::Shop);
@@ -324,6 +325,25 @@ namespace ya
 		}
 
 		{
+			mPowerPortion
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 1.69f, CameraPos.y + 0.76f, 0.996f), eLayerType::Shop);
+
+			mPowerPortion->SetName(L"PowerPortion");
+
+			SetShopPowerPortion(mPowerPortion);
+
+			Collider2D* cd = mPowerPortion->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.78f, 0.0f));
+			cd->SetSize(Vector2(9.0f, 1.1f));
+
+			MeshRenderer* mr = mPowerPortion->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"powerportion"));
+
+			mPowerPortion->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.0001f));
+		}
+
+		{
 			mShopMeso1
 				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 1.475f, CameraPos.y + 1.007f, 0.996f), eLayerType::Shop);
 
@@ -341,11 +361,30 @@ namespace ya
 
 			mShopMeso1->GetComponent<Transform>()->SetScale(Vector3(0.1f, 0.1f, 1.0001f));
 		}
+
+		{
+			mShopMeso2
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 1.475f, CameraPos.y + 0.707f, 0.996f), eLayerType::Shop);
+
+			mShopMeso2->SetName(L"mShopMeso2");
+
+			SetShopMeso2(mShopMeso2);
+
+			//Collider2D* cd = Inventory->AddComponent<Collider2D>();
+			//cd->SetCenter(Vector2(0.0f, 0.0f));
+			//cd->SetSize(Vector2(0.22f, 0.38f));
+
+			MeshRenderer* mr = mShopMeso2->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"shopmeso"));
+
+			mShopMeso2->GetComponent<Transform>()->SetScale(Vector3(0.1f, 0.1f, 1.0001f));
+		}
+
 	}
 	void HavisScript::CloseShop()
 	{
 		Shop = false;
-		SceneManager::GetPlayerScript()->CloseInventory();
 		object::Destroy(mShop1);
 		object::Destroy(mShop2);
 		object::Destroy(mShop3);
@@ -358,12 +397,9 @@ namespace ya
 		object::Destroy(mShopEtc2);
 		object::Destroy(mShopMesoBox);
 		object::Destroy(mRootaByssKey);
+		object::Destroy(mPowerPortion);
 		object::Destroy(mShopMeso1);
-
-		if (mCameraScript != nullptr)
-		{
-			mCameraScript->SetHavisScript(nullptr);
-		}
+		object::Destroy(mShopMeso2);
 
 		if (rootabysskeyselect)
 		{
@@ -371,14 +407,28 @@ namespace ya
 			object::Destroy(mSelectRootaByssKey);
 			object::Destroy(mSelectRootaByssMeso);
 		}
+
+		if (powerportionselect)
+		{
+			object::Destroy(mPowerPortionSelect);
+			object::Destroy(mSelectPowerPortion);
+			object::Destroy(mSelectPowerPortionMeso);
+		}
+
 		SceneManager::GetCursorScript()->SetShopToInventory(false);
+
+		if (mCameraScript != nullptr)
+		{
+			mCameraScript->SetHavisScript(nullptr);
+		}
+		SceneManager::GetInventoryScript()->CloseInventory();
 	}
 	void HavisScript::Buy()
 	{
 		if (rootabysskeyselect == true && isBuy == true)
 		{
 			isBuy = false;
-			mInventoryScript = SceneManager::GetPlayerScript()->GetInventoryScript();
+			mInventoryScript = SceneManager::GetInventoryScript();
 			SetInventoryScript(mInventoryScript);
 			
 			mInventoryScript->Buying();
@@ -388,10 +438,19 @@ namespace ya
 	}
 	void HavisScript::RootaByssKeySelect()
 	{
+		rootabysskeyselect = true;
+
 		Transform* tr = mCameraScript->GetOwner()->GetComponent<Transform>();
 		Vector3 CameraPos = tr->GetPosition();
 
-		rootabysskeyselect = true;
+		if (powerportionselect)
+		{
+			powerportionselect = false;
+			object::Destroy(mPowerPortionSelect);
+			object::Destroy(mSelectPowerPortion);
+			object::Destroy(mSelectPowerPortionMeso);
+		}
+
 		{
 			mRootaByssKeySelect
 				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 0.905f, CameraPos.y + 1.065f, 0.995f), eLayerType::Shop);
@@ -446,6 +505,84 @@ namespace ya
 
 			mSelectRootaByssMeso->GetComponent<Transform>()->SetScale(Vector3(0.1f, 0.1f, 1.0001f));
 		}
+	}
+	void HavisScript::PowerPortionSelect()
+	{
+		Transform* tr = mCameraScript->GetOwner()->GetComponent<Transform>();
+		Vector3 CameraPos = tr->GetPosition();
+
+		//if (powerportionselect)
+		//{
+		//	object::Destroy(mPowerPortionSelect);
+		//	object::Destroy(mSelectPowerPortion);
+		//	object::Destroy(mSelectPowerPortionMeso);
+		//}
+		
+		if (rootabysskeyselect)
+		{
+			rootabysskeyselect = false;
+			object::Destroy(mRootaByssKeySelect);
+			object::Destroy(mSelectRootaByssKey);
+			object::Destroy(mSelectRootaByssMeso);
+		}
+
+
+		{
+			mPowerPortionSelect
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 0.905f, CameraPos.y + 0.774f, 0.995f), eLayerType::Shop);
+
+			mPowerPortionSelect->SetName(L"mPowerPortionSelect");
+
+			SetPowerPortionSelect(mPowerPortionSelect);
+
+			//Collider2D* cd = mRootaByssKey->AddComponent<Collider2D>();
+			//cd->SetCenter(Vector2(0.78f, 0.0f));
+			//cd->SetSize(Vector2(9.0f, 1.1f));
+
+			MeshRenderer* mr = mPowerPortionSelect->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"shopselect"));
+
+			mPowerPortionSelect->GetComponent<Transform>()->SetScale(Vector3(1.83f, 0.23f, 1.0001f));
+		}
+
+		{
+			mSelectPowerPortion
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 1.69f, CameraPos.y + 0.76f, 0.994f), eLayerType::Shop);
+
+			SetSelctPowerPortion(mSelectPowerPortion);
+
+			Collider2D* cd = mSelectPowerPortion->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.78f, 0.0f));
+			cd->SetSize(Vector2(9.0f, 1.1f));
+
+			MeshRenderer* mr = mSelectPowerPortion->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"powerportion"));
+
+			mSelectPowerPortion->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.0001f));
+		}
+
+		{
+			mSelectPowerPortionMeso
+				= object::Instantiate<GameObject>(Vector3(CameraPos.x - 1.475f, CameraPos.y + 0.707f, 0.994f), eLayerType::Shop);
+
+			mSelectPowerPortionMeso->SetName(L"mShopMeso2");
+
+			SetSelectPowerPortionMeso(mSelectPowerPortionMeso);
+
+			//Collider2D* cd = Inventory->AddComponent<Collider2D>();
+			//cd->SetCenter(Vector2(0.0f, 0.0f));
+			//cd->SetSize(Vector2(0.22f, 0.38f));
+
+			MeshRenderer* mr = mSelectPowerPortionMeso->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"shopmeso"));
+
+			mSelectPowerPortionMeso->GetComponent<Transform>()->SetScale(Vector3(0.1f, 0.1f, 1.0001f));
+		}
+
+		powerportionselect = true;
 	}
 	void HavisScript::stand()
 	{
