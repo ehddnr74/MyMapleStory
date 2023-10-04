@@ -12,6 +12,7 @@
 #include "yaMesh.h"
 #include "yaMeshRenderer.h"
 #include "yaBallScript.h"
+#include "yaHpScript.h"
 
 
 std::mt19937_64 rng2(0);
@@ -20,7 +21,9 @@ std::uniform_real_distribution<float> dist2(-1, 1);
 namespace ya
 {
 	BanBanScript::BanBanScript()
-		: dir(0)
+		: HP(5000000)
+		, damage(0)
+		, dir(0)
 		, randompos(dist2(rng2))
 		, zentime(0.0f)
 		, smack(true)
@@ -37,6 +40,10 @@ namespace ya
 		, bk(true)
 		, blinktime(0.0f)
 		, btime(0.0f)
+		, earthhit(true)
+		, hittime(0.0f)
+		, dietime(0.0f)
+		, DieCheck(false)
 	{
 	}
 	BanBanScript::~BanBanScript()
@@ -46,7 +53,9 @@ namespace ya
 	{
 		Animator* at = GetOwner()->GetComponent<Animator>();
 
-		Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
+		Collider2D* cd = GetOwner()->AddComponent<Collider2D>();
+		cd->SetCenter(Vector2(0.1f, 0.0f));
+		cd->SetSize(Vector2(0.3f, 0.5f));
 
 		std::shared_ptr<Texture> BanBanZen = Resources::Load<Texture>(L"BanBanZen", L"..\\Resources\\Texture\\BanBan\\BanBanZen.png");
 		std::shared_ptr<Texture> LeftIdle = Resources::Load<Texture>(L"LeftIdle", L"..\\Resources\\Texture\\BanBan\\LeftIdle.png");
@@ -57,6 +66,10 @@ namespace ya
 		std::shared_ptr<Texture> RightEnergyBolt = Resources::Load<Texture>(L"RightEnergyBolt", L"..\\Resources\\Texture\\BanBan\\RightEnergyBolt.png");
 		std::shared_ptr<Texture> LeftBall = Resources::Load<Texture>(L"LeftBall", L"..\\Resources\\Texture\\BanBan\\LeftBall.png");
 		std::shared_ptr<Texture> RightBall = Resources::Load<Texture>(L"RightBall", L"..\\Resources\\Texture\\BanBan\\RightBall.png");
+		std::shared_ptr<Texture> LeftHit = Resources::Load<Texture>(L"LeftHit", L"..\\Resources\\Texture\\BanBan\\BanBanLeftHit.png");
+		std::shared_ptr<Texture> RightHit = Resources::Load<Texture>(L"RightHit", L"..\\Resources\\Texture\\BanBan\\BanBanRightHit.png");
+		std::shared_ptr<Texture> LeftDie = Resources::Load<Texture>(L"LeftDie", L"..\\Resources\\Texture\\BanBan\\BanBanLeftDie.png");
+		std::shared_ptr<Texture> RightDie = Resources::Load<Texture>(L"RightDie", L"..\\Resources\\Texture\\BanBan\\BanBanRightDie.png");
 
 		std::shared_ptr<Texture> LeftSmacking = Resources::Load<Texture>(L"LeftSmacking", L"..\\Resources\\Texture\\BanBan\\LeftSmacking.png");
 		std::shared_ptr<Texture> RightSmacking = Resources::Load<Texture>(L"RightSmacking", L"..\\Resources\\Texture\\BanBan\\RightSmacking.png");
@@ -83,12 +96,44 @@ namespace ya
 		at->Create(L"BlinkIn", BlinkIn, Vector2(0.0f, 0.0f), Vector2(64.0, 165.0f), 5, Vector2::Zero, 0.07f);
 		at->Create(L"BlinkOut", BlinkOut, Vector2(0.0f, 0.0f), Vector2(64.0, 165.0f), 5, Vector2::Zero, 0.07f);
 
+		at->Create(L"BanBanLeftHit", LeftHit, Vector2(0.0f, 0.0f), Vector2(189.0f, 173.0f), 1, Vector2::Zero, 0.1f);
+		at->Create(L"BanBanLeftDie", LeftDie, Vector2(0.0f, 0.0f), Vector2(302.0f, 304.0f), 6, Vector2::Zero, 0.25f);
+		at->Create(L"BanBanRightHit", RightHit, Vector2(0.0f, 0.0f), Vector2(189.0f, 173.0f), 1, Vector2::Zero, 0.1f);
+		at->Create(L"BanBanRightDie", RightDie, Vector2(0.0f, 0.0f), Vector2(302.0f, 304.0f), 6, Vector2::Zero, 0.25f);
+
+
 		at->PlayAnimation(L"BanBanZen", false);
 
 		mBanBanState = BanBanState::Zen;
 	}
 	void BanBanScript::Update()
 	{
+
+		if (mBanBanState == BanBanState::Zen)
+		{
+			Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.0f, 0.0f));
+			cd->SetSize(Vector2(0.01f, 0.01f));
+		}
+		else if (mBanBanState == BanBanState::EnergyBolt)
+		{
+			Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.0f, 0.0f));
+			cd->SetSize(Vector2(0.0f, 0.2f));
+		}
+		else if (mBanBanState == BanBanState::EarthQuake)
+		{
+			Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.0f, 0.0f));
+			cd->SetSize(Vector2(0.01f, 0.01f));
+		}
+		else 
+		{
+			Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.0f, 0.0f));
+			cd->SetSize(Vector2(0.3f, 0.5f));
+		}
+
 		srand(time(NULL));
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -232,6 +277,20 @@ namespace ya
 			}
 		}
 
+		if (DieCheck == false && HP <= 0 && dir == 0)
+		{
+			DieCheck = true;
+			Animator* at = GetOwner()->GetComponent<Animator>();
+			mBanBanState = BanBanState::Die;
+			at->PlayAnimation(L"BanBanLeftDie", false);
+		}
+		if (DieCheck == false && HP <= 0 && dir == 1)
+		{
+			DieCheck = true;
+			Animator* at = GetOwner()->GetComponent<Animator>();
+			mBanBanState = BanBanState::Die;
+			at->PlayAnimation(L"BanBanRightDie", false);
+		}
 
 
 		switch (mBanBanState)
@@ -260,10 +319,59 @@ namespace ya
 		case BanBanScript::BanBanState::BlinkOut:
 			blinkout();
 			break;
+		case BanBanScript::BanBanState::Hit:
+			hit();
+			break;
+		case BanBanScript::BanBanState::Die:
+			die();
+			break;
 		default:
 			break;
 		}
 
+	}
+	void BanBanScript::OnCollisionEnter(Collider2D* other)
+	{
+		/*if (other->GetOwner()->GetName() == L"LeftPhantomBlow")
+		{
+			if (dir == 0)
+			{
+				Animator* at = GetOwner()->GetComponent<Animator>();
+				at->PlayAnimation(L"BanBanLeftHit", false);
+				mBanBanState = BanBanState::Hit;
+			}
+			if (dir == 1)
+			{
+				Animator* at = GetOwner()->GetComponent<Animator>();
+				at->PlayAnimation(L"BanBanRightHit", false);
+				mBanBanState = BanBanState::Hit;
+			}
+		}
+		if (other->GetOwner()->GetName() == L"RightPhantomBlow")
+		{
+			if (dir == 0)
+			{
+				Animator* at = GetOwner()->GetComponent<Animator>();
+				at->PlayAnimation(L"BanBanLeftHit", false);
+				mBanBanState = BanBanState::Hit;
+			}
+			if (dir == 1)
+			{
+				Animator* at = GetOwner()->GetComponent<Animator>();
+				at->PlayAnimation(L"BanBanRightHit", false);
+				mBanBanState = BanBanState::Hit;
+			}
+		}*/
+	}
+	void BanBanScript::OnCollisionStay(Collider2D* other)
+	{
+	}
+	void BanBanScript::OnCollisionExit(Collider2D* other)
+	{
+	}
+	void BanBanScript::SetDamage(int damage)
+	{
+		HP -= damage;
 	}
 	void BanBanScript::zen()
 	{
@@ -362,6 +470,18 @@ namespace ya
 
 		smackingtime += Time::DeltaTime();
 
+		if (dir == 0 && smackingtime >= 0.8f)
+		{
+			Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
+			cd->SetCenter(Vector2(-0.3f, -0.3f));
+			cd->SetSize(Vector2(0.5f, 0.5f));
+		}
+		if (dir == 1 && smackingtime >= 0.8f)
+		{
+			Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.3f, -0.3f));
+			cd->SetSize(Vector2(0.5f, 0.5f));
+		}
 		if (smackingtime >= 2.2f)
 		{
 			if (dir == 0)
@@ -454,6 +574,20 @@ namespace ya
 
 		earthtime += Time::DeltaTime();
 
+		if (SceneManager::GetPlayerScript()->GetDieCheck() == false && earthhit && earthtime >= 1.0f && earthtime >= 1.1f)
+		{
+			earthhit = false;
+			if (SceneManager::GetPlayerScript()->GetOwner()->GetComponent<RigidBody>()->GetGround())
+			{
+				SceneManager::GetPlayerScript()->SetEarthQuake(true);
+				Transform* tr = SceneManager::GetPlayerScript()->GetOwner()->GetComponent<Transform>();
+				Vector3 pos = tr->GetPosition();
+
+				SceneManager::GetPlayerScript()->CreateHitDamage(GetOwner(), Vector3(pos.x - 0.1f, pos.y, pos.z));
+
+			}
+		}
+
 		if (earthtime >= 1.6f)
 		{
 			if (dir == 0)
@@ -462,6 +596,7 @@ namespace ya
 				mBanBanState = BanBanState::Idle;
 				at->PlayAnimation(L"LeftIdle", true);
 				earthtime = 0.0f;
+				earthhit = true;
 				eq = true;
 			}
 
@@ -471,6 +606,7 @@ namespace ya
 				mBanBanState = BanBanState::Idle;
 				at->PlayAnimation(L"RightIdle", true);
 				earthtime = 0.0f;
+				earthhit = true;
 				eq = true;
 			}
 		}
@@ -515,6 +651,45 @@ namespace ya
 				at->PlayAnimation(L"RightIdle", false);
 				bk = true;
 			}
+		}
+	}
+	void BanBanScript::hit()
+	{
+		Animator* at = GetOwner()->GetComponent<Animator>();
+
+		hittime += Time::DeltaTime();
+
+		if (hittime >= 0.5f && dir == 0)
+		{
+			hittime = 0.0f;
+			at->PlayAnimation(L"LeftIdle", true);
+			mBanBanState = BanBanState::Idle;
+		}
+
+		if (hittime >= 0.5f && dir == 1)
+		{
+			hittime = 0.0f;
+			at->PlayAnimation(L"RightIdle", true);
+			mBanBanState = BanBanState::Idle;
+		}
+
+	}
+	void BanBanScript::die()
+	{
+		Animator* at = GetOwner()->GetComponent<Animator>();
+
+		dietime += Time::DeltaTime();
+
+		if (dir == 0 && dietime >= 1.5f)
+		{
+			dietime = 0.0f;
+			object::Destroy(GetOwner());
+		}
+
+		if (dir == 1 && dietime >= 1.5f)
+		{
+			dietime = 0.0f;
+			object::Destroy(GetOwner());
 		}
 	}
 	void BanBanScript::CreateLeftBall()

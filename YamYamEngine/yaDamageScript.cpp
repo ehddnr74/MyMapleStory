@@ -11,9 +11,6 @@
 #include "yaInput.h"
 #include <random>
 
-std::mt19937_64 rng3(0);
-std::uniform_int_distribution<__int64> dist3(50000, 99999);
-
 namespace ya
 {
 	DamageScript::DamageScript()
@@ -62,7 +59,6 @@ namespace ya
 	}
 	void DamageScript::Update()
 	{
-		Damage = dist3(rng3);
 
 			if (GetOwner()->GetName() == L"Damage1")
 			{

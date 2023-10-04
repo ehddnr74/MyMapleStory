@@ -46,9 +46,9 @@ void ya::BanBanScene::Initialize()
 
 		BanBan->SetName(L"BanBan");
 
-		Collider2D* cd = BanBan->AddComponent<Collider2D>();
-		cd->SetCenter(Vector2(0.0f, 0.0f));
-		cd->SetSize(Vector2(0.22f, 0.38f));
+		//Collider2D* cd = BanBan->AddComponent<Collider2D>();
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.22f, 0.38f));
 
 		MeshRenderer* mr = BanBan->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -65,7 +65,7 @@ void ya::BanBanScene::Initialize()
 
 	{
 		GameObject* Ground
-			= object::Instantiate<GameObject>(Vector3(-0.6f, -1.6f, 0.999f), eLayerType::Ground);
+			= object::Instantiate<GameObject>(Vector3(-0.6f, -1.53f, 0.999f), eLayerType::Ground);
 
 		Ground->SetName(L"Ground");
 
@@ -136,6 +136,11 @@ void ya::BanBanScene::Initialize()
 		cameraComp->TurnLayerMask(eLayerType::Skill, false);
 		cameraComp->TurnLayerMask(eLayerType::Portal, false);
 		cameraComp->TurnLayerMask(eLayerType::Cursor, false);
+		cameraComp->TurnLayerMask(eLayerType::SkillSlot, false);
+		cameraComp->TurnLayerMask(eLayerType::Portal, false);
+		cameraComp->TurnLayerMask(eLayerType::Inventory, false);
+		cameraComp->TurnLayerMask(eLayerType::Damage, false);
+		cameraComp->TurnLayerMask(eLayerType::Effect, false);
 		//camera->AddComponent<CameraScript>();
 	}
 	Scene::Initialize();
@@ -168,11 +173,14 @@ void ya::BanBanScene::OnEnter()
 	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Shop, true);
 	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Inventory, true);
 
+	//SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
+	//SceneManager::GetHpScript()->SetHP(99999.0f);
+
 	mPlayer = SceneManager::GetPlayer();
 	Transform* tr = mPlayer->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
 
-	tr->SetPosition(-4.5f, -0.75f, pos.z);
+	tr->SetPosition(-1.1f, -1.06f, pos.z);
 
 	Camera::SetTarget(SceneManager::GetPlayer());
 	Camera::SetHeneSisScene(nullptr);

@@ -10,6 +10,7 @@ namespace ya
 	class CurSorScript;
 	class InventoryScript;
 	class SkillUIScript;
+	class SkillUIBtnScript;
 	class SceneManager
 	{
 	public:
@@ -42,8 +43,8 @@ namespace ya
 		static void SetPlayer(GameObject* player) { Player = player; }
 		static GameObject* GetPlayer() { return Player; }
 
-		static void SetInventory3(GameObject* it3) { Inventory3 = it3; }
-		static GameObject* GetInventory3() { return Inventory3; }
+		static void SetSkillSlot(GameObject* ss) { SkillSlot = ss; }
+		static GameObject* GetSkillSlot() { return SkillSlot; }
 
 		static void SetPlayerScript(PlayerScript* playerscript) { mPlayerScript = playerscript; }
 		static PlayerScript* GetPlayerScript() { return mPlayerScript; }
@@ -66,11 +67,15 @@ namespace ya
 		static void SetSkillUIScript(SkillUIScript* sus) { mSkillUIScript = sus; }
 		static SkillUIScript* GetSkillUIScript() { return mSkillUIScript; }
 
+		static void SetSkillUIBtnScript(SkillUIBtnScript* subs) { mSkillUIBtnScript = subs; }
+		static SkillUIBtnScript* GetSkillUIBtnScript() { return mSkillUIBtnScript; }
+
 	private:
 		static Scene* mActiveScene;
 		static std::map<std::wstring, Scene*> mScenes;
 		static GameObject* Player;
-		static GameObject* Inventory3;
+		static GameObject* SkillSlot;
+
 
 		static class PlayerScript* mPlayerScript;
 		static class HpScript* mHpScript;
@@ -79,6 +84,7 @@ namespace ya
 		static class CurSorScript* mCursorScript;
 		static class InventoryScript* mInventoryScript;
 		static class SkillUIScript* mSkillUIScript;
+		static class SkillUIBtnScript* mSkillUIBtnScript;
 
 	};
 }

@@ -13,7 +13,7 @@ namespace ya
 	Scene* SceneManager::mActiveScene = nullptr;
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
 	GameObject* SceneManager::Player = nullptr;
-	GameObject* SceneManager::Inventory3 = nullptr;
+	GameObject* SceneManager::SkillSlot = nullptr;
 	PlayerScript* SceneManager::mPlayerScript = nullptr;
 	HpScript* SceneManager::mHpScript = nullptr;
 	MpScript* SceneManager::mMpScript = nullptr;
@@ -21,6 +21,7 @@ namespace ya
 	CurSorScript* SceneManager::mCursorScript = nullptr;
 	InventoryScript* SceneManager::mInventoryScript = nullptr;
 	SkillUIScript* SceneManager::mSkillUIScript = nullptr;
+	SkillUIBtnScript* SceneManager::mSkillUIBtnScript = nullptr;
 
 	void SceneManager::Initialize()
 	{

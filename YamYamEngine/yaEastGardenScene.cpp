@@ -17,8 +17,9 @@
 #include "yaPortalScript.h"
 #include "yaFireImpScript.h"
 #include "yaCurSorScript.h"
+#include "yaHpScript.h"
 
-namespace My
+namespace ya
 {
 
 }
@@ -41,11 +42,11 @@ void ya::EastGardenScene::Initialize()
 		GameObject* FireImp
 			= object::Instantiate<GameObject>(Vector3(-6.0f, -0.7f, 0.998f), eLayerType::Monster);
 
-		FireImp->SetName(L"FireImp");
+		FireImp->SetName(L"FireImp1");
 
-		Collider2D* cd = FireImp->AddComponent<Collider2D>();
-		cd->SetCenter(Vector2(0.0f, 0.0f));
-		cd->SetSize(Vector2(0.25f, 0.25f));
+		//Collider2D* cd = FireImp->AddComponent<Collider2D>();
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.25f, 0.25f));
 
 		MeshRenderer* mr = FireImp->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -65,11 +66,11 @@ void ya::EastGardenScene::Initialize()
 		GameObject* FireImp2
 			= object::Instantiate<GameObject>(Vector3(-4.8f, -0.7f, 0.998f), eLayerType::Monster);
 
-		FireImp2->SetName(L"FireImp");
+		FireImp2->SetName(L"FireImp2");
 
-		Collider2D* cd = FireImp2->AddComponent<Collider2D>();
-		cd->SetCenter(Vector2(0.0f, 0.0f));
-		cd->SetSize(Vector2(0.25f, 0.25f));
+		//Collider2D* cd = FireImp2->AddComponent<Collider2D>();
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.25f, 0.25f));
 
 		MeshRenderer* mr = FireImp2->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -89,11 +90,11 @@ void ya::EastGardenScene::Initialize()
 		GameObject* FireImp3
 			= object::Instantiate<GameObject>(Vector3(-3.6f, -0.7f, 0.998f), eLayerType::Monster);
 
-		FireImp3->SetName(L"FireImp");
+		FireImp3->SetName(L"FireImp3");
 
-		Collider2D* cd = FireImp3->AddComponent<Collider2D>();
-		cd->SetCenter(Vector2(0.0f, 0.0f));
-		cd->SetSize(Vector2(0.25f, 0.25f));
+		//Collider2D* cd = FireImp3->AddComponent<Collider2D>();
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.25f, 0.25f));
 
 		MeshRenderer* mr = FireImp3->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -113,11 +114,11 @@ void ya::EastGardenScene::Initialize()
 		GameObject* FireImp4
 			= object::Instantiate<GameObject>(Vector3(-2.4f, -0.7f, 0.998f), eLayerType::Monster);
 
-		FireImp4->SetName(L"FireImp");
+		FireImp4->SetName(L"FireImp4");
 
-		Collider2D* cd = FireImp4->AddComponent<Collider2D>();
-		cd->SetCenter(Vector2(0.0f, 0.0f));
-		cd->SetSize(Vector2(0.25f, 0.25f));
+		//Collider2D* cd = FireImp4->AddComponent<Collider2D>();
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.25f, 0.25f));
 
 		MeshRenderer* mr = FireImp4->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -137,11 +138,11 @@ void ya::EastGardenScene::Initialize()
 		GameObject* FireImp5
 			= object::Instantiate<GameObject>(Vector3(-1.2f, -0.7f, 0.998f), eLayerType::Monster);
 
-		FireImp5->SetName(L"FireImp");
+		FireImp5->SetName(L"FireImp5");
 
-		Collider2D* cd = FireImp5->AddComponent<Collider2D>();
-		cd->SetCenter(Vector2(0.0f, 0.0f));
-		cd->SetSize(Vector2(0.25f, 0.25f));
+		//Collider2D* cd = FireImp5->AddComponent<Collider2D>();
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.25f, 0.25f));
 
 		MeshRenderer* mr = FireImp5->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -161,11 +162,11 @@ void ya::EastGardenScene::Initialize()
 		GameObject* FireImp6
 			= object::Instantiate<GameObject>(Vector3(0.0f, -0.7f, 0.998f), eLayerType::Monster);
 
-		FireImp6->SetName(L"FireImp");
+		FireImp6->SetName(L"FireImp6");
 
-		Collider2D* cd = FireImp6->AddComponent<Collider2D>();
-		cd->SetCenter(Vector2(0.0f, 0.0f));
-		cd->SetSize(Vector2(0.25f, 0.25f));
+		//Collider2D* cd = FireImp6->AddComponent<Collider2D>();
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.25f, 0.25f));
 
 		MeshRenderer* mr = FireImp6->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -185,11 +186,11 @@ void ya::EastGardenScene::Initialize()
 		GameObject* FireImp7
 			= object::Instantiate<GameObject>(Vector3(1.2f, -0.7f, 0.998f), eLayerType::Monster);
 
-		FireImp7->SetName(L"FireImp");
+		FireImp7->SetName(L"FireImp7");
 
-		Collider2D* cd = FireImp7->AddComponent<Collider2D>();
-		cd->SetCenter(Vector2(0.0f, 0.0f));
-		cd->SetSize(Vector2(0.25f, 0.25f));
+		//Collider2D* cd = FireImp7->AddComponent<Collider2D>();
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.25f, 0.25f));
 
 		MeshRenderer* mr = FireImp7->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -209,11 +210,11 @@ void ya::EastGardenScene::Initialize()
 		GameObject* FireImp8
 			= object::Instantiate<GameObject>(Vector3(2.4f, -0.7f, 0.998f), eLayerType::Monster);
 
-		FireImp8->SetName(L"FireImp");
+		FireImp8->SetName(L"FireImp8");
 
-		Collider2D* cd = FireImp8->AddComponent<Collider2D>();
-		cd->SetCenter(Vector2(0.0f, 0.0f));
-		cd->SetSize(Vector2(0.25f, 0.25f));
+		//Collider2D* cd = FireImp8->AddComponent<Collider2D>();
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.25f, 0.25f));
 
 		MeshRenderer* mr = FireImp8->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -233,11 +234,11 @@ void ya::EastGardenScene::Initialize()
 		GameObject* FireImp9
 			= object::Instantiate<GameObject>(Vector3(3.6f, -0.7f, 0.998f), eLayerType::Monster);
 
-		FireImp9->SetName(L"FireImp");
+		FireImp9->SetName(L"FireImp9");
 
-		Collider2D* cd = FireImp9->AddComponent<Collider2D>();
-		cd->SetCenter(Vector2(0.0f, 0.0f));
-		cd->SetSize(Vector2(0.25f, 0.25f));
+		//Collider2D* cd = FireImp9->AddComponent<Collider2D>();
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.25f, 0.25f));
 
 		MeshRenderer* mr = FireImp9->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -257,11 +258,11 @@ void ya::EastGardenScene::Initialize()
 		GameObject* FireImp10
 			= object::Instantiate<GameObject>(Vector3(4.8f, -0.7f, 0.998f), eLayerType::Monster);
 
-		FireImp10->SetName(L"FireImp");
+		FireImp10->SetName(L"FireImp10");
 
-		Collider2D* cd = FireImp10->AddComponent<Collider2D>();
-		cd->SetCenter(Vector2(0.0f, 0.0f));
-		cd->SetSize(Vector2(0.25f, 0.25f));
+		//Collider2D* cd = FireImp10->AddComponent<Collider2D>();
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.25f, 0.25f));
 
 		MeshRenderer* mr = FireImp10->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -281,11 +282,11 @@ void ya::EastGardenScene::Initialize()
 		GameObject* FireImp11
 			= object::Instantiate<GameObject>(Vector3(6.0f, -0.7f, 0.998f), eLayerType::Monster);
 
-		FireImp11->SetName(L"FireImp");
+		FireImp11->SetName(L"FireImp11");
 
-		Collider2D* cd = FireImp11->AddComponent<Collider2D>();
-		cd->SetCenter(Vector2(0.0f, 0.0f));
-		cd->SetSize(Vector2(0.25f, 0.25f));
+		//Collider2D* cd = FireImp11->AddComponent<Collider2D>();
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.25f, 0.25f));
 
 		MeshRenderer* mr = FireImp11->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -304,7 +305,7 @@ void ya::EastGardenScene::Initialize()
 
 	{
 		GameObject* Ground
-			= object::Instantiate<GameObject>(Vector3(-0.6f, -1.31f, 0.999f), eLayerType::Ground);
+			= object::Instantiate<GameObject>(Vector3(-0.6f, -1.2f, 0.999f), eLayerType::Ground);
 
 		Ground->SetName(L"Ground");
 
@@ -403,6 +404,13 @@ void ya::EastGardenScene::Initialize()
 		cameraComp->TurnLayerMask(eLayerType::Monster, false);
 		cameraComp->TurnLayerMask(eLayerType::Skill, false);
 		cameraComp->TurnLayerMask(eLayerType::Portal, false);
+		cameraComp->TurnLayerMask(eLayerType::SkillSlot, false);
+		cameraComp->TurnLayerMask(eLayerType::Cursor, false);
+		cameraComp->TurnLayerMask(eLayerType::NPC, false);
+		cameraComp->TurnLayerMask(eLayerType::Inventory, false);
+		cameraComp->TurnLayerMask(eLayerType::Damage, false);
+		cameraComp->TurnLayerMask(eLayerType::Effect, false);
+
 		//camera->AddComponent<CameraScript>();
 	}
 	Scene::Initialize();
@@ -413,7 +421,7 @@ void ya::EastGardenScene::Update()
 {
 	if (SceneManager::GetPlayerScript()->GetPortal())
 	{
-		if (Input::GetKeyDown(eKeyCode::UP))
+		if (Input::GetKeyDown(eKeyCode::N))
 			SceneManager::LoadScene(L"BanBanScene");
 	}
 
@@ -440,11 +448,14 @@ void ya::EastGardenScene::OnEnter()
 	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Shop, true);
 	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Inventory, true);
 
+	//SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
+	//SceneManager::GetHpScript()->SetHP(99999.0f);
+	
 	mPlayer = SceneManager::GetPlayer();
 	Transform * tr = mPlayer->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
 
-	tr->SetPosition(-4.5f, -0.75f, pos.z);
+	tr->SetPosition(-4.4f, -0.73f, pos.z);
 
 	Camera::SetTarget(SceneManager::GetPlayer());
 	Camera::SetHeneSisScene(nullptr);
@@ -456,6 +467,5 @@ void ya::EastGardenScene::OnEnter()
 }
 void ya::EastGardenScene::OnExit()
 {
-	Camera::SetEastGardenScene(nullptr);
 	Scene::OnExit();
 }

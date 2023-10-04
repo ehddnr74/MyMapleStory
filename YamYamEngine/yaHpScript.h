@@ -18,6 +18,9 @@ namespace ya
 		void OnDamage(float damage);
 		void UpdateHpBar(float beforeHp, float afterHp);
 
+		void SetHP(float hp) { HP = hp; }
+		float GetHp() { return HP; }
+
 	private:
 		Animator* at;
 		Transform* tr;

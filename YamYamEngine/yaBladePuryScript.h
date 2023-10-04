@@ -49,6 +49,18 @@ namespace ya
 		bool Rightbladepury;
 
 		bool DamageView;
+		bool DamageView2;
+		bool DamageView3;
+		bool DamageView4;
+		bool DamageView5;
+		bool DamageView6;
+		bool DamageView7;
+		bool DamageView8;
+		bool DamageView9;
+		bool DamageView10;
+		bool DamageView11;
+		bool DamageView12;
+		bool DamageView13;
 
 	};
 }

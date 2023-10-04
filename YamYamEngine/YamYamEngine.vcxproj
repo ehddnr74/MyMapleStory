@@ -174,6 +174,7 @@
     <ClInclude Include="yaGridScript.h" />
     <ClInclude Include="yaHavisScript.h" />
     <ClInclude Include="yaHenesisScene.h" />
+    <ClInclude Include="yaHitDamageScript.h" />
     <ClInclude Include="yaHpScript.h" />
     <ClInclude Include="yaInventoryScript.h" />
     <ClInclude Include="yaKarmaPuryHitEffectScript.h" />
@@ -188,10 +189,12 @@
     <ClInclude Include="yaPlayerScript.h" />
     <ClInclude Include="yaPlayScene.h" />
     <ClInclude Include="yaPortalScript.h" />
+    <ClInclude Include="yaPortionScript.h" />
     <ClInclude Include="yaRootaByssFireScript.h" />
     <ClInclude Include="yaRootaByssScene.h" />
     <ClInclude Include="yaShopScript.h" />
     <ClInclude Include="yaSkillScript.h" />
+    <ClInclude Include="yaSkillUIBtnScript.h" />
     <ClInclude Include="yaSkillUIScript.h" />
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +217,7 @@
     <ClCompile Include="yaGridScript.cpp" />
     <ClCompile Include="yaHavisScript.cpp" />
     <ClCompile Include="yaHenesisScene.cpp" />
+    <ClCompile Include="yaHitDamageScript.cpp" />
     <ClCompile Include="yaHpScript.cpp" />
     <ClCompile Include="yaInventoryScript.cpp" />
     <ClCompile Include="yaKarmaPuryHitEffectScript.cpp" />
@@ -229,10 +233,12 @@
     <ClCompile Include="yaPlayerScript.cpp" />
     <ClCompile Include="yaPlayScene.cpp" />
     <ClCompile Include="yaPortalScript.cpp" />
+    <ClCompile Include="yaPortionScript.cpp" />
     <ClCompile Include="yaRootaByssFireScript.cpp" />
     <ClCompile Include="yaRootaByssScene.cpp" />
     <ClCompile Include="yaShopScript.cpp" />
     <ClCompile Include="yaSkillScript.cpp" />
+    <ClCompile Include="yaSkillUIBtnScript.cpp" />
     <ClCompile Include="yaSkillUIScript.cpp" />
   </ItemGroup>
   <ItemGroup>

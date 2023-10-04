@@ -22,6 +22,8 @@
 #include "yaExpScript.h"
 #include "yaCurSorScript.h"
 #include "yaInventoryScript.h"
+#include "yaSkillUIScript.h"
+#include "yaSkillUIBtnScript.h"
 
 namespace ya
 {
@@ -68,9 +70,9 @@ namespace ya
 
 			Camera::SetTarget(player);
 
-			Collider2D* cd = player->AddComponent<Collider2D>();
-			cd->SetCenter(Vector2(0.008f, 0.065f));
-			cd->SetSize(Vector2(0.18f, 0.28f));
+			//Collider2D* cd = player->AddComponent<Collider2D>();
+			//cd->SetCenter(Vector2(0.008f, 0.065f));
+			//cd->SetSize(Vector2(0.18f, 0.28f));
 
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
@@ -187,36 +189,58 @@ namespace ya
 			object::DontDestroyOnLoad(MpFrontBar);
 		}
 
+		//{
+		//	GameObject* SlotCover = new GameObject();
+		//	SlotCover->SetName(L"SlotCover");
+		//	AddGameObject(eLayerType::SkillSlot, SlotCover);
+
+		//	MeshRenderer* mr = SlotCover->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"SlotCover"));
+
+		//	SlotCover->GetComponent<Transform>()->SetPosition(Vector3(2.25f, -1.93f, 0.9998f));
+		//	SlotCover->GetComponent<Transform>()->SetScale(Vector3(3.5f, 0.5f, 1.0008f));
+		//	object::DontDestroyOnLoad(SlotCover);
+		//}
+
 		{
-			GameObject* SlotCover = new GameObject();
-			SlotCover->SetName(L"SlotCover");
-			AddGameObject(eLayerType::UI, SlotCover);
-
-			MeshRenderer* mr = SlotCover->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"SlotCover"));
-
-			SlotCover->GetComponent<Transform>()->SetPosition(Vector3(2.25f, -1.93f, 0.998f));
-			SlotCover->GetComponent<Transform>()->SetScale(Vector3(3.5f, 0.5f, 1.0008f));
-			object::DontDestroyOnLoad(SlotCover);
-		}
-
-		{
-			GameObject* Slot = new GameObject();
+			Slot = new GameObject();
 			Slot->SetName(L"Slot");
-			AddGameObject(eLayerType::UI, Slot);
+			AddGameObject(eLayerType::SkillSlot, Slot);
 
 			MeshRenderer* mr = Slot->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"Slot"));
+			
+			//SetSkillSlot(Slot);
+			//SceneManager::GetCursorScript()->GetCameraScript()->SetSkillSlot(Slot);
 
-			Collider2D* cd = Slot->AddComponent<Collider2D>();
-			cd->SetCenter(Vector2(0.0f, 0.0f));
-			cd->SetSize(Vector2(1.0f, 1.0f));
+			//Collider2D* cd = Slot->AddComponent<Collider2D>();
+			//cd->SetCenter(Vector2(0.0f, 0.0f));
+			//cd->SetSize(Vector2(1.0f, 1.0f));
 
-			Slot->GetComponent<Transform>()->SetPosition(Vector3(2.25f, -1.93f, 0.999f));
+			Slot->GetComponent<Transform>()->SetPosition(Vector3(2.25f, -1.93f, 0.9999f));
 			Slot->GetComponent<Transform>()->SetScale(Vector3(3.48f, 0.48f, 1.001f));
 			object::DontDestroyOnLoad(Slot);
+
+			SkillUIBtnScript* subs = Slot->AddComponent<SkillUIBtnScript>();
+			SceneManager::SetSkillUIBtnScript(subs);
+		}
+
+		{
+			GameObject* Portion = new GameObject();
+			Portion->SetName(L"Portion");
+			AddGameObject(eLayerType::UI, Portion);
+			
+			MeshRenderer* mr = Portion->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"powerportion"));
+
+
+			Portion->GetComponent<Transform>()->SetPosition(Vector3(1.05f, -1.82f, 0.98f));
+			Portion->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 1.001f));
+			object::DontDestroyOnLoad(Portion);
+
 		}
 
 		{
@@ -290,7 +314,6 @@ namespace ya
 
 			//camera->AddComponent<AudioListener>();
 		}
-
 		//UI Camera
 		{
 			GameObject* camera = new GameObject();
@@ -305,6 +328,7 @@ namespace ya
 			cameraComp->TurnLayerMask(eLayerType::Inventory, false);
 			cameraComp->TurnLayerMask(eLayerType::Damage, false);
 			cameraComp->TurnLayerMask(eLayerType::Effect, false);
+			cameraComp->TurnLayerMask(eLayerType::SkillSlot, false);
 			//camera->AddComponent<CameraScript>();
 		}
 		Scene::Initialize();

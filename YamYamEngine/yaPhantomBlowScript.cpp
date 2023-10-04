@@ -10,7 +10,10 @@
 #include "yaGameObject.h"
 #include "yaTime.h"
 #include "yaInput.h"
+#include "yaDamageScript.h"
 #include <random>
+#include "yaFireImpScript.h"
+#include "yaBanBanScript.h"
 
 
 
@@ -20,6 +23,18 @@ namespace ya
 		: phantomblowTime(0.0f)
 		, Rightphantomblow(false)
 		, DamageView(false)
+		, DamageView2(false)
+		, DamageView3(false)
+		, DamageView4(false)
+		, DamageView5(false)
+		, DamageView6(false)
+		, DamageView7(false)
+		, DamageView8(false)
+		, DamageView9(false)
+		, DamageView10(false)
+		, DamageView11(false)
+		, DamageView12(false)
+		, DamageView13(false)
 		, test(0)
 	{
 	}
@@ -84,6 +99,189 @@ namespace ya
 				SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
 				SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
 				SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+		}
+
+		if (other->GetOwner()->GetName() == L"FireImp1" && DamageView2 == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			FireImpScript* mFireImpScript = other->GetOwner()->GetComponent<FireImpScript>();
+			mFireImpScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+		}
+
+		if (other->GetOwner()->GetName() == L"FireImp2" && DamageView3 == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			FireImpScript* mFireImpScript = other->GetOwner()->GetComponent<FireImpScript>();
+			mFireImpScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+		}
+		if (other->GetOwner()->GetName() == L"FireImp3" && DamageView4 == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			FireImpScript* mFireImpScript = other->GetOwner()->GetComponent<FireImpScript>();
+			mFireImpScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+		}
+		if (other->GetOwner()->GetName() == L"FireImp4" && DamageView5 == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			FireImpScript* mFireImpScript = other->GetOwner()->GetComponent<FireImpScript>();
+			mFireImpScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+		}
+		if (other->GetOwner()->GetName() == L"FireImp5" && DamageView6 == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			FireImpScript* mFireImpScript = other->GetOwner()->GetComponent<FireImpScript>();
+			mFireImpScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+		}
+		if (other->GetOwner()->GetName() == L"FireImp6" && DamageView7 == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			FireImpScript* mFireImpScript = other->GetOwner()->GetComponent<FireImpScript>();
+			mFireImpScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+		}
+		if (other->GetOwner()->GetName() == L"FireImp7" && DamageView8 == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			FireImpScript* mFireImpScript = other->GetOwner()->GetComponent<FireImpScript>();
+			mFireImpScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+		}
+		if (other->GetOwner()->GetName() == L"FireImp8" && DamageView9 == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			FireImpScript* mFireImpScript = other->GetOwner()->GetComponent<FireImpScript>();
+			mFireImpScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+		}
+		if (other->GetOwner()->GetName() == L"FireImp9" && DamageView10 == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			FireImpScript* mFireImpScript = other->GetOwner()->GetComponent<FireImpScript>();
+			mFireImpScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+		}
+		if (other->GetOwner()->GetName() == L"FireImp10" && DamageView11 == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			FireImpScript* mFireImpScript = other->GetOwner()->GetComponent<FireImpScript>();
+			mFireImpScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+		}
+		if (other->GetOwner()->GetName() == L"FireImp11" && DamageView12 == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			FireImpScript* mFireImpScript = other->GetOwner()->GetComponent<FireImpScript>();
+			mFireImpScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+		}
+
+		if (other->GetOwner()->GetName() == L"BanBan" && DamageView13 == false)
+		{
+			Transform* tr = other->GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
+			DamageView = true;
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
+			BanBanScript* mBanBanScript = other->GetOwner()->GetComponent<BanBanScript>();
+			mBanBanScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
 		}
 	}
 	void PhantomBlowScript::OnCollisionStay(Collider2D* other)

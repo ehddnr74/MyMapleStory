@@ -25,6 +25,7 @@ namespace ya
 
 		void SetInventory(GameObject* it) { mInventory = it; }
 		void SetInventoryBtn1(GameObject* ib1) { mInventoryBtn1 = ib1; }
+		void SetSkillSlot(GameObject* sss) { mSkillSlot = sss; }
 
 	private:
 		class HavisScript* mHavisScript;
@@ -35,6 +36,7 @@ namespace ya
 
 		GameObject* mInventory;
 		GameObject* mInventoryBtn1;
+		GameObject* mSkillSlot;
 	
 		Vector3 mPrevPos;
 		Vector3 Ypos;

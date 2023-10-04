@@ -18,6 +18,8 @@ namespace ya
 		void OnDamage(float damage);
 		void UpdateMpBar(float beforeHp, float afterHp);
 
+		void SetMP(float mp) { MP = mp; }
+
 	private:
 		Animator* at;
 		Transform* tr;

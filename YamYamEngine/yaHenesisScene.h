@@ -28,11 +28,16 @@ namespace ya
 		void SetCameraScript(class CameraScript* cs) { mCameraScript = cs; }
 		CameraScript* GetCameraScript() { return mCameraScript; }
 
+		void SetSkillSlot(GameObject* ss) { Slot = ss; }
+		GameObject* GetSkillSlot() { return Slot; }
+
 	private:
 		class PlayerScript* mPlayerScript;
 		class CameraScript* mCameraScript;
 		class InventoryScript* mInventoryScript;
 		class Player* mPlayer;
+
+		GameObject* Slot;
 
 
 	};

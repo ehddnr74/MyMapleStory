@@ -38,6 +38,7 @@ namespace ya::enums
 		Light,
 		Inventory,
 		Shop,
+		SkillSlot,
 		UI,
 		Item,
 		Camera,

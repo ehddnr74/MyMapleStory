@@ -26,6 +26,7 @@ namespace ya
 			Jump,
 			DoubleJump,
 			Alert,
+			Die,
 		};
 
 		virtual void Initialize() override;
@@ -50,8 +51,10 @@ namespace ya
 		void CreateSkillUI();
 		void CloseSkillUI();
 
-
 		void CreateDamage(GameObject* Monster, Vector3 Pos);
+		void CreateHitDamage(GameObject* Monster, Vector3 Pos);
+
+		void CreateDeathPhrases();
 
 		//void CreatePhantomBlow();
 		//void CreateRightPhantomBlow();
@@ -68,6 +71,8 @@ namespace ya
 		void SetPhantomBlowUI(GameObject* pbu) { mPhantomBlowUI = pbu; }
 		void SetBladeTornadoUI(GameObject* btu) { mBladeTornadoUI = btu; }
 		void SetKarmaPuryUI(GameObject* kpu) { mKarmaPuryUI = kpu; }
+		
+		void SetDeathPhrases(GameObject* deathphrases) { mDeathPhrases = deathphrases; }
 
 
 		void SetBladePuryScript(class BladePuryScript* bps) { mBladePuryScript = bps; }
@@ -76,7 +81,7 @@ namespace ya
 		void SetCaremaPuryScript(class CaremaPuryScript* cps) { mCaremaPuryScript = cps; }
 		void SetBladeTornadoScript(class BladeTornadoScript* bts) { mBladeTornadoScript = bts; }
 		void SetDoubleJumpScript(class DoubleJumpScript* djs) { mDoubleJumpScript = djs; }
-		void SetDamageScript(class DamageScript*dms) { mDamageScript = dms; }
+		//void SetDamageScript(class DamageScript*dms) { mDamageScript = dms; }
 		
 
 		void SetHpScript(class HpScript* hpscript) { mHpScript = hpscript; }
@@ -94,8 +99,19 @@ namespace ya
 		void SetCameraScript(class CameraScript* cs) { mCameraScript = cs; }
 		CameraScript* GetCameraScript() { return mCameraScript; }
 
+		void SetDamageScript(class DamageScript* ds) { mDamageScript = ds; }
+		DamageScript* GetDamageScript() { return mDamageScript; }
 
+		void SetHitDamageScript(class HitDamageScript* hs) { mHitDamageScript = hs; }
+		HitDamageScript* GetHitDamageScript() { return mHitDamageScript; }
 
+		void SetAttackDamage(int ad) {AttackDamage = ad; }
+		int GetAttackDamage() {return AttackDamage;}
+
+		void SetHitDamage(int hd) { HitDamage = hd; }
+		int GetHitDamage() { return HitDamage; }
+
+		//void SetHitDamage()
 
 		int GetDir() { return dir; }
 
@@ -113,7 +129,10 @@ namespace ya
 		//void SetDmg(int DMG) { dmg = DMG; }
 		//int GetDmg() { return dmg; }
 
-	
+		void SetHit(bool playerhit) { hit = playerhit; }
+
+		void SetEarthQuake(bool earthquake) { EarthQuake = earthquake; }
+		bool GetDieCheck() { return DieCheck; }
 
 	private:
 		Animator* at;
@@ -136,6 +155,7 @@ namespace ya
 		void jump();
 		void doublejump();
 		void alert();
+		void die();
 
 
 
@@ -170,6 +190,7 @@ namespace ya
 		GameObject* mPhantomBlowUI;
 		GameObject* mBladeTornadoUI;
 		GameObject* mKarmaPuryUI;
+		GameObject* mDeathPhrases;
 
 		//GameObject* mBladeStorm;
 		class PhantomBlowSmokeScript* mPhantomBlowSmokeScript;
@@ -179,6 +200,7 @@ namespace ya
 		class BladeTornadoScript* mBladeTornadoScript;
 		class DoubleJumpScript* mDoubleJumpScript;
 		class DamageScript* mDamageScript;
+		class HitDamageScript* mHitDamageScript;
 		class PortalScript* mPortalScript;
 		class HpScript* mHpScript;
 		class MpScript* mMpScript;
@@ -199,6 +221,22 @@ namespace ya
 
 	private:
 		int meso;
+
+
+
+		private:
+			int AttackDamage;
+			int HitDamage;
+
+			double dietime;
+
+			bool HitMushroom;
+			bool HitFireImp;
+			bool HitBanBan;
+			bool HitBall;
+			bool EarthQuake;
+
+			bool DieCheck;
 
 	};
 }

@@ -18,6 +18,23 @@ namespace ya
 
 	void CameraScript::Update()
 	{
+		if (mSkillSlot != nullptr)
+		{
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			Vector3 CameraPos = tr->GetPosition();
+
+			Transform* SkillSlotTr = mSkillSlot->GetComponent<Transform>();
+			Vector3 SkillSlotPos = SkillSlotTr->GetPosition();
+
+			SkillSlotTr->SetPosition(
+				Vector3{
+				CameraPos.x + 2.25f,
+				CameraPos.y - 1.93f,
+				SkillSlotPos.z
+				});
+		}
+
+
 		if (mInventory != nullptr)
 		{
 			Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -65,7 +82,7 @@ namespace ya
 			SceneManager::GetCursorScript()->SetCameraScript(this);
 
 			//SceneManager::GetInventoryScript()->SetCameraScript(this);
-			
+
 			mTarget = Camera::GetTarget();
 			SceneManager::GetPlayerScript()->SetCameraScript(this);
 
@@ -75,9 +92,9 @@ namespace ya
 
 			Vector3 pos = TargetPos->GetPosition();
 
-		    //Ypos.y = pos.y + 1.3f;
+			//Ypos.y = pos.y + 1.3f;
 
-			if (TrPos.x >= -2.0f && TrPos.x <= 2.0f && TrPos.y <=-1.35f)
+			if (TrPos.x >= -2.0f && TrPos.x <= 2.0f && TrPos.y <= -1.35f)
 			{
 				GetOwner()->GetComponent<Transform>()->SetPosition(
 					Vector3{
@@ -103,17 +120,6 @@ namespace ya
 				mPrevPos = tr->GetPosition();
 			}
 
-			//if (TrPos.y >= -1.299f)
-			//{
-			//	GetOwner()->GetComponent<Transform>()->SetPosition(
-			//		Vector3{
-			//			mPrevPos.x,
-			//			mPrevPos.y,
-			//			GetOwner()->GetComponent<Transform>()->GetPosition().z
-			//		}
-			//	);
-			//}
-
 			if (TrPos.x >= 2.0f && TrPos.y <= -1.35f)
 			{
 				GetOwner()->GetComponent<Transform>()->SetPosition(
@@ -135,13 +141,11 @@ namespace ya
 					}
 				);
 			}
-
-
-			
 		}
 
 		if (Camera::GetTarget() != nullptr && Camera::GetEastGardenScene() != nullptr)
 		{
+			SceneManager::GetCursorScript()->SetCameraScript(this);
 			mTarget = Camera::GetTarget();
 			SceneManager::GetPlayerScript()->SetCameraScript(this);
 
@@ -152,24 +156,49 @@ namespace ya
 			Vector3 pos = TargetPos->GetPosition();
 
 
-			if (TrPos.x >= -4.5f && TrPos.x <= 4.5f)
+			if (TrPos.x >= -4.5f && TrPos.x <= 4.5f && TrPos.y <= -0.725f)
 			{
-				mPrevPos = pos;
-
 				GetOwner()->GetComponent<Transform>()->SetPosition(
 					Vector3{
 						pos.x,
-						pos.y + 1.25f,
+						pos.y + 1.3f,
 						GetOwner()->GetComponent<Transform>()->GetPosition().z
 					}
 				);
+				Transform* tr = GetOwner()->GetComponent<Transform>();
+				mPrevPos = tr->GetPosition();
 			}
-			if (TrPos.x <= -4.5f || TrPos.x >= 4.5f)
+
+			if (TrPos.x >= -4.5f && TrPos.x <= 4.5f && TrPos.y >= -0.725f)
+			{
+				GetOwner()->GetComponent<Transform>()->SetPosition(
+					Vector3{
+						pos.x,
+						mPrevPos.y,
+						GetOwner()->GetComponent<Transform>()->GetPosition().z
+					}
+				);
+				Transform* tr = GetOwner()->GetComponent<Transform>();
+				mPrevPos = tr->GetPosition();
+			}
+
+			if (TrPos.x >= 4.5f && TrPos.y <= -0.728f)
 			{
 				GetOwner()->GetComponent<Transform>()->SetPosition(
 					Vector3{
 						mPrevPos.x,
-						pos.y + 1.25f,
+						pos.y + 1.3f,
+						GetOwner()->GetComponent<Transform>()->GetPosition().z
+					}
+				);
+			}
+
+			if (TrPos.x < -4.5f && TrPos.y >= -0.728f)
+			{
+				GetOwner()->GetComponent<Transform>()->SetPosition(
+					Vector3{
+						mPrevPos.x,
+						mPrevPos.y,
 						GetOwner()->GetComponent<Transform>()->GetPosition().z
 					}
 				);
@@ -178,6 +207,7 @@ namespace ya
 
 		if (Camera::GetTarget() != nullptr && Camera::GetBanBanScene() != nullptr)
 		{
+			SceneManager::GetCursorScript()->SetCameraScript(this);
 			mTarget = Camera::GetTarget();
 			SceneManager::GetPlayerScript()->SetCameraScript(this);
 
@@ -188,27 +218,53 @@ namespace ya
 			Vector3 pos = TargetPos->GetPosition();
 
 
-			if (TrPos.x >= -1.2f && TrPos.x <= 1.2f)
+			if (TrPos.x >= -1.2f && TrPos.x <= 1.2f && TrPos.y <= -1.05f)
 			{
 				GetOwner()->GetComponent<Transform>()->SetPosition(
 					Vector3{
 						pos.x,
-						pos.y + 1.55f,
+						pos.y + 1.5f,
 						GetOwner()->GetComponent<Transform>()->GetPosition().z
 					}
 				);
-				//mPrevPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+				Transform* tr = GetOwner()->GetComponent<Transform>();
+				mPrevPos = tr->GetPosition();
 			}
-			//if (TrPos.x < -1.2f || TrPos.x > 1.2f)
-			//{
-			//	GetOwner()->GetComponent<Transform>()->SetPosition(
-			//		Vector3{
-			//			mPrevPos.x,
-			//			pos.y + 1.25f,
-			//			GetOwner()->GetComponent<Transform>()->GetPosition().z
-			//		}
-			//	);
-			//}
+
+			if (TrPos.x >= -1.2f && TrPos.x <= 1.2f && TrPos.y >= -1.05f)
+			{
+				GetOwner()->GetComponent<Transform>()->SetPosition(
+					Vector3{
+					pos.x,
+					mPrevPos.y,
+						GetOwner()->GetComponent<Transform>()->GetPosition().z
+					}
+				);
+				Transform* tr = GetOwner()->GetComponent<Transform>();
+				mPrevPos = tr->GetPosition();
+			}
+
+			if (TrPos.x >= -1.2f && TrPos.y <= -1.05f)
+			{
+				GetOwner()->GetComponent<Transform>()->SetPosition(
+					Vector3{
+						mPrevPos.x,
+						pos.y + 1.5f,
+						GetOwner()->GetComponent<Transform>()->GetPosition().z
+					}
+				);
+			}
+
+			if (TrPos.x < -1.2f && TrPos.y >= -1.05f)
+			{
+				GetOwner()->GetComponent<Transform>()->SetPosition(
+					Vector3{
+						mPrevPos.x,
+						mPrevPos.y,
+						GetOwner()->GetComponent<Transform>()->GetPosition().z
+					}
+				);
+			}
 		}
 	}
 }

@@ -435,6 +435,7 @@ namespace ya
 			cameraComp->TurnLayerMask(eLayerType::NPC, false);
 			cameraComp->TurnLayerMask(eLayerType::Inventory, false);
 			cameraComp->TurnLayerMask(eLayerType::Shop, false);
+			cameraComp->TurnLayerMask(eLayerType::SkillSlot, false);
 			//cameraComp->TurnLayerMask(eLayerType::Item, false);
 			//camera->AddComponent<CameraScript>();
 		}
@@ -523,6 +524,9 @@ namespace ya
 		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Shop, true);
 		CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Inventory, true);
 
+		//SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
+		//SceneManager::GetHpScript()->SetHP(99999.0f);
+
 
 		mPlayer = SceneManager::GetPlayer();
 		Transform* tr = mPlayer->GetComponent<Transform>();
@@ -545,6 +549,7 @@ namespace ya
 	}
 	void RootaByssScene::OnExit()
 	{
+		Camera::SetTarget(nullptr);
 		Camera::SetRootaByssScene(nullptr);
 		Scene::OnExit();
 	}

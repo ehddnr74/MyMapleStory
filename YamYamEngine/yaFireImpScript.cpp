@@ -7,6 +7,7 @@
 #include "yaAnimator.h"
 #include "yaResources.h"
 #include "yaPlayerScript.h"
+#include "yaObject.h"
 #include <random>
 #include "yaSceneManager.h"
 
@@ -23,6 +24,12 @@ namespace ya
 		, idletime(0.0f)
 		, movetime(0.0f)
 		, attacktime(0.0f)
+		, HP(50000)
+		, damage(0)
+		, diecheck(false)
+		, collidertime(0.0f)
+		, Attack(0.0f)
+		, OnHit(false)
 	{
 
 	}
@@ -34,7 +41,11 @@ namespace ya
 	{
 		Animator* at = GetOwner()->GetComponent<Animator>();
 
-		Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
+		Collider2D* cd = GetOwner()->AddComponent<Collider2D>();
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.01f, 0.01f));
+		//cd->SetCenter(Vector2(0.0f, 0.0f));
+		//cd->SetSize(Vector2(0.0f, 0.0f));
 		//at->CompleteEvent(L"Idle") = std::bind(&PlayerScript::Complete, this);
 
 		std::shared_ptr<Texture> FireImpLeftIdle = Resources::Load<Texture>(L"FireImpLeftIdle", L"..\\Resources\\Texture\\FireImp\\FireImpLeftIdle.png");
@@ -56,6 +67,7 @@ namespace ya
 		at->Create(L"FireImpLeftHit", FireImpLeftHit, Vector2(0.0f, 0.0f), Vector2(86.0f, 96.0f), 2, Vector2::Zero, 0.1f);
 		at->Create(L"FireImpLeftDie", FireImpLeftDie, Vector2(0.0f, 0.0f), Vector2(165.0f, 193.0f), 9, Vector2::Zero, 0.15f);
 
+
 		at->Create(L"FireImpRightIdle", FireImpRightIdle, Vector2(0.0f, 0.0f), Vector2(84.0f, 99.0f), 12, Vector2::Zero, 0.15f);
 		at->Create(L"FireImpRightMove", FireImpRightMove, Vector2(0.0f, 0.0f), Vector2(84.0f, 100.0f), 6, Vector2::Zero, 0.15f);
 		at->Create(L"FireImpRightAttack", FireImpRightAttack, Vector2(0.0f, 0.0f), Vector2(185.0f, 150.0f), 11, Vector2::Zero, 0.15f);
@@ -70,46 +82,108 @@ namespace ya
 	}
 	void FireImpScript::Update()
 	{
-		srand(time(NULL));
-		RandDir();
-
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
 		Transform* Playertr = SceneManager::GetPlayerScript()->GetOwner()->GetComponent<Transform>();
 		Vector3 PlayerPos = Playertr->GetPosition();
 
-
-
-
-		switch (mFireImpState)
+		if (mFireImpState == FireImpState::Attack)
 		{
-		case FireImpScript::FireImpState::Idle:
-			Idle();
-			break;
-		case FireImpScript::FireImpState::Move:
-			move();
-			break;
-		case FireImpScript::FireImpState::Attack:
-			attack();
-			break;
-		case FireImpScript::FireImpState::Hit:
-			hit();
-			break;
-		case FireImpScript::FireImpState::Die:
-			die();
-			break;
-		default:
-			break;
-		}
-	}
-	void FireImpScript::Complete()
-	{
+			collidertime += Time::DeltaTime();
 
-	}
+			if (collidertime >= 1.55f)
+			{
+				if (-0.5f <= PlayerPos.x - pos.x && PlayerPos.x - pos.x <= 0.0f)
+				{
+					if (dir == 0 && SceneManager::GetPlayerScript()->GetDir() == 0
+						|| dir == 0 && SceneManager::GetPlayerScript()->GetDir() == 1
+						|| dir == 1 && SceneManager::GetPlayerScript()->GetDir() == 0
+						|| dir == 1 && SceneManager::GetPlayerScript()->GetDir() == 1)
+					{
+						Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
+						cd->SetCenter(Vector2(0.0f, 0.0f));
+						cd->SetSize(Vector2(0.6f, 0.5f));
+					}
+				}
+			}
+		}
+
+				
+			if (mFireImpState == FireImpState::Attack)
+			{
+				collidertime += Time::DeltaTime();
+
+				if (collidertime >= 1.55f)
+				{
+					if (0.0f <= PlayerPos.x - pos.x && PlayerPos.x - pos.x <= 0.5f)
+					{
+						if (dir == 0 && SceneManager::GetPlayerScript()->GetDir() == 0
+							|| dir == 0 && SceneManager::GetPlayerScript()->GetDir() == 1
+							|| dir == 1 && SceneManager::GetPlayerScript()->GetDir() == 0
+							|| dir == 1 && SceneManager::GetPlayerScript()->GetDir() == 1)
+						{
+							Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
+							cd->SetCenter(Vector2(0.0f, 0.0f));
+							cd->SetSize(Vector2(0.6f, 0.5f));
+						}
+					}
+				}
+			}
+			
+				if(mFireImpState != FireImpState::Attack)
+				{
+					collidertime = 0.0f;
+					Collider2D* cd = GetOwner()->GetComponent<Collider2D>();
+					cd->SetCenter(Vector2(0.0f, 0.0f));
+					cd->SetSize(Vector2(0.25f, 0.25f));
+				}
+
+			srand(time(NULL));
+			RandDir();
+
+			if (diecheck == false && HP <= 0 && dir == 0)
+			{
+				diecheck = true;
+				Animator* at = GetOwner()->GetComponent<Animator>();
+				mFireImpState = FireImpState::Die;
+				at->PlayAnimation(L"FireImpLeftDie", false);
+			}
+			if (diecheck == false && HP <= 0 && dir == 1)
+			{
+				diecheck = true;
+				Animator* at = GetOwner()->GetComponent<Animator>();
+				mFireImpState = FireImpState::Die;
+				at->PlayAnimation(L"FireImpRightDie", false);
+			}
+
+
+
+			switch (mFireImpState)
+			{
+			case FireImpScript::FireImpState::Idle:
+				Idle();
+				break;
+			case FireImpScript::FireImpState::Move:
+				move();
+				break;
+			case FireImpScript::FireImpState::Attack:
+				attack();
+				break;
+			case FireImpScript::FireImpState::Hit:
+				hit();
+				break;
+			case FireImpScript::FireImpState::Die:
+				die();
+				break;
+			default:
+				break;
+			}
+		}
+
 	void FireImpScript::OnCollisionEnter(Collider2D* other)
 	{
-		if (other->GetOwner()->GetName() == L"Adel")
+		if (mFireImpState != FireImpState::Attack && mFireImpState != FireImpState::Die &&other->GetOwner()->GetName() == L"Adel")
 		{
 			if (dir == 0)
 			{
@@ -131,11 +205,14 @@ namespace ya
 	}
 	void FireImpScript::OnCollisionExit(Collider2D* other)
 	{
-
 	}
 	void FireImpScript::Rand()
 	{
 
+	}
+	void FireImpScript::SetDamage(int damage)
+	{
+		HP -= damage;
 	}
 	void FireImpScript::RandDir()
 	{
@@ -347,6 +424,7 @@ namespace ya
 	}
 	void FireImpScript::attack()
 	{
+		Attack = true;
 		Animator* at = GetOwner()->GetComponent<Animator>();
 
 		attacktime += Time::DeltaTime();
@@ -361,6 +439,7 @@ namespace ya
 		{
 			if (dir == 0)
 			{
+				Attack = false;
 				mFireImpState = FireImpState::Idle;
 				at->PlayAnimation(L"FireImpLeftIdle", true);
 				attacktime = 0.0f;
@@ -369,6 +448,7 @@ namespace ya
 
 			if (dir == 1)
 			{
+				Attack = false;
 				mFireImpState = FireImpState::Idle;
 				at->PlayAnimation(L"FireImpRightIdle", true);
 				attacktime = 0.0f;
@@ -391,5 +471,14 @@ namespace ya
 	}
 	void FireImpScript::die()
 	{
+		Animator* at = GetOwner()->GetComponent<Animator>();
+
+		dietime += Time::DeltaTime();
+
+		if (dietime >= 1.35f)
+		{
+			dietime = 0.0f;
+			object::Destroy(GetOwner());
+		}
 	}
 }

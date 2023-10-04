@@ -6,16 +6,15 @@
 
 namespace ya
 {
-	class DamageScript : public Script
+	class HitDamageScript : public Script
 	{
 	public:
-		DamageScript();
-		~DamageScript();
+		HitDamageScript();
+		~HitDamageScript();
 
 		enum class DamageState
 		{
 			Basic,
-			Critical,
 		};
 
 
@@ -26,8 +25,8 @@ namespace ya
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
-		void SetDamage(int dam) { Damage = dam; }
-		int GetDamage() { return Damage; }
+		void SetHitDamage(int hitdam) { HitDamage = hitdam; }
+		int GetHitDamage() { return HitDamage; }
 
 	private:
 		Animator* at;
@@ -37,13 +36,12 @@ namespace ya
 
 	private:
 		void basic();
-		void critical();
 
 
 	private:
-		int Damage;
-		bool dmg;
-		double dmgtime;
+		int HitDamage;
+		bool Hitdmg;
+		double Hitdmgtime;
 
 	};
 }

@@ -29,11 +29,16 @@ namespace ya
 			EarthQuake,
 			BlinkIn,
 			BlinkOut,
-
+			Hit,
+			Die,
 		};
 
 		virtual void Initialize() override;
 		virtual void Update() override;
+
+		virtual void OnCollisionEnter(Collider2D* other) override;
+		virtual void OnCollisionStay(Collider2D* other) override;
+		virtual void OnCollisionExit(Collider2D* other) override;
 
 		void SetPlayerScript(class PlayerScript* playerscript) { mPlayerScript = playerscript; }
 		PlayerScript* GetPlayerScript() { return mPlayerScript; }
@@ -46,6 +51,10 @@ namespace ya
 
 		void SetRightBall(GameObject* ball) { mBall = ball; }
 		GameObject* GetRightBall() { return mBall; }
+
+		void SetDamage(int damage);
+			
+	
 
 
 	private:
@@ -65,6 +74,8 @@ namespace ya
 		void forceteleport();
 		void blinkin();
 		void blinkout();
+		void hit();
+		void die();
 
 
 		void CreateLeftBall();
@@ -99,6 +110,15 @@ namespace ya
 		double blinktime;
 		double btime;
 
+		double hittime;
+		double dietime;
+		bool DieCheck;
+
 		float randompos;
+
+		bool earthhit;
+
+		int HP;
+		int damage;
 	};
 }

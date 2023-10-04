@@ -26,6 +26,10 @@ namespace ya
 		GetOwner()->AddComponent<Animator>();
 		Animator* at = GetOwner()->GetComponent<Animator>();
 
+		Collider2D* cd = GetOwner()->AddComponent<Collider2D>();
+		cd->SetCenter(Vector2(0.0f, 0.0f));
+		cd->SetSize(Vector2(0.5f, 0.15f));
+
 		std::shared_ptr<Texture> LeftBall = Resources::Load<Texture>(L"LeftBall", L"..\\Resources\\Texture\\BanBan\\LeftBall.png");
 		std::shared_ptr<Texture> RightBall = Resources::Load<Texture>(L"RightBall", L"..\\Resources\\Texture\\BanBan\\RightBall.png");
 

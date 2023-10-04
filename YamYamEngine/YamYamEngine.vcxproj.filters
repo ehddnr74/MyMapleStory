@@ -116,6 +116,15 @@
     <ClCompile Include="yaSkillUIScript.cpp">
       <Filter>Contents\Script\SkillScript</Filter>
     </ClCompile>
+    <ClCompile Include="yaSkillUIBtnScript.cpp">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHitDamageScript.cpp">
+      <Filter>Contents\Script\DamageScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPortionScript.cpp">
+      <Filter>Contents\Script\PortionScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -235,6 +244,15 @@
     <ClInclude Include="yaSkillUIScript.h">
       <Filter>Contents\Script\SkillScript</Filter>
     </ClInclude>
+    <ClInclude Include="yaSkillUIBtnScript.h">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHitDamageScript.h">
+      <Filter>Contents\Script\DamageScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPortionScript.h">
+      <Filter>Contents\Script\PortionScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -299,6 +317,9 @@
     </Filter>
     <Filter Include="Contents\Script\EffectScript">
       <UniqueIdentifier>{af4bc266-eb3c-408f-b4fa-0a2613826af5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\PortionScript">
+      <UniqueIdentifier>{76f15ada-5ddc-458f-94ee-21e9358cb601}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

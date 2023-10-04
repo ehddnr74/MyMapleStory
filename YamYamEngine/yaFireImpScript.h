@@ -23,7 +23,6 @@ namespace ya
 		virtual void Initialize() override;
 		virtual void Update() override;
 
-		void Complete();
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
@@ -32,7 +31,11 @@ namespace ya
 		void SetPlayerScript(class PlayerScript* playerscript) { mPlayerScript = playerscript; }
 		PlayerScript* GetPlayerScript() { return mPlayerScript; }
 
+		bool GetFireImpAttack() { return Attack; }
+
 		void Rand();
+
+		void SetDamage(int damage);
 
 	private:
 		Animator* at;
@@ -51,6 +54,7 @@ namespace ya
 		void die();
 
 	private:
+		int HP;
 		class PlayerScript* mPlayerScript;
 
 		double attacktime;
@@ -60,9 +64,17 @@ namespace ya
 
 		double randdirtime;
 
+		int damage;
 
+		bool Attack;
+		bool diecheck;
+
+		bool OnHit;
 
 		double hittime;
+		double dietime;
+
+		double collidertime;
 		int dir; // 0 = ¿ÞÂÊ , 1 = ¿À¸¥ÂÊ
 
 
