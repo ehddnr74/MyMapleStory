@@ -33,6 +33,7 @@
 #include "yaFireImpScript.h"
 #include "yaHitDamageScript.h"
 #include "yaCollisionManager.h"
+#include "yaSkillCollDownScript.h"
 
 std::mt19937_64 rng4(0);
 std::uniform_int_distribution<__int64> dist4(50000, 99999);
@@ -79,6 +80,12 @@ namespace ya
 		, EarthQuake(false)
 		, DieCheck(false)
 		, dietime(0.0f)
+		, TornadoUI(false)
+		, PuryUI(false)
+		, bladeTornadocooltime(0.0f)
+		, karmapurycooltime(0.0f)
+		, tornado(false)
+		, pury(false)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -316,6 +323,27 @@ namespace ya
 			CreateDeathPhrases();
 		}
 
+		if (tornado)
+		{
+			bladeTornadocooltime += Time::DeltaTime();
+
+			if (bladeTornadocooltime >= 5.0f)
+			{
+				tornado = false;
+				bladeTornadocooltime = 0.0f;
+			}
+		}
+
+		if (pury)
+		{
+			karmapurycooltime += Time::DeltaTime();
+
+			if (karmapurycooltime >= 5.0f)
+			{
+				pury = false;
+				karmapurycooltime = 0.0f;
+			}
+		}
 
 		switch (mPlayerState)
 		{
@@ -839,6 +867,43 @@ namespace ya
 		object::Destroy(mKarmaPuryUI);
 	}
 
+	void PlayerScript::CreateBladeTornadoSkillCooltime()
+	{
+		{
+			GameObject* mBladeTornadoSkillCoolTime
+				= object::Instantiate<GameObject>(Vector3(0.625f, -2.16f, 0.98f), eLayerType::UI);
+
+			mBladeTornadoSkillCoolTime->SetName(L"mBladeTornadoSkillCoolTime");
+
+			MeshRenderer* mr = mBladeTornadoSkillCoolTime->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			mBladeTornadoSkillCoolTime->GetComponent<Transform>()->SetScale(Vector3(1.7f, 1.7f, 1.000f));
+
+			mBladeTornadoSkillCoolTime->AddComponent<SkillCollDownScript>();
+		}
+	}
+
+	void PlayerScript::CreateKarmaPurySkillCooltime()
+	{
+		{
+			GameObject* mKarmaPurySkillCoolTime
+				= object::Instantiate<GameObject>(Vector3(0.837f, -2.155f, 0.98f), eLayerType::UI);
+
+			mKarmaPurySkillCoolTime->SetName(L"mKarmaPurySkillCoolTime");
+
+			MeshRenderer* mr = mKarmaPurySkillCoolTime->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			mKarmaPurySkillCoolTime->GetComponent<Transform>()->SetScale(Vector3(1.7f, 1.7f, 1.000f));
+
+			SkillCollDownScript* cds = mKarmaPurySkillCoolTime->AddComponent<SkillCollDownScript>();
+			cds->SetKarmaPurySkillCooltime(true);
+		}
+	}
+
 	void PlayerScript::CreateDamage(GameObject* Monster, Vector3 Pos)
 	{
 		AttackDamage = dist4(rng4);
@@ -1313,7 +1378,18 @@ namespace ya
 			rb->SetGround(true);
 		}
 
+		if (other->GetOwner()->GetName() == L"Ground2")
+		{
+			RigidBody* rb = GetOwner()->GetComponent<RigidBody>();
+			rb->SetGround(true);
+		}
+
 		if (other->GetOwner()->GetName() == L"Portal3")
+		{
+			portal = true;
+		}
+
+		if (other->GetOwner()->GetName() == L"SelasPortal")
 		{
 			portal = true;
 		}
@@ -1358,10 +1434,21 @@ namespace ya
 	}
 	void PlayerScript::OnCollisionExit(Collider2D* other)
 	{
-		if (other->GetOwner()->GetName() == L"Portal")
+		if (other->GetOwner()->GetName() == L"Portal6")
 		{
 			portal = false;
 		}
+
+		if (other->GetOwner()->GetName() == L"Portal3")
+		{
+			portal = false;
+		}
+
+		if (other->GetOwner()->GetName() == L"SelasPortal")
+		{
+			portal = false;
+		}
+
 	}
 	void PlayerScript::Idle()
 	{
@@ -1440,26 +1527,37 @@ namespace ya
 				}
 			}
 
-			if (Input::GetKeyDown(eKeyCode::D))
+			if (tornado == false && Input::GetKeyDown(eKeyCode::D))
 			{
+				tornado = true;
 				dir = 0;
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"LeftAttack", false);
 
 				if (mBladeTornado == nullptr && mCaremaPury == nullptr)
 				{
+					if (TornadoUI)
+					{
+						CreateBladeTornadoSkillCooltime();
+					}
 					CreateBladeTornado();
 				}
+					
 			}
 
-			if (Input::GetKeyDown(eKeyCode::F))
+			if (pury == false && Input::GetKeyDown(eKeyCode::F))
 			{
+				pury = true;
 				dir = 0;
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"LeftAttack", false);
 
 				if (mCaremaPury == nullptr && mBladeTornado == nullptr)
 				{
+					if (PuryUI)
+					{
+						CreateKarmaPurySkillCooltime();
+					}
 					CreateCaremaPury();
 				}
 			}
@@ -1523,14 +1621,19 @@ namespace ya
 				SceneManager::GetMpScript()->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
 			}
 
-			if (Input::GetKeyDown(eKeyCode::D))
+			if (tornado == false && Input::GetKeyDown(eKeyCode::D))
 			{
+				tornado = true;
 				dir = 1;
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"RightAttack", false);
 
 				if (mBladeTornado == nullptr && mCaremaPury == nullptr)
 				{
+					if (TornadoUI)
+					{
+						CreateBladeTornadoSkillCooltime();
+					}
 					CreateRightBladeTornado();
 				}
 			}
@@ -1547,15 +1650,20 @@ namespace ya
 				}
 			}
 
-			if (Input::GetKeyDown(eKeyCode::F))
+			if (pury == false && Input::GetKeyDown(eKeyCode::F))
 			{
+				pury = true;
 				dir = 1;
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"RightAttack", false);
 
 				if (mCaremaPury == nullptr && mBladeTornado == nullptr)
 				{
-					CreateRightCaremaPury();
+					if (PuryUI)
+					{
+						CreateKarmaPurySkillCooltime();
+					}
+					CreateCaremaPury();
 				}
 			}
 
@@ -1664,26 +1772,36 @@ namespace ya
 				}
 			}
 
-			if (Input::GetKeyDown(eKeyCode::D))
+			if (tornado == false && Input::GetKeyDown(eKeyCode::D))
 			{
+				tornado = true;
 				dir = 0;
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"LeftAttack", false);
 
 				if (mBladeTornado == nullptr && mCaremaPury == nullptr)
 				{
+					if (TornadoUI)
+					{
+						CreateBladeTornadoSkillCooltime();
+					}
 					CreateBladeTornado();
 				}
 			}
 
-			if (Input::GetKeyDown(eKeyCode::F))
+			if (pury == false && Input::GetKeyDown(eKeyCode::F))
 			{
+				pury = true;
 				dir = 0;
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"LeftAttack", false);
 
 				if (mCaremaPury == nullptr && mBladeTornado == nullptr)
 				{
+					if (PuryUI)
+					{
+						CreateKarmaPurySkillCooltime();
+					}
 					CreateCaremaPury();
 				}
 			}
@@ -1751,16 +1869,22 @@ namespace ya
 				SceneManager::GetMpScript()->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
 			}
 
-			if (Input::GetKeyDown(eKeyCode::D))
+			if (tornado == false && Input::GetKeyDown(eKeyCode::D))
 			{
+				tornado = true;
 				dir = 1;
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"RightAttack", false);
 
 				if (mBladeTornado == nullptr && mCaremaPury == nullptr)
 				{
+					if (TornadoUI)
+					{
+						CreateBladeTornadoSkillCooltime();
+					}
 					CreateRightBladeTornado();
 				}
+
 			}
 
 			if (Input::GetKeyDown(eKeyCode::V))
@@ -1775,15 +1899,20 @@ namespace ya
 				}
 			}
 
-			if (Input::GetKeyDown(eKeyCode::F))
+			if (pury == false && Input::GetKeyDown(eKeyCode::F))
 			{
+				pury = true;
 				dir = 1;
 				mPlayerState = PlayerState::Attack;
 				at->PlayAnimation(L"RightAttack", false);
 
 				if (mCaremaPury == nullptr && mBladeTornado == nullptr)
 				{
-					CreateRightCaremaPury();
+					if (PuryUI)
+					{
+						CreateKarmaPurySkillCooltime();
+					}
+					CreateCaremaPury();
 				}
 			}
 
@@ -1868,8 +1997,13 @@ namespace ya
 
 		if (mBladeTornado != nullptr && mCaremaPury == nullptr)
 		{
-			if (Input::GetKeyDown(eKeyCode::F))
+			if (pury == false && Input::GetKeyDown(eKeyCode::F))
 			{
+				pury = true;
+				if (PuryUI)
+				{
+					CreateKarmaPurySkillCooltime();
+				}
 				CreateCaremaPury();
 			}
 		}

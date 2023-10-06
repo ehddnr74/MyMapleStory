@@ -157,6 +157,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="ShouldScript.h" />
     <ClInclude Include="yaBallScript.h" />
+    <ClInclude Include="yaBanBanHPScript.h" />
     <ClInclude Include="yaBanBanScene.h" />
     <ClInclude Include="yaBanBanScript.h" />
     <ClInclude Include="yaBladePuryHitEffectScript.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="yaRootaByssFireScript.h" />
     <ClInclude Include="yaRootaByssScene.h" />
     <ClInclude Include="yaShopScript.h" />
+    <ClInclude Include="yaSkillCollDownScript.h" />
     <ClInclude Include="yaSkillScript.h" />
     <ClInclude Include="yaSkillUIBtnScript.h" />
     <ClInclude Include="yaSkillUIScript.h" />
@@ -200,6 +202,7 @@
   <ItemGroup>
     <ClCompile Include="ShouldScript.cpp" />
     <ClCompile Include="yaBallScript.cpp" />
+    <ClCompile Include="yaBanBanHPScript.cpp" />
     <ClCompile Include="yaBanBanScene.cpp" />
     <ClCompile Include="yaBanBanScript.cpp" />
     <ClCompile Include="yaBladePuryHitEffectScript.cpp" />
@@ -237,6 +240,7 @@
     <ClCompile Include="yaRootaByssFireScript.cpp" />
     <ClCompile Include="yaRootaByssScene.cpp" />
     <ClCompile Include="yaShopScript.cpp" />
+    <ClCompile Include="yaSkillCollDownScript.cpp" />
     <ClCompile Include="yaSkillScript.cpp" />
     <ClCompile Include="yaSkillUIBtnScript.cpp" />
     <ClCompile Include="yaSkillUIScript.cpp" />

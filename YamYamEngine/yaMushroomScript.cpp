@@ -25,7 +25,7 @@ namespace ya
 
 		std::shared_ptr<Texture> MushRoom = Resources::Load<Texture>(L"MushRoom", L"..\\Resources\\Texture\\MushRoom.png");
 
-		at->Create(L"Idle", MushRoom, Vector2(0.0f, 0.0f), Vector2(300.0f, 300.0f), 2, Vector2::Zero, 0.15f);
+		at->Create(L"Idle", MushRoom, Vector2(0.0f, 0.0f), Vector2(300.0f, 300.0f), 2, Vector2::Zero, 0.5f);
 
 		at->PlayAnimation(L"Idle", true);
 

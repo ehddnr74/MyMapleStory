@@ -12,6 +12,7 @@
 #include "yaInput.h"
 #include "yaFireImpScript.h"
 #include "yaBanBanScript.h"
+#include "yaBanBanHPScript.h"
 
 namespace ya
 {
@@ -377,13 +378,20 @@ namespace ya
 			DamageView = true;
 			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
 			BanBanScript* mBanBanScript = other->GetOwner()->GetComponent<BanBanScript>();
-			mBanBanScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			mBanBanScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());	
+			mBanBanScript->GetBanBanHPScript()->OnDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
 			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
+
 			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));
+
 			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.6f, pos.z));
+
 			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.8f, pos.z));
+
 			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.0f, pos.z));
+
 			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 1.2f, pos.z));
+
 		}
 	}
 	void BladeTornadoScript::OnCollisionStay(Collider2D* other)

@@ -51,6 +51,9 @@ namespace ya
 		void CreateSkillUI();
 		void CloseSkillUI();
 
+		void CreateBladeTornadoSkillCooltime();
+		void CreateKarmaPurySkillCooltime();
+
 		void CreateDamage(GameObject* Monster, Vector3 Pos);
 		void CreateHitDamage(GameObject* Monster, Vector3 Pos);
 
@@ -116,6 +119,7 @@ namespace ya
 		int GetDir() { return dir; }
 
 		bool GetPortal() { return portal; }
+		void SetPortal(bool port) { portal = port; }
 
 		Vector3 GetPos() { return pos; }
 
@@ -133,6 +137,9 @@ namespace ya
 
 		void SetEarthQuake(bool earthquake) { EarthQuake = earthquake; }
 		bool GetDieCheck() { return DieCheck; }
+
+		void BladeTornadoUI(bool tornadoui) { TornadoUI = tornadoui; }
+		void KarmaPuryUI(bool puryui) { PuryUI = puryui; }
 
 	private:
 		Animator* at;
@@ -215,6 +222,14 @@ namespace ya
 		bool Oninventory;
 		bool skillui;
 		double skilluitime;
+		bool TornadoUI;
+		bool PuryUI;
+
+
+		bool tornado;
+		bool pury;
+		double bladeTornadocooltime;
+		double karmapurycooltime;
 		GameObject* mInventory;
 
 		double inventorytime;

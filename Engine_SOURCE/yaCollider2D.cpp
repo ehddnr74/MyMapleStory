@@ -46,7 +46,7 @@ namespace ya
 		mesh.rotation = tr->GetRotation();
 		mesh.type = eColliderType::Rect;
 
-		renderer::PushDebugMeshAttribute(mesh);
+		//renderer::PushDebugMeshAttribute(mesh);
 	}
 
 	void Collider2D::Render()

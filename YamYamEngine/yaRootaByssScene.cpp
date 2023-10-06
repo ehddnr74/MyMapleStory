@@ -122,7 +122,7 @@ namespace ya
 
 			Collider2D* cd = portal3->AddComponent<Collider2D>();
 			cd->SetCenter(Vector2(0.0f, -0.4f));
-			cd->SetSize(Vector2(0.27f, 0.45f));
+			cd->SetSize(Vector2(0.27f, 0.55f));
 
 			MeshRenderer* mr = portal3->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -486,7 +486,10 @@ namespace ya
 		if (SceneManager::GetPlayerScript()->GetPortal())
 		{
 			if (Input::GetKeyDown(eKeyCode::UP))
+			{
+				SceneManager::GetPlayerScript()->SetPortal(false);
 				SceneManager::LoadScene(L"EastGardenScene");
+			}
 		}
 
 

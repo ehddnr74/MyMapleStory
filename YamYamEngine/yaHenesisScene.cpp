@@ -24,6 +24,7 @@
 #include "yaInventoryScript.h"
 #include "yaSkillUIScript.h"
 #include "yaSkillUIBtnScript.h"
+#include "yaPortalScript.h"
 
 namespace ya
 {
@@ -76,7 +77,7 @@ namespace ya
 
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
-			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.999f));
+			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, -0.72f, 0.999f));
 			player->GetComponent<Transform>()->SetScale(Vector3(1.6f, 1.6f, 0.999f));
 			PlayerScript* mPlayerScript = player->AddComponent<PlayerScript>();
 			SceneManager::SetPlayer(player);
@@ -88,20 +89,20 @@ namespace ya
 
 		{
 			GameObject* BG
-				= object::Instantiate<GameObject>(Vector3(8.0f, 1.0f, 1.001f), eLayerType::BG);
+				= object::Instantiate<GameObject>(Vector3(0.0f, 1.0f, 1.001f), eLayerType::BG);
 
-			BG->SetName(L"Henesis");
+			BG->SetName(L"Selas");
 
 			MeshRenderer* mr = BG->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"Hene"));
+			mr->SetMaterial(Resources::Find<Material>(L"selas"));
 
-			BG->GetComponent<Transform>()->SetScale(Vector3(35.0f, 8.5f, 1.0f));
+			BG->GetComponent<Transform>()->SetScale(Vector3(9.0f, 5.0f, 1.0f));
 		}
 
 		{
 			GameObject* Ground
-				= object::Instantiate<GameObject>(Vector3(-0.6f, -1.0f, 0.998f), eLayerType::Ground);
+				= object::Instantiate<GameObject>(Vector3(-0.6f, -1.19f, 0.998f), eLayerType::Ground);
 
 			Ground->SetName(L"Ground");
 
@@ -113,6 +114,20 @@ namespace ya
 			cd->SetSize(Vector2(1.0f, 1.0f));
 		}
 
+		//{
+		//	GameObject* Ground2
+		//		= object::Instantiate<GameObject>(Vector3(0.6f, -0.33f, 0.998f), eLayerType::Ground);
+
+		//	Ground2->SetName(L"Ground2");
+
+		//	Transform* groundTr = Ground2->GetComponent<Transform>();
+		//	groundTr->SetScale(Vector3(1.0f, 0.5f, 1.0f));
+
+		//	Collider2D* cd = Ground2->AddComponent<Collider2D>();
+		//	cd->SetCenter(Vector2(0.0f, 0.0f));
+		//	cd->SetSize(Vector2(1.0f, 0.1f));
+		//}
+
 		{
 			GameObject* Exp = new GameObject();
 			Exp->SetName(L"EXP");
@@ -122,7 +137,7 @@ namespace ya
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"EXP"));
 
-			Exp->GetComponent<Transform>()->SetPosition(Vector3(0.0f, -2.21f, 0.999f));
+			Exp->GetComponent<Transform>()->SetPosition(Vector3(0.0f, -2.21f, 0.998f));
 			Exp->GetComponent<Transform>()->SetScale(Vector3(8.0f, 0.08f, 1.0009f));
 			object::DontDestroyOnLoad(Exp);
 		}
@@ -136,7 +151,7 @@ namespace ya
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"ExpFront"));
 
-			ExpFrontBar->GetComponent<Transform>()->SetPosition(Vector3(-4.0f, -2.21f, 1.000f));
+			ExpFrontBar->GetComponent<Transform>()->SetPosition(Vector3(-4.0f, -2.21f, 0.998f));
 			ExpFrontBar->GetComponent<Transform>()->SetScale(Vector3(0.0f, 0.05f, 1.000f));
 			ExpScript* mExpScript = ExpFrontBar->AddComponent<ExpScript>();
 			SceneManager::SetExpScript(mExpScript);
@@ -152,7 +167,7 @@ namespace ya
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"HP"));
 
-			HP->GetComponent<Transform>()->SetPosition(Vector3(-0.15f, -1.95f, 0.999f));
+			HP->GetComponent<Transform>()->SetPosition(Vector3(-0.15f, -1.95f, 0.91f));
 			HP->GetComponent<Transform>()->SetScale(Vector3(1.18f, 0.5f, 1.0007f));
 			object::DontDestroyOnLoad(HP);
 		}
@@ -166,7 +181,7 @@ namespace ya
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"HpFront"));
 
-			HPFrontBar->GetComponent<Transform>()->SetPosition(Vector3(-0.11f, -1.95f, 1.000f));
+			HPFrontBar->GetComponent<Transform>()->SetPosition(Vector3(-0.11f, -1.95f, 0.911f));
 			HPFrontBar->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
 			HpScript* mHpScript = HPFrontBar->AddComponent<HpScript>();
 			SceneManager::SetHpScript(mHpScript);
@@ -182,7 +197,7 @@ namespace ya
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"MpFront"));
 
-			MpFrontBar->GetComponent<Transform>()->SetPosition(Vector3(-0.11f, -2.05f, 1.000f));
+			MpFrontBar->GetComponent<Transform>()->SetPosition(Vector3(-0.11f, -2.05f, 0.911f));
 			MpFrontBar->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
 			MpScript* mMpScript = MpFrontBar->AddComponent<MpScript>();
 			SceneManager::SetMpScript(mMpScript);
@@ -245,7 +260,7 @@ namespace ya
 
 		{
 			GameObject* MushRoom
-				= object::Instantiate<GameObject>(Vector3(1.0f, -0.5f, 0.998f), eLayerType::Monster);
+				= object::Instantiate<GameObject>(Vector3(1.0f, -0.12f, 0.998f), eLayerType::Monster);
 
 			MushRoom->SetName(L"MushRoom");
 
@@ -264,24 +279,64 @@ namespace ya
 		}
 
 		{
-			GameObject* MushRoom
-				= object::Instantiate<GameObject>(Vector3(-0.6f, -0.5f, 0.998f), eLayerType::Monster);
+			GameObject* SelasPortal // 반반넘어가는포탈
+				= object::Instantiate<GameObject>(Vector3(3.0f, -0.17f, 0.999f), eLayerType::Portal);
 
-			MushRoom->SetName(L"MushRoom1");
+			SelasPortal->SetName(L"SelasPortal");
 
-			Collider2D* cd = MushRoom->AddComponent<Collider2D>();
-			cd->SetCenter(Vector2(0.0f, 0.0f));
-			cd->SetSize(Vector2(0.25f, 0.25f));
+			Collider2D* cd = SelasPortal->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.0f, -0.4f));
+			cd->SetSize(Vector2(0.27f, 0.55f));
 
-			MeshRenderer* mr = MushRoom->AddComponent<MeshRenderer>();
+			MeshRenderer* mr = SelasPortal->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-			MushRoom->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0001f));
+			SelasPortal->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 0.999f));
 
-			Animator* at = MushRoom->AddComponent<Animator>();
-			MushRoom->AddComponent<MushroomScript>();
+			Animator* at = SelasPortal->AddComponent<Animator>();
+			SelasPortal->AddComponent<PortalScript>();
 		}
+
+		{
+			GameObject* SelasUpPortal // 반반넘어가는포탈
+				= object::Instantiate<GameObject>(Vector3(2.8f, 1.85f, 0.999f), eLayerType::Portal);
+
+			SelasUpPortal->SetName(L"SelasUpPortal");
+
+			Collider2D* cd = SelasUpPortal->AddComponent<Collider2D>();
+			cd->SetCenter(Vector2(0.0f, -0.4f));
+			cd->SetSize(Vector2(0.27f, 0.45f));
+
+			MeshRenderer* mr = SelasUpPortal->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			SelasUpPortal->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 0.999f));
+
+			Animator* at = SelasUpPortal->AddComponent<Animator>();
+			SelasUpPortal->AddComponent<PortalScript>();
+		}
+
+		//{
+		//	GameObject* MushRoom
+		//		= object::Instantiate<GameObject>(Vector3(-0.6f, -0.5f, 0.998f), eLayerType::Monster);
+
+		//	MushRoom->SetName(L"MushRoom1");
+
+		//	Collider2D* cd = MushRoom->AddComponent<Collider2D>();
+		//	cd->SetCenter(Vector2(0.0f, 0.0f));
+		//	cd->SetSize(Vector2(0.25f, 0.25f));
+
+		//	MeshRenderer* mr = MushRoom->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		//	MushRoom->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0001f));
+
+		//	Animator* at = MushRoom->AddComponent<Animator>();
+		//	MushRoom->AddComponent<MushroomScript>();
+		//}
 		//{
 		//	GameObject* light = new GameObject();
 		//	light->SetName(L"Henesis");
@@ -329,6 +384,7 @@ namespace ya
 			cameraComp->TurnLayerMask(eLayerType::Damage, false);
 			cameraComp->TurnLayerMask(eLayerType::Effect, false);
 			cameraComp->TurnLayerMask(eLayerType::SkillSlot, false);
+			cameraComp->TurnLayerMask(eLayerType::Portal, false);
 			//camera->AddComponent<CameraScript>();
 		}
 		Scene::Initialize();
@@ -340,6 +396,16 @@ namespace ya
 		{
 			SceneManager::LoadScene(L"RootaByssScene");
 		}
+
+		if (SceneManager::GetPlayerScript()->GetPortal())
+		{
+			if (Input::GetKeyDown(eKeyCode::UP))
+			{
+				SceneManager::GetPlayerScript()->SetPortal(false);
+				SceneManager::LoadScene(L"RootaByssScene");
+			}
+		}
+
 		Scene::Update();
 	}
 

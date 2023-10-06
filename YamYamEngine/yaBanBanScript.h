@@ -46,13 +46,20 @@ namespace ya
 		void SetBallScript(class BallScript* ballscript) { mBallScript = ballscript; }
 		BallScript* GetBallScript() { return mBallScript; }
 
+		void SetBanBanHPScript(class BanBanHPScript* banbanhp) { bhs = banbanhp; }
+		BanBanHPScript* GetBanBanHPScript() { return bhs; }
+
 		void SetLeftBall(GameObject* ball) { mBall = ball; }
 		GameObject* GetLeftBall() { return mBall; }
 
 		void SetRightBall(GameObject* ball) { mBall = ball; }
 		GameObject* GetRightBall() { return mBall; }
 
+
 		void SetDamage(int damage);
+
+
+
 			
 	
 
@@ -81,10 +88,14 @@ namespace ya
 		void CreateLeftBall();
 		void CreateRightBall();
 
+		void CreateBanBanHP();
+
+		void SetBanBanHPScript();
 
 	private:
 		class PlayerScript* mPlayerScript;
 		class BallScript* mBallScript;
+		class BanBanHPScript* bhs;
 		GameObject* mBall;
 
 		bool CreateBall;

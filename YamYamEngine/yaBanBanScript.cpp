@@ -13,6 +13,7 @@
 #include "yaMeshRenderer.h"
 #include "yaBallScript.h"
 #include "yaHpScript.h"
+#include "yaBanBanHPScript.h"
 
 
 std::mt19937_64 rng2(0);
@@ -21,7 +22,7 @@ std::uniform_real_distribution<float> dist2(-1, 1);
 namespace ya
 {
 	BanBanScript::BanBanScript()
-		: HP(5000000)
+		: HP(700000)
 		, damage(0)
 		, dir(0)
 		, randompos(dist2(rng2))
@@ -108,6 +109,8 @@ namespace ya
 	}
 	void BanBanScript::Update()
 	{
+
+		//HP = HP;
 
 		if (mBanBanState == BanBanState::Zen)
 		{
@@ -389,6 +392,8 @@ namespace ya
 			at->PlayAnimation(L"LeftIdle", true);
 			GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(pos.x, -0.8f, 0.999f));
 			GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 0.999f));
+
+			CreateBanBanHP();
 		}
 	}
 	void BanBanScript::idle()
@@ -745,6 +750,38 @@ namespace ya
 			Animator* at = RightBall->AddComponent<Animator>();
 			BallScript* bs = RightBall->AddComponent<BallScript>();
 			bs->SetDir(true);
+		}
+	}
+	void BanBanScript::CreateBanBanHP()
+	{
+		{
+			GameObject* BanBanHP
+				= object::Instantiate<GameObject>(Vector3(0.0f, 2.1f, 0.97f), eLayerType::UI);
+
+			BanBanHP->SetName(L"BanBanHP");
+
+			MeshRenderer* mr = BanBanHP->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"banbanhp"));
+
+			BanBanHP->GetComponent<Transform>()->SetScale(Vector3(4.5f, 0.25f, 0.999f));
+
+			Animator* at = BanBanHP->AddComponent<Animator>();
+		}
+
+		{
+			GameObject* BanBanHPFront
+				= object::Instantiate<GameObject>(Vector3(0.1f, 2.16f, 0.971f), eLayerType::UI);
+
+			BanBanHPFront->SetName(L"BanBanHPFront");
+
+			MeshRenderer* mr = BanBanHPFront->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"banbanhpfrontbar"));
+
+			BanBanHPFront->GetComponent<Transform>()->SetScale(Vector3(4.28f, 0.08f, 1.000f));
+			bhs = BanBanHPFront->AddComponent<BanBanHPScript>();
+			SetBanBanHPScript(bhs);
 		}
 	}
 }

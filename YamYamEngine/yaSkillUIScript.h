@@ -41,6 +41,7 @@ namespace ya
 		void CreateKarmaPuryUI();
 		void DestroyKarmaPuryUI();
 		void SetKarmaPuryUI();
+	
 
 
 	private:

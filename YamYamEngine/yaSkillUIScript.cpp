@@ -400,6 +400,7 @@ namespace ya
 				0.99f
 			});
 		object::DontDestroyOnLoad(mBladeTornadoUI);
+		SceneManager::GetPlayerScript()->BladeTornadoUI(true);
 	}
 	void SkillUIScript::CreateKarmaPuryUI()
 	{
@@ -450,6 +451,7 @@ namespace ya
 				0.99f
 			});
 		object::DontDestroyOnLoad(mKarmaPuryUI);
+		SceneManager::GetPlayerScript()->KarmaPuryUI(true);
 	}
 	void SkillUIScript::OnCollisionEnter(Collider2D* other)
 	{

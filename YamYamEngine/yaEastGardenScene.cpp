@@ -365,7 +365,7 @@ void ya::EastGardenScene::Initialize()
 
 		Collider2D* cd = portal6->AddComponent<Collider2D>();
 		cd->SetCenter(Vector2(0.0f, -0.4f));
-		cd->SetSize(Vector2(0.27f, 0.45f));
+		cd->SetSize(Vector2(0.27f, 0.65f));
 
 		MeshRenderer* mr = portal6->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -421,9 +421,14 @@ void ya::EastGardenScene::Update()
 {
 	if (SceneManager::GetPlayerScript()->GetPortal())
 	{
-		if (Input::GetKeyDown(eKeyCode::N))
+		if (Input::GetKeyDown(eKeyCode::UP))
+		{
+			SceneManager::GetPlayerScript()->SetPortal(false);
 			SceneManager::LoadScene(L"BanBanScene");
+		}
 	}
+
+
 
 	Scene::Update();
 }

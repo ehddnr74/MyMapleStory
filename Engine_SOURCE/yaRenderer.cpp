@@ -404,6 +404,13 @@ namespace renderer
 		//material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"Hene", material);
 
+		texture = Resources::Load<Texture>(L"Selas", L"..\\Resources\\Texture\\Selas.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		//material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"selas", material);
+
 		texture = Resources::Load<Texture>(L"Rootabyss", L"..\\Resources\\Texture\\Rootabyss.png");
 		material = std::make_shared<Material>();
 		material->SetShader(shader);
@@ -432,6 +439,13 @@ namespace renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"EXP", material);
 
+		texture = Resources::Load<Texture>(L"BanBanHP", L"..\\Resources\\Texture\\BanBan\\BanBanHP.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"banbanhp", material);
+
 		texture = Resources::Load<Texture>(L"HPBAR", L"..\\Resources\\Texture\\HPBAR.png");
 		material = std::make_shared<Material>();
 		material->SetShader(shader);
@@ -445,6 +459,13 @@ namespace renderer
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"HpFront", material);
+
+		texture = Resources::Load<Texture>(L"BanBanHpFrontBar", L"..\\Resources\\Texture\\BanBan\\BanBanHpFront.png");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"banbanhpfrontbar", material);
 
 		texture = Resources::Load<Texture>(L"MpFrontBar", L"..\\Resources\\Texture\\MpFrontBar.png");
 		material = std::make_shared<Material>();

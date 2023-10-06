@@ -125,6 +125,12 @@
     <ClCompile Include="yaPortionScript.cpp">
       <Filter>Contents\Script\PortionScript</Filter>
     </ClCompile>
+    <ClCompile Include="yaSkillCollDownScript.cpp">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBanBanHPScript.cpp">
+      <Filter>Contents\Script\UIScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -252,6 +258,12 @@
     </ClInclude>
     <ClInclude Include="yaPortionScript.h">
       <Filter>Contents\Script\PortionScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSkillCollDownScript.h">
+      <Filter>Contents\Script\SkillScript</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBanBanHPScript.h">
+      <Filter>Contents\Script\UIScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
