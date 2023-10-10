@@ -378,8 +378,11 @@ namespace ya
 			DamageView = true;
 			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos));
 			BanBanScript* mBanBanScript = other->GetOwner()->GetComponent<BanBanScript>();
-			mBanBanScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());	
-			mBanBanScript->GetBanBanHPScript()->OnDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			if (mBanBanScript->GetBanBanHPScript() != nullptr)
+			{
+			    mBanBanScript->SetDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+				mBanBanScript->GetBanBanHPScript()->OnDamage(SceneManager::GetPlayerScript()->GetAttackDamage());
+			}
 			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.2f, pos.z));
 
 			SceneManager::GetPlayerScript()->CreateDamage(other->GetOwner(), Vector3(pos.x, pos.y + 0.4f, pos.z));

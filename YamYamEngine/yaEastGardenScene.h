@@ -21,6 +21,9 @@ namespace ya
 		void SetPlayerScript(class PlayerScript* playerscript) { mPlayerScript = playerscript; }
 		PlayerScript* GetPlayerScript() { return mPlayerScript; }
 
+		void SetEastGarden(GameObject* bg) { EastGarden = bg; }
+		GameObject* GetEastGarden() { return EastGarden; }
+
 
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
@@ -29,6 +32,8 @@ namespace ya
 		GameObject* mPlayer;
 		class PlayerScript* mPlayerScript;
 		class MeshRenderer* mMesh;
+
+		GameObject* EastGarden;
 
 	};
 }

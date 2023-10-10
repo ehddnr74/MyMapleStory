@@ -15,8 +15,8 @@ namespace ya
 		: trigger_UpdateHP(false)
 		, lerpStart(0.f)
 		, lerpEnd(0.f)
-		, maxHP(700000.0f)
-		, HP(700000.0f)
+		, maxHP(350000.0f)
+		, HP(350000.0f)
 		, scale(Vector3(0.0f, 0.0f, 0.0f))
 	{
 	}
@@ -44,7 +44,7 @@ namespace ya
 
 			else  // 목표치에 아직 도달하지 않았을 경우(lerpEnd값까지 안줄어들었을 경우)
 			{
-				scale.x -= 2.0f * Time::DeltaTime(); // Scale값을 줄인다.
+				scale.x -= 5.0f * Time::DeltaTime(); // Scale값을 줄인다.
 				GetOwner()->GetComponent<Transform>()->SetScale(scale.x, scale.y, scale.z);
 
 

@@ -34,6 +34,9 @@
 #include "yaHitDamageScript.h"
 #include "yaCollisionManager.h"
 #include "yaSkillCollDownScript.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 
 std::mt19937_64 rng4(0);
 std::uniform_int_distribution<__int64> dist4(50000, 99999);
@@ -1564,6 +1567,10 @@ namespace ya
 
 			if (Input::GetKeyDown(eKeyCode::X))
 			{
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"Jump", L"..\\Resources\\Sound\\Jump.mp3"));
+				as->Play();
+
 				isjump = true;
 				RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
 
@@ -1681,6 +1688,10 @@ namespace ya
 			}
 			if (Input::GetKeyDown(eKeyCode::X))
 			{
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"Jump", L"..\\Resources\\Sound\\Jump.mp3"));
+				as->Play();
+
 				isjump = true;
 				RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
 
@@ -1808,6 +1819,10 @@ namespace ya
 
 			if (Input::GetKeyDown(eKeyCode::X))
 			{
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"Jump", L"..\\Resources\\Sound\\Jump.mp3"));
+				as->Play();
+
 				isjump = true;
 				RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
 
@@ -1931,6 +1946,10 @@ namespace ya
 
 			if (Input::GetKeyDown(eKeyCode::X))
 			{
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"Jump", L"..\\Resources\\Sound\\Jump.mp3"));
+				as->Play();
+
 				isjump = true;
 				RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
 

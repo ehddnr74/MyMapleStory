@@ -21,6 +21,10 @@ namespace ya
 		void SetPlayerScript(class PlayerScript* playerscript) { mPlayerScript = playerscript; }
 		PlayerScript* GetPlayerScript() { return mPlayerScript; }
 
+
+		void SetBanBanBG(GameObject* bg) { BanBanBG = bg; }
+		GameObject* GetBanBanBG() { return BanBanBG; }
+
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
 
@@ -30,5 +34,7 @@ namespace ya
 		class HpScript* mHpScript;
 		class MpScript* mMpScript;
 		class ExpScript* mExpScript;
+
+		GameObject* BanBanBG;
 	};
 }

@@ -22,7 +22,7 @@ std::uniform_real_distribution<float> dist2(-1, 1);
 namespace ya
 {
 	BanBanScript::BanBanScript()
-		: HP(700000)
+		: HP(1500000)
 		, damage(0)
 		, dir(0)
 		, randompos(dist2(rng2))
@@ -284,6 +284,7 @@ namespace ya
 		{
 			DieCheck = true;
 			Animator* at = GetOwner()->GetComponent<Animator>();
+			GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 0.999f));
 			mBanBanState = BanBanState::Die;
 			at->PlayAnimation(L"BanBanLeftDie", false);
 		}
@@ -291,6 +292,7 @@ namespace ya
 		{
 			DieCheck = true;
 			Animator* at = GetOwner()->GetComponent<Animator>();
+			GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 0.999f));
 			mBanBanState = BanBanState::Die;
 			at->PlayAnimation(L"BanBanRightDie", false);
 		}
@@ -689,12 +691,14 @@ namespace ya
 		{
 			dietime = 0.0f;
 			object::Destroy(GetOwner());
+			object::Destroy(BanBanHP);
 		}
 
 		if (dir == 1 && dietime >= 1.5f)
 		{
 			dietime = 0.0f;
 			object::Destroy(GetOwner());
+			object::Destroy(BanBanHP);
 		}
 	}
 	void BanBanScript::CreateLeftBall()
@@ -757,6 +761,8 @@ namespace ya
 		{
 			GameObject* BanBanHP
 				= object::Instantiate<GameObject>(Vector3(0.0f, 2.1f, 0.97f), eLayerType::UI);
+
+			SetBanBanHP(BanBanHP);
 
 			BanBanHP->SetName(L"BanBanHP");
 

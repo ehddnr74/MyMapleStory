@@ -25,6 +25,9 @@
 #include "yaSkillUIScript.h"
 #include "yaSkillUIBtnScript.h"
 #include "yaPortalScript.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -85,6 +88,7 @@ namespace ya
 			InventoryScript* mInventoryScript = player->AddComponent<InventoryScript>();
 			SceneManager::SetInventoryScript(mInventoryScript);
 			object::DontDestroyOnLoad(player);
+
 		}
 
 		{
@@ -92,6 +96,8 @@ namespace ya
 				= object::Instantiate<GameObject>(Vector3(0.0f, 1.0f, 1.001f), eLayerType::BG);
 
 			BG->SetName(L"Selas");
+
+			SetSelas(BG);
 
 			MeshRenderer* mr = BG->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -435,10 +441,19 @@ namespace ya
 	{
 		Camera::SetHeneSisScene(this);
 		Scene::OnEnter();
+
+		AudioSource* as = GetSelas()->AddComponent<AudioSource>();
+	    as->SetClip(Resources::Load<AudioClip>(L"Selas", L"..\\Resources\\Sound\\WhereStarsRest.mp3"));
+		as->SetLoop(true);
+		as->Play();
 	}
 	void HenesisScene::OnExit()
 	{
 		Camera::SetHeneSisScene(nullptr);
+
+		AudioSource* as = GetSelas()->GetComponent<AudioSource>();
+		as->Stop();
+		
 		Scene::OnExit();
 
 	}

@@ -18,6 +18,9 @@
 #include "yaFireImpScript.h"
 #include "yaCurSorScript.h"
 #include "yaHpScript.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -62,54 +65,54 @@ void ya::EastGardenScene::Initialize()
 		FireImpScript* mFireImpScript = FireImp->AddComponent<FireImpScript>();
 		mFireImpScript->SetPlayerScript(mPlayerScript);
 	}
-	{
-		GameObject* FireImp2
-			= object::Instantiate<GameObject>(Vector3(-4.8f, -0.7f, 0.998f), eLayerType::Monster);
+	//{
+	//	GameObject* FireImp2
+	//		= object::Instantiate<GameObject>(Vector3(-4.8f, -0.7f, 0.998f), eLayerType::Monster);
 
-		FireImp2->SetName(L"FireImp2");
+	//	FireImp2->SetName(L"FireImp2");
 
-		//Collider2D* cd = FireImp2->AddComponent<Collider2D>();
-		//cd->SetCenter(Vector2(0.0f, 0.0f));
-		//cd->SetSize(Vector2(0.25f, 0.25f));
+	//	//Collider2D* cd = FireImp2->AddComponent<Collider2D>();
+	//	//cd->SetCenter(Vector2(0.0f, 0.0f));
+	//	//cd->SetSize(Vector2(0.25f, 0.25f));
 
-		MeshRenderer* mr = FireImp2->AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+	//	MeshRenderer* mr = FireImp2->AddComponent<MeshRenderer>();
+	//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+	//	mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-		//const float pi = 3.141592f;
-		//float degree = pi / 8.0f;
+	//	//const float pi = 3.141592f;
+	//	//float degree = pi / 8.0f;
 
-		//player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0001f));
-		FireImp2->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0001f));
+	//	//player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0001f));
+	//	FireImp2->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0001f));
 
-		Animator* at = FireImp2->AddComponent<Animator>();
-		FireImpScript* mFireImpScript = FireImp2->AddComponent<FireImpScript>();
-		mFireImpScript->SetPlayerScript(mPlayerScript);
-	}
-	{
-		GameObject* FireImp3
-			= object::Instantiate<GameObject>(Vector3(-3.6f, -0.7f, 0.998f), eLayerType::Monster);
+	//	Animator* at = FireImp2->AddComponent<Animator>();
+	//	FireImpScript* mFireImpScript = FireImp2->AddComponent<FireImpScript>();
+	//	mFireImpScript->SetPlayerScript(mPlayerScript);
+	//}
+	//{
+	//	GameObject* FireImp3
+	//		= object::Instantiate<GameObject>(Vector3(-3.6f, -0.7f, 0.998f), eLayerType::Monster);
 
-		FireImp3->SetName(L"FireImp3");
+	//	FireImp3->SetName(L"FireImp3");
 
-		//Collider2D* cd = FireImp3->AddComponent<Collider2D>();
-		//cd->SetCenter(Vector2(0.0f, 0.0f));
-		//cd->SetSize(Vector2(0.25f, 0.25f));
+	//	//Collider2D* cd = FireImp3->AddComponent<Collider2D>();
+	//	//cd->SetCenter(Vector2(0.0f, 0.0f));
+	//	//cd->SetSize(Vector2(0.25f, 0.25f));
 
-		MeshRenderer* mr = FireImp3->AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+	//	MeshRenderer* mr = FireImp3->AddComponent<MeshRenderer>();
+	//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+	//	mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-		//const float pi = 3.141592f;
-		//float degree = pi / 8.0f;
+	//	//const float pi = 3.141592f;
+	//	//float degree = pi / 8.0f;
 
-		//player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0001f));
-		FireImp3->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0001f));
+	//	//player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0001f));
+	//	FireImp3->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 1.0001f));
 
-		Animator* at = FireImp3->AddComponent<Animator>();
-		FireImpScript* mFireImpScript = FireImp3->AddComponent<FireImpScript>();
-		mFireImpScript->SetPlayerScript(mPlayerScript);
-	}
+	//	Animator* at = FireImp3->AddComponent<Animator>();
+	//	FireImpScript* mFireImpScript = FireImp3->AddComponent<FireImpScript>();
+	//	mFireImpScript->SetPlayerScript(mPlayerScript);
+	//}
 	{
 		GameObject* FireImp4
 			= object::Instantiate<GameObject>(Vector3(-2.4f, -0.7f, 0.998f), eLayerType::Monster);
@@ -321,6 +324,8 @@ void ya::EastGardenScene::Initialize()
 		GameObject* EastGarden
 			= object::Instantiate<GameObject>(Vector3(0.0f, 0.8f, 1.0001), eLayerType::BG);
 
+		SetEastGarden(EastGarden);
+
 		EastGarden->SetName(L"EastGarden");
 
 		Camera::SetEastGardenScene(this);
@@ -453,8 +458,6 @@ void ya::EastGardenScene::OnEnter()
 	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Shop, true);
 	CollisionManager::SetLayer(eLayerType::Cursor, eLayerType::Inventory, true);
 
-	//SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
-	//SceneManager::GetHpScript()->SetHP(99999.0f);
 	
 	mPlayer = SceneManager::GetPlayer();
 	Transform * tr = mPlayer->GetComponent<Transform>();
@@ -467,10 +470,18 @@ void ya::EastGardenScene::OnEnter()
 	Camera::SetRootaByssScene(nullptr);
 	Camera::SetEastGardenScene(this);
 
+	AudioSource* as = GetEastGarden()->AddComponent<AudioSource>();
+	as->SetClip(Resources::Load<AudioClip>(L"EastGarden", L"..\\Resources\\Sound\\TimeChaos.mp3"));
+	as->SetLoop(true);
+	as->Play();
+
 
 	Scene::OnEnter();
 }
 void ya::EastGardenScene::OnExit()
 {
+	//AudioSource* as = GetEastGarden()->GetComponent<AudioSource>();
+	//as->Stop();
+
 	Scene::OnExit();
 }

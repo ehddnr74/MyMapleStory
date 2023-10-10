@@ -31,6 +31,9 @@ namespace ya
 		void SetSkillSlot(GameObject* ss) { Slot = ss; }
 		GameObject* GetSkillSlot() { return Slot; }
 
+		void SetSelas(GameObject* bg) { BG = bg; }
+		GameObject* GetSelas() { return BG; }
+
 	private:
 		class PlayerScript* mPlayerScript;
 		class CameraScript* mCameraScript;
@@ -38,6 +41,8 @@ namespace ya
 		class Player* mPlayer;
 
 		GameObject* Slot;
+
+		GameObject* BG;
 
 
 	};

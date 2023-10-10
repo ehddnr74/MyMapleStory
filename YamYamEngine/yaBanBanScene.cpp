@@ -20,6 +20,9 @@
 #include "yaMpScript.h"
 #include "yaExpScript.h"
 #include "yaHavisScript.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -80,6 +83,8 @@ void ya::BanBanScene::Initialize()
 	{
 		GameObject* BanBanBG
 			= object::Instantiate<GameObject>(Vector3(0.0f, 0.8f, 1.0001), eLayerType::BG);
+
+		SetBanBanBG(BanBanBG);
 
 		BanBanBG->SetName(L"BanBanBG");
 
@@ -187,11 +192,21 @@ void ya::BanBanScene::OnEnter()
 	Camera::SetRootaByssScene(nullptr);
 	Camera::SetEastGardenScene(nullptr);
 	Camera::SetBanBanScene(this);
+
+	//AudioSource* as = GetBanBanBG()->AddComponent<AudioSource>();
+	//as->SetClip(Resources::Load<AudioClip>(L"BanBan", L"..\\Resources\\Sound\\TimeChaos.mp3"));
+	//as->SetLoop(true);
+	//as->Play();
+
 	Scene::OnEnter();
 }
 
 void ya::BanBanScene::OnExit()
 {
 	Camera::SetBanBanScene(nullptr);
+
+	//AudioSource* as = GetBanBanBG()->GetComponent<AudioSource>();
+	//as->Stop();
+
 	Scene::OnExit();
 }

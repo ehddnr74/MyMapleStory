@@ -23,6 +23,10 @@
 #include "yaFontWrapper.h"
 #include "yaSavePlayer.h"
 #include "yaCurSorScript.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
+
 
 namespace ya
 {
@@ -176,6 +180,8 @@ namespace ya
 		{
 			GameObject* RootaByss
 				= object::Instantiate<GameObject>(Vector3(0.0f, 0.8f, 1.0001), eLayerType::BG);
+
+			SetRootaByss(RootaByss);
 
 			Camera::SetRootaByssScene(this);
 
@@ -543,7 +549,10 @@ namespace ya
 		Camera::SetEastGardenScene(nullptr);
 		Camera::SetRootaByssScene(this);
 
-		
+		AudioSource* as = GetRootaByss()->AddComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"RootaByss", L"..\\Resources\\Sound\\YggdrasilPrayer.mp3"));
+		as->SetLoop(true);
+		as->Play();
 
 
 		Scene::OnEnter();
@@ -554,6 +563,10 @@ namespace ya
 	{
 		Camera::SetTarget(nullptr);
 		Camera::SetRootaByssScene(nullptr);
+
+		AudioSource* as = GetRootaByss()->GetComponent<AudioSource>();
+		as->Stop();
+
 		Scene::OnExit();
 	}
 }

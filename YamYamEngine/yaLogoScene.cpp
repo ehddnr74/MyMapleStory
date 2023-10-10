@@ -16,6 +16,10 @@
 #include "yaLogoScript.h"
 #include "yaPlayerScript.h"
 #include "yaTime.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
+
 namespace ya
 {
 	LogoScene::LogoScene()
@@ -27,6 +31,7 @@ namespace ya
 	}
 	void LogoScene::Initialize()
 	{
+
 		{
 			GameObject* Wizet
 				= object::Instantiate<GameObject>(Vector3(0.0f, 0.4f, 0.999f), eLayerType::Logo);
@@ -43,6 +48,10 @@ namespace ya
 			Animator* at = Wizet->AddComponent<Animator>();
 			LogoScript* mLogoScript = Wizet->AddComponent<LogoScript>();
 			SetLogoScript(mLogoScript);
+
+			AudioSource* as = Wizet->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"Logo", L"..\\Resources\\Sound\\NxLogo.mp3"));
+			as->Play();
 		}
 
 		//Main Camera

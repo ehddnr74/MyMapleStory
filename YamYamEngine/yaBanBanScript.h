@@ -90,6 +90,8 @@ namespace ya
 
 		void CreateBanBanHP();
 
+		void SetBanBanHP(GameObject* banbanhp) { BanBanHP = banbanhp; }
+
 		void SetBanBanHPScript();
 
 	private:
@@ -97,6 +99,7 @@ namespace ya
 		class BallScript* mBallScript;
 		class BanBanHPScript* bhs;
 		GameObject* mBall;
+		GameObject* BanBanHP;
 
 		bool CreateBall;
 		double ballcreatetime;

@@ -20,6 +20,9 @@ namespace ya
 		void SetCameraScript(class CameraScript* cs) { mCameraScript = cs; }
 		CameraScript* GetCameraScript() { return mCameraScript; }
 
+		void SetRootaByss(GameObject* bg) { RootaByss = bg; }
+		GameObject* GetRootaByss() { return RootaByss; }
+
 
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
@@ -28,6 +31,7 @@ namespace ya
 		GameObject* mPlayer;
 		class HavisScript* mHavisScript;
 		class CameraScript* mCameraScript;
+		GameObject* RootaByss;
 
 	};
 }
