@@ -13,6 +13,9 @@
 #include "yaTime.h"
 #include "yaHavisScript.h"
 #include "yaInventoryScript.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -38,10 +41,10 @@ namespace ya
 		Animator* at = GetOwner()->GetComponent<Animator>();
 
 		std::shared_ptr<Texture> None = Resources::Load<Texture>(L"None", L"..\\Resources\\Texture\\Cursor.png");
-		std::shared_ptr<Texture> Click = Resources::Load<Texture>(L"RightBall", L"..\\Resources\\Texture\\CursorClick.png");
+		std::shared_ptr<Texture> Click = Resources::Load<Texture>(L"CursorClick", L"..\\Resources\\Texture\\CursorClick.png");
 
 		at->Create(L"None", None, Vector2(0.0f, 0.0f), Vector2(29.0f, 30.0f), 1, Vector2::Zero, 0.1f);
-		at->Create(L"Click", Click, Vector2(0.0f, 0.0f), Vector2(30.0f, 28.0f), 1, Vector2::Zero, 0.1f);
+		at->Create(L"CursorClick", Click, Vector2(0.0f, 0.0f), Vector2(30.0f, 28.0f), 1, Vector2::Zero, 0.1f);
 
 		at->PlayAnimation(L"None", false);
 
@@ -235,8 +238,11 @@ namespace ya
 
 		if (Input::GetKey(eKeyCode::LBUTTON))
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BtMouseClick", L"..\\Resources\\Sound\\BtMouseClick.mp3"));
+			as->Play();
 			mCursorState = CursorState::Click;
-			at->PlayAnimation(L"Click", false);
+			at->PlayAnimation(L"CursorClick", false);
 		}
 	}
 

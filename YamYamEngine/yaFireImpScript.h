@@ -75,6 +75,7 @@ namespace ya
 		double dietime;
 
 		double collidertime;
+		bool attacksound;
 		int dir; // 0 = 왼쪽 , 1 = 오른쪽
 
 

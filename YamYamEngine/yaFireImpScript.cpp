@@ -10,6 +10,9 @@
 #include "yaObject.h"
 #include <random>
 #include "yaSceneManager.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 
 std::mt19937_64 rng1(0);
 std::uniform_int_distribution<__int64> dist1(0, 1);
@@ -144,6 +147,9 @@ namespace ya
 
 			if (diecheck == false && HP <= 0 && dir == 0)
 			{
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"FireImpDie", L"..\\Resources\\Sound\\FireImpDie.mp3"));
+				as->Play();
 				diecheck = true;
 				Animator* at = GetOwner()->GetComponent<Animator>();
 				mFireImpState = FireImpState::Die;
@@ -151,6 +157,9 @@ namespace ya
 			}
 			if (diecheck == false && HP <= 0 && dir == 1)
 			{
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"FireImpDie", L"..\\Resources\\Sound\\FireImpDie.mp3"));
+				as->Play();
 				diecheck = true;
 				Animator* at = GetOwner()->GetComponent<Animator>();
 				mFireImpState = FireImpState::Die;
@@ -187,12 +196,20 @@ namespace ya
 		{
 			if (dir == 0)
 			{
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"FireImpHit", L"..\\Resources\\Sound\\FireImpHit.mp3"));
+				as->Play();
+
 				Animator* at = GetOwner()->GetComponent<Animator>();
 				at->PlayAnimation(L"FireImpLeftHit", false);
 				mFireImpState = FireImpState::Hit;
 			}
 			if (dir == 1)
 			{
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"FireImpHit", L"..\\Resources\\Sound\\FireImpHit.mp3"));
+				as->Play();
+
 				Animator* at = GetOwner()->GetComponent<Animator>();
 				at->PlayAnimation(L"FireImpRightHit", false);
 				mFireImpState = FireImpState::Hit;
@@ -424,6 +441,7 @@ namespace ya
 	}
 	void FireImpScript::attack()
 	{
+
 		Attack = true;
 		Animator* at = GetOwner()->GetComponent<Animator>();
 
@@ -431,6 +449,14 @@ namespace ya
 
 		//Transform* tr = GetOwner()->GetComponent<Transform>();
 		//Vector3 pos = tr->GetPosition();
+
+		if (attacktime >= 1.0f && attacksound == false)
+		{
+			attacksound = true;
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"FireImpHit", L"..\\Resources\\Sound\\FireImpHit.mp3"));
+			as->Play();
+		}
 
 		//Transform* Playertr = GetPlayerScript()->GetOwner()->GetComponent<Transform>();
 		//Vector3 PlayerPos = Playertr->GetPosition();
@@ -444,6 +470,7 @@ namespace ya
 				at->PlayAnimation(L"FireImpLeftIdle", true);
 				attacktime = 0.0f;
 				randdirtime = 0.0f;
+				attacksound = false;
 			}
 
 			if (dir == 1)
@@ -453,6 +480,7 @@ namespace ya
 				at->PlayAnimation(L"FireImpRightIdle", true);
 				attacktime = 0.0f;
 				randdirtime = 0.0f;
+				attacksound = false;
 			}
 		}
 	}
@@ -471,6 +499,7 @@ namespace ya
 	}
 	void FireImpScript::die()
 	{
+
 		Animator* at = GetOwner()->GetComponent<Animator>();
 
 		dietime += Time::DeltaTime();

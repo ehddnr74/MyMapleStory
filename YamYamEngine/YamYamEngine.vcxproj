@@ -171,6 +171,7 @@
     <ClInclude Include="yaDoubleJumpScript.h" />
     <ClInclude Include="yaEastGardenScene.h" />
     <ClInclude Include="yaExpScript.h" />
+    <ClInclude Include="yaFadeIn.h" />
     <ClInclude Include="yaFireImpScript.h" />
     <ClInclude Include="yaGridScript.h" />
     <ClInclude Include="yaHavisScript.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="yaDoubleJumpScript.cpp" />
     <ClCompile Include="yaEastGardenScene.cpp" />
     <ClCompile Include="yaExpScript.cpp" />
+    <ClCompile Include="yaFadeIn.cpp" />
     <ClCompile Include="yaFireImpScript.cpp" />
     <ClCompile Include="yaGridScript.cpp" />
     <ClCompile Include="yaHavisScript.cpp" />

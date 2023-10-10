@@ -134,5 +134,10 @@ namespace ya
 
 		int HP;
 		int damage;
+
+		bool smackingsound;
+		bool energyboltsound;
+		bool blinksound;
+		bool earthquakesound;
 	};
 }

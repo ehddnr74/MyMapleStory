@@ -424,6 +424,8 @@ namespace ya
 			}
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
+
+			camera->AddComponent<AudioListener>();
 		}
 
 		//UI Camera
@@ -442,6 +444,8 @@ namespace ya
 			cameraComp->TurnLayerMask(eLayerType::Inventory, false);
 			cameraComp->TurnLayerMask(eLayerType::Shop, false);
 			cameraComp->TurnLayerMask(eLayerType::SkillSlot, false);
+
+
 			//cameraComp->TurnLayerMask(eLayerType::Item, false);
 			//camera->AddComponent<CameraScript>();
 		}
@@ -493,6 +497,10 @@ namespace ya
 		{
 			if (Input::GetKeyDown(eKeyCode::UP))
 			{
+				AudioSource* as = GetRootaByss()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"Portal", L"..\\Resources\\Sound\\Portal.mp3"));
+				as->Play();
+
 				SceneManager::GetPlayerScript()->SetPortal(false);
 				SceneManager::LoadScene(L"EastGardenScene");
 			}

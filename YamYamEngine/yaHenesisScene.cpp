@@ -28,6 +28,7 @@
 #include "yaAudioListener.h"
 #include "yaAudioClip.h"
 #include "yaAudioSource.h"
+#include "yaFadeIn.h"
 
 namespace ya
 {
@@ -39,7 +40,6 @@ namespace ya
 	}
 	void HenesisScene::Initialize()
 	{
-
 		Camera::SetRootaByssScene(nullptr);
 		Camera::SetEastGardenScene(nullptr);
 		Camera::SetHeneSisScene(this);
@@ -373,7 +373,7 @@ namespace ya
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 
-			//camera->AddComponent<AudioListener>();
+			camera->AddComponent<AudioListener>();
 		}
 		//UI Camera
 		{
@@ -407,6 +407,9 @@ namespace ya
 		{
 			if (Input::GetKeyDown(eKeyCode::UP))
 			{
+				AudioSource* as = GetSelas()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"Portal", L"..\\Resources\\Sound\\Portal.mp3"));
+				as->Play();
 				SceneManager::GetPlayerScript()->SetPortal(false);
 				SceneManager::LoadScene(L"RootaByssScene");
 			}

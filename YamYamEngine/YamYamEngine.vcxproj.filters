@@ -131,6 +131,9 @@
     <ClCompile Include="yaBanBanHPScript.cpp">
       <Filter>Contents\Script\UIScript</Filter>
     </ClCompile>
+    <ClCompile Include="yaFadeIn.cpp">
+      <Filter>Contents\Script\FadeIn/Out</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -265,6 +268,9 @@
     <ClInclude Include="yaBanBanHPScript.h">
       <Filter>Contents\Script\UIScript</Filter>
     </ClInclude>
+    <ClInclude Include="yaFadeIn.h">
+      <Filter>Contents\Script\FadeIn/Out</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -332,6 +338,9 @@
     </Filter>
     <Filter Include="Contents\Script\PortionScript">
       <UniqueIdentifier>{76f15ada-5ddc-458f-94ee-21e9358cb601}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\FadeIn/Out">
+      <UniqueIdentifier>{039fb4e1-d10f-47ef-9608-8bf7c8bff07c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

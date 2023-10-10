@@ -44,7 +44,7 @@ namespace ya
 
 			else  // 목표치에 아직 도달하지 않았을 경우(lerpEnd값까지 안줄어들었을 경우)
 			{
-				scale.x -= 10.0f * Time::DeltaTime(); // Scale값을 줄인다.
+				scale.x -= 8.0f * Time::DeltaTime(); // Scale값을 줄인다.
 				GetOwner()->GetComponent<Transform>()->SetScale(scale.x,scale.y,scale.z);
 
 

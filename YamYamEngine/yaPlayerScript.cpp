@@ -177,6 +177,9 @@ namespace ya
 			{
 				skillui = true;
 				CreateSkillUI();
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"Tab", L"..\\Resources\\Sound\\Tab.mp3"));
+				as->Play();
 			}
 		}
 
@@ -189,6 +192,9 @@ namespace ya
 				skilluitime = 0.0f;
 				skillui = false;
 				CloseSkillUI();
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"Tab", L"..\\Resources\\Sound\\Tab.mp3"));
+				as->Play();
 			}
 		}
 
@@ -1494,6 +1500,10 @@ namespace ya
 
 			if (Input::GetKeyDown(eKeyCode::Z))
 			{
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"PowerPortion", L"..\\Resources\\Sound\\Use.mp3"));
+				as->Play();
+
 				SceneManager::GetHpScript()->SetHP(99999);
 				SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(-0.11f, -1.95f, 1.000f));
 				SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
@@ -1513,7 +1523,9 @@ namespace ya
 				if (mBladePury == nullptr)
 				{
 					CreateBladePury();
-					
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"BladePury", L"..\\Resources\\Sound\\BladePury.mp3"));
+					as->Play();	
 				}
 			}
 
@@ -1527,6 +1539,9 @@ namespace ya
 				{
 					CreatePhantomBlow();
 					CreatePhantomBlowSmoke();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"PhantomBlow", L"..\\Resources\\Sound\\PhantomBlow.mp3"));
+					as->Play();
 				}
 			}
 
@@ -1544,6 +1559,9 @@ namespace ya
 						CreateBladeTornadoSkillCooltime();
 					}
 					CreateBladeTornado();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"BladeTornado", L"..\\Resources\\Sound\\BladeTornado.mp3"));
+					as->Play();
 				}
 					
 			}
@@ -1562,6 +1580,9 @@ namespace ya
 						CreateKarmaPurySkillCooltime();
 					}
 					CreateCaremaPury();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"KarmaPury", L"..\\Resources\\Sound\\KarmaPury.mp3"));
+					as->Play();
 				}
 			}
 
@@ -1619,6 +1640,10 @@ namespace ya
 
 			if (Input::GetKeyDown(eKeyCode::Z))
 			{
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"PowerPortion", L"..\\Resources\\Sound\\Use.mp3"));
+				as->Play();
+
 				SceneManager::GetHpScript()->SetHP(99999);
 				SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(-0.11f, -1.95f, 1.000f));
 				SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
@@ -1642,6 +1667,9 @@ namespace ya
 						CreateBladeTornadoSkillCooltime();
 					}
 					CreateRightBladeTornado();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"BladeTornado", L"..\\Resources\\Sound\\BladeTornado.mp3"));
+					as->Play();
 				}
 			}
 
@@ -1654,6 +1682,9 @@ namespace ya
 				if (mBladePury == nullptr)
 				{
 					CreateRightBladePury();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"BladePury", L"..\\Resources\\Sound\\BladePury.mp3"));
+					as->Play();
 				}
 			}
 
@@ -1671,6 +1702,9 @@ namespace ya
 						CreateKarmaPurySkillCooltime();
 					}
 					CreateCaremaPury();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"KarmaPury", L"..\\Resources\\Sound\\KarmaPury.mp3"));
+					as->Play();
 				}
 			}
 
@@ -1684,6 +1718,9 @@ namespace ya
 				{
 					CreateRightPhantomBlow();
 					CreateRightPhantomBlowSmoke();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"PhantomBlow", L"..\\Resources\\Sound\\PhantomBlow.mp3"));
+					as->Play();
 				}
 			}
 			if (Input::GetKeyDown(eKeyCode::X))
@@ -1749,6 +1786,10 @@ namespace ya
 
 			if (Input::GetKeyDown(eKeyCode::Z))
 			{
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"PowerPortion", L"..\\Resources\\Sound\\Use.mp3"));
+				as->Play();
+
 				SceneManager::GetHpScript()->SetHP(99999);
 				SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(-0.11f, -1.95f, 1.000f));
 				SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
@@ -1767,6 +1808,9 @@ namespace ya
 				if (mBladePury == nullptr)
 				{
 					CreateBladePury();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"BladePury", L"..\\Resources\\Sound\\BladePury.mp3"));
+					as->Play();
 				}
 			}
 
@@ -1780,6 +1824,9 @@ namespace ya
 				{
 					CreatePhantomBlow();
 					CreatePhantomBlowSmoke();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"PhantomBlow", L"..\\Resources\\Sound\\PhantomBlow.mp3"));
+					as->Play();
 				}
 			}
 
@@ -1797,6 +1844,9 @@ namespace ya
 						CreateBladeTornadoSkillCooltime();
 					}
 					CreateBladeTornado();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"BladeTornado", L"..\\Resources\\Sound\\BladeTornado.mp3"));
+					as->Play();
 				}
 			}
 
@@ -1814,6 +1864,9 @@ namespace ya
 						CreateKarmaPurySkillCooltime();
 					}
 					CreateCaremaPury();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"KarmaPury", L"..\\Resources\\Sound\\KarmaPury.mp3"));
+					as->Play();
 				}
 			}
 
@@ -1875,6 +1928,10 @@ namespace ya
 
 			if (Input::GetKeyDown(eKeyCode::Z))
 			{
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"PowerPortion", L"..\\Resources\\Sound\\Use.mp3"));
+				as->Play();
+
 				SceneManager::GetHpScript()->SetHP(99999);
 				SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(-0.11f, -1.95f, 1.000f));
 				SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
@@ -1898,6 +1955,9 @@ namespace ya
 						CreateBladeTornadoSkillCooltime();
 					}
 					CreateRightBladeTornado();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"BladeTornado", L"..\\Resources\\Sound\\BladeTornado.mp3"));
+					as->Play();
 				}
 
 			}
@@ -1911,6 +1971,9 @@ namespace ya
 				if (mBladePury == nullptr)
 				{
 					CreateRightBladePury();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"BladePury", L"..\\Resources\\Sound\\BladePury.mp3"));
+					as->Play();
 				}
 			}
 
@@ -1928,6 +1991,9 @@ namespace ya
 						CreateKarmaPurySkillCooltime();
 					}
 					CreateCaremaPury();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"KarmaPury", L"..\\Resources\\Sound\\KarmaPury.mp3"));
+					as->Play();
 				}
 			}
 
@@ -1941,6 +2007,9 @@ namespace ya
 				{
 					CreateRightPhantomBlow();
 					CreateRightPhantomBlowSmoke();
+					AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+					as->SetClip(Resources::Load<AudioClip>(L"PhantomBlow", L"..\\Resources\\Sound\\PhantomBlow.mp3"));
+					as->Play();
 				}
 			}
 
@@ -1978,6 +2047,10 @@ namespace ya
 
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"PowerPortion", L"..\\Resources\\Sound\\Use.mp3"));
+			as->Play();
+
 			SceneManager::GetHpScript()->SetHP(99999);
 			SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(-0.11f, -1.95f, 1.000f));
 			SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
@@ -2024,6 +2097,9 @@ namespace ya
 					CreateKarmaPurySkillCooltime();
 				}
 				CreateCaremaPury();
+				AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"KarmaPury", L"..\\Resources\\Sound\\KarmaPury.mp3"));
+				as->Play();
 			}
 		}
 
@@ -2196,6 +2272,10 @@ namespace ya
 	//}
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"PowerPortion", L"..\\Resources\\Sound\\Use.mp3"));
+			as->Play();
+
 			SceneManager::GetHpScript()->SetHP(99999);
 			SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(-0.11f, -1.95f, 1.000f));
 			SceneManager::GetHpScript()->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.0f, 0.1f, 1.000f));
@@ -2228,6 +2308,9 @@ namespace ya
 
 		if (dir == 0 && jumpdouble)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"FlashJump", L"..\\Resources\\Sound\\FlashJump.mp3"));
+			as->Play();
 			jumpdouble = false;
 			RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
 			Vector2 velocity = mRigidBody->GetVelocity();
@@ -2237,6 +2320,9 @@ namespace ya
 		}
 		if (dir == 1 && jumpdouble)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"FlashJump", L"..\\Resources\\Sound\\FlashJump.mp3"));
+			as->Play();
 			jumpdouble = false;
 			RigidBody* mRigidBody = GetOwner()->GetComponent<RigidBody>();
 			Vector2 velocity = mRigidBody->GetVelocity();

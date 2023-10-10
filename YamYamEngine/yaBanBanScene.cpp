@@ -128,6 +128,8 @@ void ya::BanBanScene::Initialize()
 		camera->AddComponent<CameraScript>();
 		renderer::cameras.push_back(cameraComp);
 		renderer::mainCamera = cameraComp;
+
+		camera->AddComponent<AudioListener>();
 	}
 	//UI Camera
 	{

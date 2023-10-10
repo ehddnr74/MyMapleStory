@@ -14,6 +14,9 @@
 #include "yaBallScript.h"
 #include "yaHpScript.h"
 #include "yaBanBanHPScript.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 
 
 std::mt19937_64 rng2(0);
@@ -282,6 +285,10 @@ namespace ya
 
 		if (DieCheck == false && HP <= 0 && dir == 0)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BanBanDie", L"..\\Resources\\Sound\\BanBanDie.mp3"));
+			as->Play();
+
 			DieCheck = true;
 			Animator* at = GetOwner()->GetComponent<Animator>();
 			GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 0.999f));
@@ -290,6 +297,10 @@ namespace ya
 		}
 		if (DieCheck == false && HP <= 0 && dir == 1)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BanBanDie", L"..\\Resources\\Sound\\BanBanDie.mp3"));
+			as->Play();
+
 			DieCheck = true;
 			Animator* at = GetOwner()->GetComponent<Animator>();
 			GetOwner()->GetComponent<Transform>()->SetScale(Vector3(1.5f, 1.5f, 0.999f));
@@ -489,6 +500,14 @@ namespace ya
 			cd->SetCenter(Vector2(0.3f, -0.3f));
 			cd->SetSize(Vector2(0.5f, 0.5f));
 		}
+
+		if (smackingsound == false)
+		{
+			smackingsound = true;
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"Smacking", L"..\\Resources\\Sound\\Smacking.mp3"));
+			as->Play();
+		}
 		if (smackingtime >= 2.2f)
 		{
 			if (dir == 0)
@@ -497,6 +516,7 @@ namespace ya
 				mBanBanState = BanBanState::Idle;
 				at->PlayAnimation(L"LeftIdle", true);
 				smackingtime = 0.0f;
+				smackingsound = false;
 				smack = true;
 			}
 
@@ -506,6 +526,7 @@ namespace ya
 				mBanBanState = BanBanState::Idle;
 				at->PlayAnimation(L"RightIdle", true);
 				smackingtime = 0.0f;
+				smackingsound = false;
 				smack = true;
 			}
 		}
@@ -519,6 +540,14 @@ namespace ya
 
 		GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(pos.x, -0.55f, 0.999f));
 		GetOwner()->GetComponent<Transform>()->SetScale(Vector3(4.0f, 4.0f, 0.999f));
+
+		if (energyboltsound == false)
+		{
+			energyboltsound = true;
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"EnergyBlot", L"..\\Resources\\Sound\\EnergyBolt.mp3"));
+			as->Play();
+		}
 
 		if (dir == 0 && CreateBall == false)
 		{
@@ -556,6 +585,7 @@ namespace ya
 				energytime = 0.0f;
 				energybolttime = 0.0f;
 				energy = true;
+				energyboltsound = false;
 			}
 
 			if (dir == 1)
@@ -566,6 +596,7 @@ namespace ya
 				energytime = 0.0f;
 				energybolttime = 0.0f;
 				energy = true;
+				energyboltsound = false;
 			}
 		}
 	}
@@ -578,6 +609,14 @@ namespace ya
 
 		GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(pos.x, -0.4f, 0.999f));
 		GetOwner()->GetComponent<Transform>()->SetScale(Vector3(4.0f, 4.0f, 0.999f));
+
+		if (earthquakesound == false)
+		{
+			earthquakesound = true;
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"EarthQuake", L"..\\Resources\\Sound\\EarthQuake.mp3"));
+			as->Play();
+		}
 
 		earthtime += Time::DeltaTime();
 
@@ -605,6 +644,7 @@ namespace ya
 				earthtime = 0.0f;
 				earthhit = true;
 				eq = true;
+				earthquakesound = false;
 			}
 
 			if (dir == 1)
@@ -615,6 +655,7 @@ namespace ya
 				earthtime = 0.0f;
 				earthhit = true;
 				eq = true;
+				earthquakesound = false;
 			}
 		}
 	}
@@ -624,6 +665,14 @@ namespace ya
 	void BanBanScript::blinkin()
 	{
 		Animator* at = GetOwner()->GetComponent<Animator>();
+
+		if (blinksound == false)
+		{
+			blinksound = true;
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"Blink", L"..\\Resources\\Sound\\Blink.mp3"));
+			as->Play();
+		}
 
 		btime += Time::DeltaTime();
 		if (btime >= 0.35f)
@@ -651,12 +700,14 @@ namespace ya
 				mBanBanState = BanBanState::Idle;;
 				at->PlayAnimation(L"LeftIdle", false);
 				bk = true;
+				blinksound = false;
 			}
 			if (dir == 1)
 			{
 				mBanBanState = BanBanState::Idle;;
 				at->PlayAnimation(L"RightIdle", false);
 				bk = true;
+				blinksound = false;
 			}
 		}
 	}

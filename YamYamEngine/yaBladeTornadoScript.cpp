@@ -13,6 +13,9 @@
 #include "yaFireImpScript.h"
 #include "yaBanBanScript.h"
 #include "yaBanBanHPScript.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -181,6 +184,10 @@ namespace ya
 	{
 		if (other->GetOwner()->GetName() == L"MushRoom" && DamageView == false)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BladeTornadoHit", L"..\\Resources\\Sound\\BladeTornadoHit.mp3"));
+			as->Play();
+
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
 			SceneManager::GetPlayerScript()->CreateBladeTornadoHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
@@ -195,6 +202,10 @@ namespace ya
 		}
 		if (other->GetOwner()->GetName() == L"FireImp1" && DamageView2 == false)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BladeTornadoHit", L"..\\Resources\\Sound\\BladeTornadoHit.mp3"));
+			as->Play();
+
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
 			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
@@ -212,6 +223,10 @@ namespace ya
 
 		if (other->GetOwner()->GetName() == L"FireImp2" && DamageView3 == false)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BladeTornadoHit", L"..\\Resources\\Sound\\BladeTornadoHit.mp3"));
+			as->Play();
+
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
 			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
@@ -228,6 +243,10 @@ namespace ya
 		}
 		if (other->GetOwner()->GetName() == L"FireImp3" && DamageView4 == false)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BladeTornadoHit", L"..\\Resources\\Sound\\BladeTornadoHit.mp3"));
+			as->Play();
+
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
 			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
@@ -244,6 +263,10 @@ namespace ya
 		}
 		if (other->GetOwner()->GetName() == L"FireImp4" && DamageView5 == false)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BladeTornadoHit", L"..\\Resources\\Sound\\BladeTornadoHit.mp3"));
+			as->Play();
+
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
 			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
@@ -260,6 +283,10 @@ namespace ya
 		}
 		if (other->GetOwner()->GetName() == L"FireImp5" && DamageView6 == false)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BladeTornadoHit", L"..\\Resources\\Sound\\BladeTornadoHit.mp3"));
+			as->Play();
+
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
 			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
@@ -276,6 +303,10 @@ namespace ya
 		}
 		if (other->GetOwner()->GetName() == L"FireImp6" && DamageView7 == false)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BladeTornadoHit", L"..\\Resources\\Sound\\BladeTornadoHit.mp3"));
+			as->Play();
+
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
 			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
@@ -292,6 +323,10 @@ namespace ya
 		}
 		if (other->GetOwner()->GetName() == L"FireImp7" && DamageView8 == false)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BladeTornadoHit", L"..\\Resources\\Sound\\BladeTornadoHit.mp3"));
+			as->Play();
+
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
 			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
@@ -308,6 +343,10 @@ namespace ya
 		}
 		if (other->GetOwner()->GetName() == L"FireImp8" && DamageView9 == false)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BladeTornadoHit", L"..\\Resources\\Sound\\BladeTornadoHit.mp3"));
+			as->Play();
+
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
 			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
@@ -324,6 +363,10 @@ namespace ya
 		}
 		if (other->GetOwner()->GetName() == L"FireImp9" && DamageView10 == false)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BladeTornadoHit", L"..\\Resources\\Sound\\BladeTornadoHit.mp3"));
+			as->Play();
+
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
 			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
@@ -340,6 +383,10 @@ namespace ya
 		}
 		if (other->GetOwner()->GetName() == L"FireImp10" && DamageView11 == false)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BladeTornadoHit", L"..\\Resources\\Sound\\BladeTornadoHit.mp3"));
+			as->Play();
+
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
 			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
@@ -356,6 +403,10 @@ namespace ya
 		}
 		if (other->GetOwner()->GetName() == L"FireImp11" && DamageView12 == false)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BladeTornadoHit", L"..\\Resources\\Sound\\BladeTornadoHit.mp3"));
+			as->Play();
+
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
 			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));
@@ -372,6 +423,10 @@ namespace ya
 		}
 		if (other->GetOwner()->GetName() == L"BanBan" && DamageView13 == false)
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"BladeTornadoHit", L"..\\Resources\\Sound\\BladeTornadoHit.mp3"));
+			as->Play();
+
 			Transform* tr = other->GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
 			SceneManager::GetPlayerScript()->CreatePhantomBlowHitEffect(other->GetOwner(), Vector3(pos.x - 0.5f, pos.y + 0.1f, 0.997f));

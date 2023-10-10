@@ -32,6 +32,7 @@ namespace ya
 	void LogoScene::Initialize()
 	{
 
+
 		{
 			GameObject* Wizet
 				= object::Instantiate<GameObject>(Vector3(0.0f, 0.4f, 0.999f), eLayerType::Logo);
@@ -65,6 +66,8 @@ namespace ya
 			//camera->AddComponent<CameraScript>();
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
+
+			camera->AddComponent<AudioListener>();
 		}
 
 		//UI Camera

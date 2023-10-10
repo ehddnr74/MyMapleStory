@@ -13,6 +13,9 @@
 #include "yaMeshRenderer.h"
 #include "yaCurSorScript.h"
 #include "yaSkillUIBtnScript.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -254,6 +257,9 @@ namespace ya
 	void SkillUIScript::CreateBladePuryUI()
 	{
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"DragStart", L"..\\Resources\\Sound\\DragStart.mp3"));
+			as->Play();
 			mBladePuryUIpicked = true;
 			Transform* CameraTr = SceneManager::GetPlayerScript()->GetCameraScript()->GetOwner()->GetComponent<Transform>();
 			CameraPos = CameraTr->GetPosition();
@@ -286,6 +292,9 @@ namespace ya
 	}
 	void ya::SkillUIScript::SetBladePuryUI()
 	{
+		AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"DragEnd", L"..\\Resources\\Sound\\DragEnd.mp3"));
+		as->Play();
 		pickedtime = 0.0f;
 		BladePuryisSet = true;
 		mBladePuryUIpicked = false;
@@ -304,6 +313,9 @@ namespace ya
 	void SkillUIScript::CreatePhantomBlowUI()
 	{
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"DragStart", L"..\\Resources\\Sound\\DragStart.mp3"));
+			as->Play();
 			mPhantomBlowUIpicked = true;
 			Transform* CameraTr = SceneManager::GetPlayerScript()->GetCameraScript()->GetOwner()->GetComponent<Transform>();
 			CameraPos = CameraTr->GetPosition();
@@ -336,6 +348,9 @@ namespace ya
 	}
 	void SkillUIScript::SetPhantomBlowUI()
 	{
+		AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"DragEnd", L"..\\Resources\\Sound\\DragEnd.mp3"));
+		as->Play();
 		pickedtime = 0.0f;
 		PhantomBlowisSet = true;
 		mPhantomBlowUIpicked = false;
@@ -354,6 +369,9 @@ namespace ya
 	void SkillUIScript::CreateBladeTornadoUI()
 	{
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"DragStart", L"..\\Resources\\Sound\\DragStart.mp3"));
+			as->Play();
 			mBladeTornadoUIpicked = true;
 			Transform* CameraTr = SceneManager::GetPlayerScript()->GetCameraScript()->GetOwner()->GetComponent<Transform>();
 			CameraPos = CameraTr->GetPosition();
@@ -386,6 +404,9 @@ namespace ya
 	}
 	void SkillUIScript::SetBladeTornadoUI()
 	{
+		AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"DragEnd", L"..\\Resources\\Sound\\DragEnd.mp3"));
+		as->Play();
 		pickedtime = 0.0f;
 		BladeTornadoisSet = true;
 		mBladeTornadoUIpicked = false;
@@ -405,6 +426,9 @@ namespace ya
 	void SkillUIScript::CreateKarmaPuryUI()
 	{
 		{
+			AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"DragStart", L"..\\Resources\\Sound\\DragStart.mp3"));
+			as->Play();
 			mKarmaPuryUIpicked = true;
 			Transform* CameraTr = SceneManager::GetPlayerScript()->GetCameraScript()->GetOwner()->GetComponent<Transform>();
 			CameraPos = CameraTr->GetPosition();
@@ -437,6 +461,9 @@ namespace ya
 	}
 	void SkillUIScript::SetKarmaPuryUI()
 	{
+		AudioSource* as = GetOwner()->AddComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"DragEnd", L"..\\Resources\\Sound\\DragEnd.mp3"));
+		as->Play();
 		pickedtime = 0.0f;
 		KarmaPuryisSet = true;
 		mKarmaPuryUIpicked = false;

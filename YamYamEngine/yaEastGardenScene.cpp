@@ -397,6 +397,8 @@ void ya::EastGardenScene::Initialize()
 		camera->AddComponent<CameraScript>();
 		renderer::cameras.push_back(cameraComp);
 		renderer::mainCamera = cameraComp;
+
+		camera->AddComponent<AudioListener>();
 	}
 	//UI Camera
 	{
@@ -428,6 +430,9 @@ void ya::EastGardenScene::Update()
 	{
 		if (Input::GetKeyDown(eKeyCode::UP))
 		{
+			AudioSource* as = GetEastGarden()->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"Portal", L"..\\Resources\\Sound\\Portal.mp3"));
+			as->Play();
 			SceneManager::GetPlayerScript()->SetPortal(false);
 			SceneManager::LoadScene(L"BanBanScene");
 		}
