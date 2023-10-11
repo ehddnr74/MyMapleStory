@@ -16,6 +16,8 @@
 namespace ya
 {
 	FadeIn::FadeIn()
+		: Alpha(1.0f)
+		, Fade(false)
 	{
 
 	}
@@ -29,6 +31,8 @@ namespace ya
 			GameObject* FadeIn
 				= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 1.0002f), eLayerType::Light);
 
+			SetFadeIn(FadeIn);
+
 			FadeIn->SetName(L"FadeIn");
 
 			MeshRenderer* mr = FadeIn->AddComponent<MeshRenderer>();
@@ -39,12 +43,25 @@ namespace ya
 
 			Light* lightComp = FadeIn->AddComponent<Light>();
 			lightComp->SetType(eLightType::Point);
-			lightComp->SetColor(Vector4(0.0f, 0.0f, 0.0f, 0.0f));
+			lightComp->SetColor(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
 		}
 	}
 	void FadeIn::Update()
 	{
+		//	if (FadingIn != nullptr)
+		//	{
+		//		Alpha -= Time::DeltaTime();
 
+		//		Light* lightComp = FadingIn->GetComponent<Light>();
+		//		lightComp->SetColor(Vector4(1.0f, 1.0f, 1.0f, Alpha));
+		//	}
+
+		//	if (Alpha <= 0.0f && Fade == false)
+		//	{
+		//		Fade = true;
+		//		object::Destroy(FadingIn);
+		//		SetFadeIn(nullptr);
+		//	}
 	}
 }
 

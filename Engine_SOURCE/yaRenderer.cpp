@@ -734,7 +734,7 @@ namespace renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"deathphrasesok", material);
 
-		texture = Resources::Load<Texture>(L"FadeIn", L"..\\Resources\\Texture\\Fading.bmp");
+		texture = Resources::Load<Texture>(L"FadeIn", L"..\\Resources\\Texture\\Fading.png");
 		material = std::make_shared<Material>();
 		material->SetShader(shader);
 		material->SetTexture(texture);

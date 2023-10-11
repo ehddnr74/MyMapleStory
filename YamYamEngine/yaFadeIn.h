@@ -14,10 +14,17 @@ namespace ya
 		virtual void Initialize() override;
 		virtual void Update() override;
 
+		void SetFadeIn(GameObject* fadein) { FadingIn = fadein; }
+
 
 	private:
 		Animator* at;
 		Transform* tr;
 		Vector3 pos;
+		GameObject* FadingIn;
+
+		double Alpha;
+
+		bool Fade;
 	};
 }

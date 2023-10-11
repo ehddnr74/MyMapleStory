@@ -104,6 +104,7 @@ namespace ya
 			mr->SetMaterial(Resources::Find<Material>(L"selas"));
 
 			BG->GetComponent<Transform>()->SetScale(Vector3(9.0f, 5.0f, 1.0f));
+			//BG->AddComponent<FadeIn>();
 		}
 
 		{
